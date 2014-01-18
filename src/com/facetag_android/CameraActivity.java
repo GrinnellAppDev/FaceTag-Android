@@ -1,4 +1,4 @@
-package com.facetag;
+package com.facetag_android;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
@@ -14,12 +14,13 @@ import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.facetag_android.R;
+import com.facetag_android.parse.PhotoTag;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -55,6 +56,9 @@ public class CameraActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		Log.i(TAG, "onResume()");
+		
 		cameraInit(cameraID);
 		FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
 		preview.addView(mPreview);
@@ -65,14 +69,19 @@ public class CameraActivity extends Activity {
 		mCamera = getCameraInstance(camID);
 		cameraID = camID;
 
-		if (mCamera != null) {
-			mPreview = new CameraPreview(this, mCamera);
-			preview_active = true;
-			Log.i(TAG, "preview initilized");
-		} else {
-			Log.i(TAG, "camera not initialized");
-		}
+		// Create our Preview view and set it as the content of our
+		// activity.
+		mPreview = new CameraPreview(this, mCamera);
+		preview_active = true;
+		Log.i(TAG, "preview initilized");
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.camera, menu);
+		return true;
 	}
 
 	public void setPictureButton() {
@@ -145,8 +154,8 @@ public class CameraActivity extends Activity {
 			}
 		});
 	}
-
-	public void startPhotoBrowse() {
+	
+	public void startPhotoBrowse(){
 		Intent intent = new Intent(this, PhotoBrowse.class);
 		startActivity(intent);
 	}
@@ -198,6 +207,9 @@ public class CameraActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		// surfaceDestroyed in CameraPreview is automatically called here
+		FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+		preview.removeView(mPreview);
+		mPreview.stopPreviewAndFreeCamera();
 	}
 
 	// This part is where the picture is actually taken
@@ -234,19 +246,18 @@ public class CameraActivity extends Activity {
 
 			ParseFile prsFile = new ParseFile("photo.jpg", scaledData);
 
-			PrsPhoto prsPhoto = new PrsPhoto();
-			prsPhoto.setPhotoFile(prsFile);
+			PhotoTag prsPhoto = new PhotoTag();
+			prsPhoto.setPhoto(prsFile);
 
 			// Create a media file name
 			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
 					.format(new Date());
 
-			prsPhoto.setTitle(timeStamp);
+			prsPhoto.setConfirmation(0);
 
-			prsPhoto.setAuthor(ParseUser.getCurrentUser());
+			prsPhoto.setSender(ParseUser.getCurrentUser());
 
 			prsPhoto.saveInBackground(new SaveCallback() {
-
 				public void done(ParseException e) {
 					if (e != null) {
 						Log.e("Save To Parse", e.getMessage());
@@ -256,5 +267,6 @@ public class CameraActivity extends Activity {
 				}
 			});
 		}
+
 	};
 }

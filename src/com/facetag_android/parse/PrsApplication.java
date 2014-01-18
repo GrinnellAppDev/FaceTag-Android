@@ -1,4 +1,4 @@
-package com.facetag;
+package com.facetag_android.parse;
 
 import android.app.Application;
 
@@ -13,12 +13,12 @@ public class PrsApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 
-		ParseObject.registerSubclass(PrsPhoto.class);
+		ParseObject.registerSubclass(PhotoTag.class);
 
 		/*
 		 * Fill in this section with your Parse credentials
 		 */
-		Parse.initialize(this, "VgUmqfwmveatEK77VKqejESUi9g2YTiLd5ARi5Zv", "rZOccIO0y35BMrfv599RyclrNo5QT308WRCLkTnY");
+		Parse.initialize(this, "97s1dXeGVg72YmhWjZVFXQvWFILwyyV78pftvQBe", "isrQzRX1HkVQyuqnab3m8DGEIWWcpKAt2iJ0CtFu");
 
 		// annonymous user
 		ParseUser.enableAutomaticUser();

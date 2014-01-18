@@ -1,13 +1,13 @@
-package com.facetag;
+package com.facetag_android;
 
 import android.app.ListActivity;
 import android.os.Bundle;
 
-import com.facetag_android.R;
+import com.facetag_android.parse.PhotoTag;
 import com.parse.ParseQueryAdapter;
 
 public class PhotoBrowse extends ListActivity {
-	private ParseQueryAdapter<PrsPhoto> mainAdapter;
+	private ParseQueryAdapter<PhotoTag> mainAdapter;
 	private PhotoListAdapter photoAdapter;
 
 	@Override

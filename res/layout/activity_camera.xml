@@ -16,8 +16,10 @@
 
         <Button
             android:id="@+id/button_capture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@drawable/circular_button"
+            android:layout_marginRight="5dip"
+            android:layout_width="75dip"
+            android:layout_height="75dip"
             android:layout_gravity="center|right"
             android:text="Capture" />
         
@@ -27,20 +29,25 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
             android:text="Swap" />
-         
+<RelativeLayout 
+    android:layout_gravity="center|bottom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >      
           <Button
             android:id="@+id/button_flash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
-            android:text="Turn Flash On" />
+            android:text="Turn Flash On" 
+            android:layout_centerVertical="true"/>
           
            <Button
             android:id="@+id/browse_photos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
+            android:layout_toRightOf="@+id/button_flash"
             android:text="Browse" />
+</RelativeLayout>   
     </FrameLayout>
 
 </LinearLayout>

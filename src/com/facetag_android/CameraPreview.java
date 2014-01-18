@@ -1,4 +1,4 @@
-package com.facetag;
+package com.facetag_android;
 
 import java.io.IOException;
 
@@ -73,7 +73,7 @@ public class CameraPreview extends SurfaceView implements
 	/**
 	 * When this function returns, mCamera will be null.
 	 */
-	private void stopPreviewAndFreeCamera() {
+	public void stopPreviewAndFreeCamera() {
 
 		if (mCamera != null) {
 			// Call stopPreview() to stop updating the preview surface.
