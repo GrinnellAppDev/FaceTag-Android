@@ -24,7 +24,7 @@ public class PrsApplication extends Application {
 		ParseFacebookUtils.initialize("551206871642297");
 		
 		// annonymous user
-		ParseUser.enableAutomaticUser();
+		//ParseUser.enableAutomaticUser();
 
 		/*
 		 * For more information on app security and Parse ACL:

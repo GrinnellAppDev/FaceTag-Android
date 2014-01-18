@@ -14,6 +14,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.facetag.android.parse.Game;
 import com.facetag_android.R;
@@ -27,7 +28,8 @@ public class CreateGame extends Activity implements
 	private final String TAG = "Create Game";
 	List<String> participants = new ArrayList<String>();
 	int maxPoints = 5;
-	String name;
+	ParseUser mUser = ParseUser.getCurrentUser();
+	String name = mUser.getString("firstName") + "'s game";
 	HashMap<String,Integer> scoreBoard = new HashMap<String,Integer>();
 	
 	@Override
@@ -47,10 +49,12 @@ public class CreateGame extends Activity implements
 		userQuery.findInBackground(new FindCallback<ParseUser>() {
 			public void done(List<ParseUser> users, ParseException e) {
 				if (e == null) {
+					scoreBoard.put(mUser.getObjectId(), 0);
+					participants.add(mUser.getObjectId());
 					Log.d("Query", "Retrieved " + users.size() + " users");
 					for (int i = 0; i < users.size(); i++){
-						participants.add(users.get(i).getString("facebookId"));
-						scoreBoard.put(users.get(i).getString("facebookId"), 0);
+						participants.add(users.get(i).getObjectId());
+						scoreBoard.put(users.get(i).getObjectId(), 0);
 					}
 					Log.i(TAG, scoreBoard.toString());
 				} else {
@@ -88,8 +92,10 @@ public class CreateGame extends Activity implements
 				newGame.setPointsToWin(maxPoints);
 				newGame.setTimePerTurn(20);
 				newGame.saveInBackground();
+				Toast.makeText(getApplicationContext(), "Game Created: " + newGame.getName(), 
+						   Toast.LENGTH_SHORT).show();
+				finish();
 			}
 		});
-		finish();
 	}
 }
