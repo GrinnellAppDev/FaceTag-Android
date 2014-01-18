@@ -185,7 +185,7 @@ public class CameraActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				launchGameList();
+				launchLogin();
 			}
 		});
 	}
