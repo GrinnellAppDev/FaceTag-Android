@@ -10,5 +10,6 @@
     <string name="app_id">551206871642297</string>
     <string name="title_activity_create_game">CreateGame</string>
     <string name="title_activity_submit_photo">SubmitPhoto</string>
+    <string name="title_activity_game_info_screen">GameInfoScreen</string>
 
 </resources>

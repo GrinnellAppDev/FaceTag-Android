@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.Request;
 import com.facebook.Response;
@@ -51,7 +52,9 @@ public class LoginActivity extends Activity {
 					getFacebookInfoInBackground();
 					returnToCamera();
 				} else {
-					Log.d(TAG, "FB login error");
+					Log.d(TAG, "FB login error: " + err.toString());
+					Toast.makeText(getApplicationContext(), "Error Logging In " + err.toString(), 
+							   Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
