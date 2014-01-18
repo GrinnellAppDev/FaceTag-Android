@@ -1,8 +1,6 @@
 package com.facetag.android;
 
 import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -23,12 +21,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
-import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 public class CameraActivity extends Activity {
 	protected static Camera mCamera = null;
@@ -60,7 +54,7 @@ public class CameraActivity extends Activity {
 		ParseUser currentUser = ParseUser.getCurrentUser();
 		if (currentUser != null) {
 			Toast.makeText(getApplicationContext(), "You are signed in as " + currentUser.getString("fullName"), 
-					   Toast.LENGTH_LONG).show();
+					   Toast.LENGTH_SHORT).show();
 		} else {
 		  launchLogin();
 		}
@@ -260,7 +254,7 @@ public class CameraActivity extends Activity {
 		//	Bitmap prsImgScaled = Bitmap.createScaledBitmap(prsImg, 400, 400
 		//			* prsImg.getHeight() / prsImg.getWidth(), false);
 			
-			Bitmap prsImgScaled = Bitmap.createScaledBitmap(prsImg, 400, 400
+			Bitmap prsImgScaled = Bitmap.createScaledBitmap(prsImg, 320, 320
 							* prsImg.getHeight() / prsImg.getWidth(), false);
 
 			Matrix matrix = new Matrix();
@@ -281,29 +275,10 @@ public class CameraActivity extends Activity {
 			ByteArrayOutputStream bos = new ByteArrayOutputStream();
 			prsImgScaledRotated.compress(Bitmap.CompressFormat.JPEG, 100, bos);
 			byte[] scaledData = bos.toByteArray();
-
-			// Create a media file name
-			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-					.format(new Date());
 			
-			ParseFile prsFile = new ParseFile("phototag" + timeStamp + ".jpg", scaledData);
-
-			PhotoTag prsPhoto = new PhotoTag();
-			prsPhoto.setPhoto(prsFile);
-
-			prsPhoto.setConfirmation(0);
-
-			prsPhoto.setSender(ParseUser.getCurrentUser());
-
-			prsPhoto.saveInBackground(new SaveCallback() {
-				public void done(ParseException e) {
-					if (e != null) {
-						Log.e("Save To Parse", e.getMessage());
-					} else {
-						Log.i("Save To Parse", "Parse Upload Successful");
-					}
-				}
-			});
+			Intent intent = new Intent(getBaseContext(), SubmitPhoto.class);
+			intent.putExtra("picture", scaledData);
+			startActivity(intent);
 		}
 	};
 }

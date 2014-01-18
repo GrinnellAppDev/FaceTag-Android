@@ -1,5 +1,4 @@
-<RelativeLayout
-      xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -9,7 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CreateGame" >
 
-   
     <EditText
         android:id="@+id/name_field"
         android:layout_width="fill_parent"
@@ -32,8 +30,8 @@
         android:layout_marginRight="5dip"
         android:background="#C0C0C0"
         android:text="Invite Players" />
-    
-        <Button
+
+    <Button
         android:id="@+id/submit"
         android:layout_width="75dip"
         android:layout_height="75dip"
@@ -42,5 +40,5 @@
         android:layout_marginRight="5dip"
         android:background="#C0C0C0"
         android:text="Begin Game" />
-    
+
 </RelativeLayout>

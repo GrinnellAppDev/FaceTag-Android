@@ -7,8 +7,9 @@
         android:id="@id/login"
         android:layout_width="300dip"
         android:layout_height="100dip"
-        android:text="Login With Facebook" 
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:text="Login With Facebook" >
+
     </Button>
     
 </RelativeLayout>

@@ -24,7 +24,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.facetag.android.CameraActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,6 +54,10 @@
         <activity
             android:name="com.facetag.android.CreateGame"
             android:label="@string/title_activity_create_game" >
+        </activity>
+        <activity
+            android:name="com.facetag.android.SubmitPhoto"
+            android:label="@string/title_activity_submit_photo" >
         </activity>
     </application>
 
