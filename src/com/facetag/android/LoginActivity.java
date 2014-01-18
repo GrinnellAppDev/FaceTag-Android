@@ -31,6 +31,7 @@ public class LoginActivity extends Activity {
 		
         testText = (TextView) findViewById(R.id.test_text);
 
+        
 		
 		Collection<String> permissions = new ArrayList<String>();
 		permissions.add("email");

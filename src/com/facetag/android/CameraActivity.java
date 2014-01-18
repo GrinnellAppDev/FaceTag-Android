@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
@@ -52,7 +53,6 @@ public class CameraActivity extends Activity {
 		setPictureButton();
 		setCameraSwapButton();
 		setFlashButton();
-		setBrowseButton();
 		setGameListButton();
 		setLoginButton();
 
@@ -112,7 +112,7 @@ public class CameraActivity extends Activity {
 
 	public void setCameraSwapButton() {
 		// Add a listener to the Capture button
-		Button swapButton = (Button) findViewById(R.id.button_swap);
+		ImageButton swapButton = (ImageButton) findViewById(R.id.button_swap);
 		swapButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -126,11 +126,14 @@ public class CameraActivity extends Activity {
 					// the flash must be off if front camera is in use
 					flashStatus = Camera.Parameters.FLASH_MODE_OFF;
 					Log.i(TAG, "flash off");
-					Button flashButton = (Button) findViewById(R.id.button_flash);
-					flashButton.setText("Turn Flash On");
+					ImageButton flashButton = (ImageButton) findViewById(R.id.button_flash);
+					flashButton.setVisibility(View.INVISIBLE);
+					flashButton.setImageResource(R.drawable.ic_action_flash_off);
 				} else {
 					// switch to back facing camera
 					cameraInit(Camera.CameraInfo.CAMERA_FACING_BACK);
+					ImageButton flashButton = (ImageButton) findViewById(R.id.button_flash);
+					flashButton.setVisibility(View.VISIBLE);
 				}
 				preview.addView(mPreview);
 			}
@@ -139,29 +142,13 @@ public class CameraActivity extends Activity {
 
 	public void setFlashButton() {
 		// Add a listener to the Capture button
-		Button flashButton = (Button) findViewById(R.id.button_flash);
+		ImageButton flashButton = (ImageButton) findViewById(R.id.button_flash);
 		flashButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				toggleFlash();
 			}
 		});
-	}
-
-	public void setBrowseButton() {
-		Button browseButton = (Button) findViewById(R.id.browse_photos);
-		browseButton.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				startPhotoBrowse();
-			}
-		});
-	}
-	
-	public void startPhotoBrowse(){
-		Intent intent = new Intent(this, PhotoBrowse.class);
-		startActivity(intent);
 	}
 	
 	public void setGameListButton() {
@@ -204,7 +191,7 @@ public class CameraActivity extends Activity {
 
 		// get Camera parameters
 		Camera.Parameters params = mCamera.getParameters();
-		Button flashButton = (Button) findViewById(R.id.button_flash);
+		ImageButton flashButton = (ImageButton) findViewById(R.id.button_flash);
 
 		if (params.getFlashMode()
 				.contentEquals(Camera.Parameters.FLASH_MODE_ON)) {
@@ -212,13 +199,13 @@ public class CameraActivity extends Activity {
 			params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
 			flashStatus = Camera.Parameters.FLASH_MODE_OFF;
 			Log.i(TAG, "flash off");
-			flashButton.setText("Turn Flash On");
+			flashButton.setImageResource(R.drawable.ic_action_flash_off);
 		} else {
 			// turn flash on
 			params.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
 			Log.i(TAG, "flash on");
 			flashStatus = Camera.Parameters.FLASH_MODE_ON;
-			flashButton.setText("Turn Flash Off");
+			flashButton.setImageResource(R.drawable.ic_action_flash_on);
 		}
 		// set Camera parameters
 		mCamera.setParameters(params);
@@ -306,6 +293,5 @@ public class CameraActivity extends Activity {
 				}
 			});
 		}
-
 	};
 }
