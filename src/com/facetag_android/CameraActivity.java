@@ -3,7 +3,7 @@ package com.facetag_android;
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
-
 import com.facetag_android.parse.PhotoTag;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -68,7 +67,6 @@ public class CameraActivity extends Activity {
 	}
 
 	public void cameraInit(int camID) {
-
 		mCamera = getCameraInstance(camID);
 		cameraID = camID;
 
@@ -224,10 +222,13 @@ public class CameraActivity extends Activity {
 	}
 
 	/** A safe way to get an instance of the Camera object. */
+	@SuppressLint("NewApi")
 	public static Camera getCameraInstance(int camID) {
 		Camera c = null;
 		try {
-			c = Camera.open(camID); // attempt to get a Camera instance
+			if (android.os.Build.VERSION.SDK_INT >= 9)
+				c = Camera.open(camID);
+			else c = Camera.open();
 			Log.i("camera util", "camera opened");
 		} catch (Exception e) {
 			// Camera is not available (in use or does not exist)

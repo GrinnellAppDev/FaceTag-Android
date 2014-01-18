@@ -8,5 +8,6 @@
     <string name="title_activity_game_screen">GameScreen</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="app_id">551206871642297</string>
+    <string name="title_activity_create_game">CreateGame</string>
 
 </resources>

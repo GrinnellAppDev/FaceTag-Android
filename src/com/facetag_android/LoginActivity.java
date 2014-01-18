@@ -61,7 +61,7 @@ public class LoginActivity extends Activity {
 		        ParseUser.getCurrentUser().put("profilePictureURL", imageURL);
 		        ParseUser.getCurrentUser().saveInBackground();
 		        
-		        testText.setText("Hello, "+ user.getName());
+		        testText.setText("Welcome "+ user.getName() + " you are logged in.");
 		      }
 		    }
 		  });
