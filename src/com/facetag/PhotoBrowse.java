@@ -3,7 +3,7 @@ package com.facetag;
 import android.app.ListActivity;
 import android.os.Bundle;
 
-import com.example.facetag_android.R;
+import com.facetag_android.R;
 import com.parse.ParseQueryAdapter;
 
 public class PhotoBrowse extends ListActivity {

@@ -19,7 +19,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.example.facetag_android.R;
+import com.facetag_android.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -65,11 +65,13 @@ public class CameraActivity extends Activity {
 		mCamera = getCameraInstance(camID);
 		cameraID = camID;
 
-		// Create our Preview view and set it as the content of our
-		// activity.
-		mPreview = new CameraPreview(this, mCamera);
-		preview_active = true;
-		Log.i(TAG, "preview initilized");
+		if (mCamera != null) {
+			mPreview = new CameraPreview(this, mCamera);
+			preview_active = true;
+			Log.i(TAG, "preview initilized");
+		} else {
+			Log.i(TAG, "camera not initialized");
+		}
 
 	}
 
@@ -143,8 +145,8 @@ public class CameraActivity extends Activity {
 			}
 		});
 	}
-	
-	public void startPhotoBrowse(){
+
+	public void startPhotoBrowse() {
 		Intent intent = new Intent(this, PhotoBrowse.class);
 		startActivity(intent);
 	}
@@ -254,6 +256,5 @@ public class CameraActivity extends Activity {
 				}
 			});
 		}
-
 	};
 }
