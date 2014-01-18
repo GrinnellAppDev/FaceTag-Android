@@ -1,9 +1,10 @@
-package com.facetag_android;
+package com.facetag.android;
 
 import android.app.ListActivity;
 import android.os.Bundle;
 
-import com.facetag_android.parse.PhotoTag;
+import com.facetag.android.parse.PhotoTag;
+import com.facetag_android.R;
 import com.parse.ParseQueryAdapter;
 
 public class PhotoBrowse extends ListActivity {

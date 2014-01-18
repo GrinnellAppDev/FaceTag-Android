@@ -1,4 +1,4 @@
-package com.facetag_android;
+package com.facetag.android;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.facetag_android.R;
 import com.parse.ParseUser;
 
 /* Pull list of parse games here */

@@ -1,4 +1,4 @@
-package com.facetag_android;
+package com.facetag.android;
 
 import java.io.IOException;
 

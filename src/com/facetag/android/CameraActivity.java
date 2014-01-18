@@ -1,8 +1,9 @@
-package com.facetag_android;
+package com.facetag.android;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +20,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import com.facetag_android.parse.PhotoTag;
+
+import com.facetag.android.parse.PhotoTag;
+import com.facetag_android.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -280,7 +283,7 @@ public class CameraActivity extends Activity {
 			prsImgScaledRotated.compress(Bitmap.CompressFormat.JPEG, 100, bos);
 			byte[] scaledData = bos.toByteArray();
 
-			ParseFile prsFile = new ParseFile("photo.jpg", scaledData);
+			ParseFile prsFile = new ParseFile("phototag.jpg", scaledData);
 
 			PhotoTag prsPhoto = new PhotoTag();
 			prsPhoto.setPhoto(prsFile);

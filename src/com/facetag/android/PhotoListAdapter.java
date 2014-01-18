@@ -1,10 +1,11 @@
-package com.facetag_android;
+package com.facetag.android;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.facetag_android.parse.PhotoTag;
+import com.facetag.android.parse.PhotoTag;
+import com.facetag_android.R;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;

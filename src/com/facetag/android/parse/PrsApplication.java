@@ -1,4 +1,4 @@
-package com.facetag_android.parse;
+package com.facetag.android.parse;
 
 import android.app.Application;
 
