@@ -12,10 +12,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.facetag.android.parse.Game;
+import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -28,15 +30,15 @@ public class CreateGame extends Activity implements
 	List<String> participants = new ArrayList<String>();
 	int maxPoints = 5;
 	ParseUser mUser = ParseUser.getCurrentUser();
-	String name = mUser.getString("firstName") + "'s game";
 	HashMap<String,Integer> scoreBoard = new HashMap<String,Integer>();
+	List<PhotoTag> unconfirmedPhotoTags = new ArrayList<PhotoTag>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_game);
-
-		String[] array = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+		
+		String[] array = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
 		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, array);
 		Spinner maxPointsSpinner = (Spinner) findViewById(R.id.points_win);
@@ -67,10 +69,7 @@ public class CreateGame extends Activity implements
 
 	public void onItemSelected(AdapterView<?> parent, View view, int pos,
 			long id) {
-		// An item was selected. You can retrieve the selected item using
-		// parent.getItemAtPosition(pos)
-		maxPoints = pos + 1;
-
+			maxPoints = pos + 1;
 	}
 
 	public void onNothingSelected(AdapterView<?> parent) {
@@ -86,7 +85,15 @@ public class CreateGame extends Activity implements
 			public void onClick(View v) {
 				Game newGame = new Game();
 				newGame.setScoreBoard(scoreBoard);
-				newGame.setName(ParseUser.getCurrentUser().getString("firstName") + "'s game");
+				EditText nameField = (EditText) findViewById(R.id.name_field);
+				String inputName = nameField.getText().toString();
+				
+				if (inputName.length() == 0)	
+					newGame.setName(mUser.getString("firstName") + "'s game");
+				else
+					newGame.setName(inputName);
+				
+				newGame.setUnconfirmedPhotoTags(unconfirmedPhotoTags);
 				newGame.setParticipants(participants);
 				newGame.setPointsToWin(maxPoints);
 				newGame.setTimePerTurn(20);

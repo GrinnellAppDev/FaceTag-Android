@@ -166,7 +166,7 @@ public class CameraActivity extends Activity {
 	}
 	
 	public void launchGameList() {
-		Intent intent = new Intent(this, GameScreen.class);
+		Intent intent = new Intent(this, GameListScreen.class);
 		startActivity(intent);
 	}
 	

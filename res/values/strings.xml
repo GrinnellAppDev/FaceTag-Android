@@ -11,5 +11,6 @@
     <string name="title_activity_create_game">CreateGame</string>
     <string name="title_activity_submit_photo">SubmitPhoto</string>
     <string name="title_activity_game_info_screen">GameInfoScreen</string>
+    <string name="title_activity_photo_judge">PhotoJudgeActivity</string>
 
 </resources>
