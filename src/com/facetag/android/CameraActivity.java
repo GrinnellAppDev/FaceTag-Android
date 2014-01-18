@@ -21,6 +21,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
@@ -56,6 +57,14 @@ public class CameraActivity extends Activity {
 		setGameListButton();
 		setLoginButton();
 
+		ParseUser currentUser = ParseUser.getCurrentUser();
+		if (currentUser != null) {
+			Toast.makeText(getApplicationContext(), "You are signed in as " + currentUser.getString("fullName"), 
+					   Toast.LENGTH_LONG).show();
+		} else {
+		  launchLogin();
+		}
+		
 	}
 
 	@Override
@@ -248,8 +257,11 @@ public class CameraActivity extends Activity {
 
 			// Resize photo from camera byte array
 			Bitmap prsImg = BitmapFactory.decodeByteArray(data, 0, data.length);
+		//	Bitmap prsImgScaled = Bitmap.createScaledBitmap(prsImg, 400, 400
+		//			* prsImg.getHeight() / prsImg.getWidth(), false);
+			
 			Bitmap prsImgScaled = Bitmap.createScaledBitmap(prsImg, 400, 400
-					* prsImg.getHeight() / prsImg.getWidth(), false);
+							* prsImg.getHeight() / prsImg.getWidth(), false);
 
 			Matrix matrix = new Matrix();
 
@@ -270,14 +282,14 @@ public class CameraActivity extends Activity {
 			prsImgScaledRotated.compress(Bitmap.CompressFormat.JPEG, 100, bos);
 			byte[] scaledData = bos.toByteArray();
 
-			ParseFile prsFile = new ParseFile("phototag.jpg", scaledData);
-
-			PhotoTag prsPhoto = new PhotoTag();
-			prsPhoto.setPhoto(prsFile);
-
 			// Create a media file name
 			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
 					.format(new Date());
+			
+			ParseFile prsFile = new ParseFile("phototag" + timeStamp + ".jpg", scaledData);
+
+			PhotoTag prsPhoto = new PhotoTag();
+			prsPhoto.setPhoto(prsFile);
 
 			prsPhoto.setConfirmation(0);
 

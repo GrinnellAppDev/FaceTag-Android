@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.Request;
@@ -23,16 +25,22 @@ import com.parse.ParseUser;
 public class LoginActivity extends Activity {
 	private final String TAG = "LoginActivity";
 	static TextView testText;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
-        testText = (TextView) findViewById(R.id.test_text);
 
-        
-		
+		Button captureButton = (Button) findViewById(R.id.login);
+		captureButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				FBlogin();
+			}
+		});
+	}
+
+	private void FBlogin() {
 		Collection<String> permissions = new ArrayList<String>();
 		permissions.add("email");
 		ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
@@ -41,6 +49,7 @@ public class LoginActivity extends Activity {
 				if (user != null) {
 					Log.d(TAG, "User signed in to FB");
 					getFacebookInfoInBackground();
+					returnToCamera();
 				} else {
 					Log.d(TAG, "FB login error");
 				}
@@ -50,25 +59,37 @@ public class LoginActivity extends Activity {
 
 	@SuppressWarnings("deprecation")
 	private static void getFacebookInfoInBackground() {
-		Request.executeMeRequestAsync(ParseFacebookUtils.getSession(), new Request.GraphUserCallback() {
-		    @Override
-		    public void onCompleted(GraphUser user, Response response) {
-		      if (user != null) {
-		        ParseUser.getCurrentUser().put("facebookId", user.getId());
-		        ParseUser.getCurrentUser().put("fullName", user.getName());
-		        ParseUser.getCurrentUser().put("firstName", user.getFirstName());
-		        ParseUser.getCurrentUser().put("lastName", user.getLastName());
-		        ParseUser.getCurrentUser().put("email", user.getProperty("email"));
-		        String imageURL = "https://graph.facebook.com/" + user.getId() + "/picture?width=200&height=200";
-		        ParseUser.getCurrentUser().put("profilePictureURL", imageURL);
-		        ParseUser.getCurrentUser().saveInBackground();
-		        
-		        testText.setText("Welcome "+ user.getName() + " you are logged in.");
-		      }
-		    }
-		  });
-		}
-	
+		Request.executeMeRequestAsync(ParseFacebookUtils.getSession(),
+				new Request.GraphUserCallback() {
+					@Override
+					public void onCompleted(GraphUser user, Response response) {
+						if (user != null) {
+							ParseUser.getCurrentUser().put("facebookId",
+									user.getId());
+							ParseUser.getCurrentUser().put("fullName",
+									user.getName());
+							ParseUser.getCurrentUser().put("firstName",
+									user.getFirstName());
+							ParseUser.getCurrentUser().put("lastName",
+									user.getLastName());
+							ParseUser.getCurrentUser().put("email",
+									user.getProperty("email"));
+							String imageURL = "https://graph.facebook.com/"
+									+ user.getId()
+									+ "/picture?width=200&height=200";
+							ParseUser.getCurrentUser().put("profilePictureURL",
+									imageURL);
+							ParseUser.getCurrentUser().saveInBackground();
+						}
+					}
+				});
+	}
+
+	public void returnToCamera() {
+		Intent intent = new Intent(this, CameraActivity.class);
+		startActivity(intent);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

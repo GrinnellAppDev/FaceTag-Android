@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#000000"
     android:orientation="vertical" >
 
     <FrameLayout
@@ -14,49 +15,57 @@
             android:layout_height="fill_parent"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/button_capture"
-            android:layout_width="75dip"
-            android:layout_height="75dip"
-            android:layout_gravity="center|right"
-            android:layout_marginRight="5dip"
-            android:background="@drawable/circular_button"
-            android:text="Capture" />
-
-        <ImageButton
-            android:id="@+id/button_swap"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
-            android:src="@drawable/ic_action_switch_camera" />
+            android:layout_gravity="center|top" >
 
-       <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom" >
+            <ImageButton
+                android:id="@+id/button_swap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:src="@drawable/ic_action_switch_camera" />
 
             <ImageButton
                 android:id="@+id/button_flash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_flash_on" />
+                android:layout_toRightOf="@+id/button_swap"
+                android:src="@drawable/ic_action_flash_off" />
+        </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/game_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/button_flash"
+                android:background="@drawable/rec_button"
                 android:text="Games" />
+
+            <Button
+                android:id="@+id/button_capture"
+                android:layout_width="75dip"
+                android:layout_height="75dip"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/circular_button"
+                android:text="Capture" />
 
             <Button
                 android:id="@+id/login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/game_list"
+                android:background="@drawable/rec_button"
                 android:text="Login" />
-        </RelativeLayout>
+        </LinearLayout>
     </FrameLayout>
 
 </LinearLayout>
