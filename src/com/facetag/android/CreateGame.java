@@ -1,6 +1,7 @@
 package com.facetag.android;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.os.Bundle;
@@ -21,9 +22,10 @@ import com.parse.ParseUser;
 
 public class CreateGame extends FragmentActivity implements
 		OnItemSelectedListener {
-	List<ParseUser> inviteUsers = new ArrayList<ParseUser>();
+	ArrayList<ParseUser> participants = new ArrayList<ParseUser>();
 	int maxPoints = 5;
 	String name;
+	HashMap<String,Integer> scoreBoard;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +45,10 @@ public class CreateGame extends FragmentActivity implements
 			public void done(List<ParseUser> users, ParseException e) {
 				if (e == null) {
 					Log.d("Query", "Retrieved " + users.size() + " users");
-					inviteUsers.addAll(users);
-					setSelectUsersButton();
+					participants.addAll(users);
+					for (int i = 0; i < participants.size(); i++){
+						scoreBoard.put(participants.get(i).getUsername(), 0);
+					}
 				} else {
 					Log.d("Query", "Error: " + e.getMessage());
 				}
@@ -71,24 +75,8 @@ public class CreateGame extends FragmentActivity implements
 		flashButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				showUserList();
+				//submit new game to parse
 			}
 		});
-	}
-	
-	
-	public void setSelectUsersButton() {
-		// Add a listener to the Capture button
-		Button flashButton = (Button) findViewById(R.id.invite);
-		flashButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				showUserList();
-			}
-		});
-	}
-
-	public void showUserList() {
-		// show a user list somehow
 	}
 }

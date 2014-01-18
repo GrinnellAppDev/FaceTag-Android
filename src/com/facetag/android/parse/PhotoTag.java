@@ -35,7 +35,11 @@ public class PhotoTag extends ParseObject {
 		put("photo", file);
 	}
 	
-	public ParseObject getGame() {
-		return getParseObject("game");
+	public void setGame(Game game) {
+		put("game", game);
+	}
+	
+	public Game getGame() {
+		return (Game) getParseObject("game");
 	}
 }
