@@ -39,6 +39,10 @@
             android:name="com.facetag_android.GameScreen"
             android:label="@string/title_activity_game_screen" >
         </activity>
+        <activity
+            android:name="com.facetag_android.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
     </application>
 
 </manifest>

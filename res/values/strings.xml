@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_photo_browse">Photo Browse</string>
     <string name="title_activity_game_screen">GameScreen</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>

@@ -51,6 +51,9 @@ public class CameraActivity extends Activity {
 		setCameraSwapButton();
 		setFlashButton();
 		setBrowseButton();
+		setGameListButton();
+		setLoginButton();
+
 	}
 
 	@Override
@@ -157,6 +160,38 @@ public class CameraActivity extends Activity {
 	
 	public void startPhotoBrowse(){
 		Intent intent = new Intent(this, PhotoBrowse.class);
+		startActivity(intent);
+	}
+	
+	public void setGameListButton() {
+		Button browseButton = (Button) findViewById(R.id.game_list);
+		browseButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				launchGameList();
+			}
+		});
+	}
+	
+	public void launchGameList() {
+		Intent intent = new Intent(this, GameScreen.class);
+		startActivity(intent);
+	}
+	
+	public void setLoginButton() {
+		Button browseButton = (Button) findViewById(R.id.login);
+		browseButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				launchGameList();
+			}
+		});
+	}
+	
+	public void launchLogin() {
+		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}
 

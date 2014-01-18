@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -19,7 +20,8 @@ public class PrsApplication extends Application {
 		 * Fill in this section with your Parse credentials
 		 */
 		Parse.initialize(this, "97s1dXeGVg72YmhWjZVFXQvWFILwyyV78pftvQBe", "isrQzRX1HkVQyuqnab3m8DGEIWWcpKAt2iJ0CtFu");
-
+		ParseFacebookUtils.initialize("551206871642297");
+		
 		// annonymous user
 		ParseUser.enableAutomaticUser();
 
