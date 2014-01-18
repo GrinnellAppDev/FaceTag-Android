@@ -15,6 +15,7 @@ public class PrsApplication extends Application {
 		super.onCreate();
 
 		ParseObject.registerSubclass(PhotoTag.class);
+		ParseObject.registerSubclass(Game.class);
 
 		/*
 		 * Fill in this section with your Parse credentials

@@ -3,9 +3,10 @@ package com.facetag.android;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,18 +15,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.facetag.android.parse.Game;
 import com.facetag_android.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class CreateGame extends FragmentActivity implements
+public class CreateGame extends Activity implements
 		OnItemSelectedListener {
-	ArrayList<ParseUser> participants = new ArrayList<ParseUser>();
+	private final String TAG = "Create Game";
+	List<String> participants = new ArrayList<String>();
 	int maxPoints = 5;
 	String name;
-	HashMap<String,Integer> scoreBoard;
+	HashMap<String,Integer> scoreBoard = new HashMap<String,Integer>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +48,18 @@ public class CreateGame extends FragmentActivity implements
 			public void done(List<ParseUser> users, ParseException e) {
 				if (e == null) {
 					Log.d("Query", "Retrieved " + users.size() + " users");
-					participants.addAll(users);
-					for (int i = 0; i < participants.size(); i++){
-						scoreBoard.put(participants.get(i).getUsername(), 0);
+					for (int i = 0; i < users.size(); i++){
+						participants.add(users.get(i).getString("facebookId"));
+						scoreBoard.put(users.get(i).getString("facebookId"), 0);
 					}
+					Log.i(TAG, scoreBoard.toString());
 				} else {
 					Log.d("Query", "Error: " + e.getMessage());
 				}
 			}
 		});
+		
+		setSubmitButton();
 	}
 
 	public void onItemSelected(AdapterView<?> parent, View view, int pos,
@@ -75,8 +81,15 @@ public class CreateGame extends FragmentActivity implements
 		flashButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//submit new game to parse
+				Game newGame = new Game();
+				newGame.setScoreBoard(scoreBoard);
+				newGame.setName(ParseUser.getCurrentUser().getString("firstName") + "'s game");
+				newGame.setParticipants(participants);
+				newGame.setPointsToWin(maxPoints);
+				newGame.setTimePerTurn(20);
+				newGame.saveInBackground();
 			}
 		});
+		finish();
 	}
 }

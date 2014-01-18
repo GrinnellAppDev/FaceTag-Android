@@ -6,7 +6,7 @@ import java.util.List;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
-@ParseClassName("PhotoTag")
+@ParseClassName("Game")
 public class Game extends ParseObject{
 	public Game() {
 		// A default constructor is required.

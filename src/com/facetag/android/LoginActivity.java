@@ -86,8 +86,7 @@ public class LoginActivity extends Activity {
 	}
 
 	public void returnToCamera() {
-		Intent intent = new Intent(this, CameraActivity.class);
-		startActivity(intent);
+		finish();
 	}
 
 	@Override
