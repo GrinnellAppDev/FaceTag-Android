@@ -30,6 +30,7 @@ public class SubmitPhoto extends Activity {
 	byte[] mPhoto;
 	List<String> gameList = new ArrayList<String>();
 	ArrayList<ParseObject >parseGameList = new ArrayList<ParseObject>();
+	ParseUser mUser = ParseUser.getCurrentUser();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,19 +82,23 @@ public class SubmitPhoto extends Activity {
 	}
 
 	private void submitPhoto() {
-		// Create a media file name
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-				.format(new Date());
-
-		ParseFile prsFile = new ParseFile("phototag" + timeStamp + ".jpg",
+		ParseFile prsFile = new ParseFile(ParseUser.getCurrentUser().getString("fullName") + ".jpg",
 				mPhoto);
 
 		PhotoTag prsPhoto = new PhotoTag();
 		prsPhoto.setPhoto(prsFile);
 
 		prsPhoto.setConfirmation(0);
+		prsPhoto.setRejection(0);
+		
+		ArrayList<ParseUser> voted = new ArrayList<ParseUser>();
+		voted.add(mUser);
+		
+		prsPhoto.setTarget(mUser);
+		
+		prsPhoto.setVotedArray(voted);
 
-		prsPhoto.setSender(ParseUser.getCurrentUser());
+		prsPhoto.setSender(mUser);
 
 		prsPhoto.saveInBackground(new SaveCallback() {
 			public void done(ParseException e) {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facetag.android.parse.Game;
 import com.facetag_android.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseUser;
@@ -12,6 +13,7 @@ import com.parse.ParseUser;
 
 public class GameInfoScreen extends Activity {
 	ParseUser mUser = ParseUser.getCurrentUser();
+	Game mGame;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,5 +26,9 @@ public class GameInfoScreen extends Activity {
 		targetInfo.setText("Your Target Is: " + mUser.getString("fullName"));
 		
 		ImageLoader.getInstance().displayImage(mUser.getString("profilePictureURL"), targetPic);	
+	}
+	
+	public void judgePhotos(){
+		
 	}
 }

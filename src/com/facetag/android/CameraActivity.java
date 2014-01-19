@@ -254,8 +254,8 @@ public class CameraActivity extends Activity {
 		//	Bitmap prsImgScaled = Bitmap.createScaledBitmap(prsImg, 400, 400
 		//			* prsImg.getHeight() / prsImg.getWidth(), false);
 			
-			Bitmap prsImgScaled = Bitmap.createScaledBitmap(prsImg, 320, 320
-							* prsImg.getHeight() / prsImg.getWidth(), false);
+			Bitmap prsImgScaled = Bitmap.createScaledBitmap(prsImg, 320 * prsImg.getWidth() / prsImg.getHeight(), 320
+							, false);
 
 			Matrix matrix = new Matrix();
 
