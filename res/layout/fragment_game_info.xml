@@ -15,7 +15,7 @@
             android:layout_height="75dip"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:background="#0000FF"
+            android:background="#3366FF"
             android:text="Camera" />
 
         <View
