@@ -29,17 +29,15 @@
         android:text="Detail Test" />
 
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/gamelist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00FF00"
-        android:drawSelectorOnTop="false" />
+        />
 
     <TextView
-        android:id="@android:id/empty"
+        android:id="@+id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FF0000"
-        android:text="No data" />
+        android:text="No Active Games" />
 
 </LinearLayout>
