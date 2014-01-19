@@ -13,6 +13,7 @@ import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
 import com.parse.FindCallback;
+import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -31,6 +32,8 @@ public class GameScreenActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game_screen);
 
+		ParseAnalytics.trackAppOpened(getIntent());
+
 		mUser = ParseUser.getCurrentUser();
 		if (mUser != null) {
 			Toast.makeText(getApplicationContext(),
@@ -42,11 +45,10 @@ public class GameScreenActivity extends FragmentActivity {
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		}
-		
+
 		GameListFragment listfrag = new GameListFragment();
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.fragment_container, listfrag)
-				.commit();
+				.replace(R.id.fragment_container, listfrag).commit();
 	}
 
 	public void loadGames() {
