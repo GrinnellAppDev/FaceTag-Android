@@ -11,10 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facetag.android.parse.Game;
 import com.facetag_android.R;
@@ -36,13 +38,8 @@ public class GameListScreen extends Activity {
 		setContentView(R.layout.activity_game_screen);
 
 		ParseUser user = ParseUser.getCurrentUser();
-		TextView testText = (TextView) findViewById(R.id.test_text);
-
-		testText.setText(user.getString("fullName"));
-
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
-		query.whereEqualTo("participants", ParseUser.getCurrentUser()
-				.getObjectId());
+		query.whereEqualTo("participants", user.getObjectId());
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> results, ParseException e) {
 				if (e == null) {
@@ -73,6 +70,7 @@ public class GameListScreen extends Activity {
 				gameDetail();
 			}
 		});
+
 	}
 
 	public void createGame() {
@@ -84,11 +82,29 @@ public class GameListScreen extends Activity {
 		Intent intent = new Intent(this, GameInfoScreen.class);
 		startActivity(intent);
 	}
-	
-	public void populateList(){
-		ArrayAdapter<Game> gameAdapter = new GameArrayAdapter(this, R.layout.game_list_adapter, gameList);
+
+	public void populateList() {
+		ArrayAdapter<Game> gameAdapter = new GameArrayAdapter(this,
+				R.layout.game_list_adapter, gameList);
 		mListView = (ListView) findViewById(R.id.gamelist);
 		mListView.setAdapter(gameAdapter);
+
+		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				Game selectedGame = (Game) mListView
+						.getItemAtPosition(position);
+				gameInfo(selectedGame);
+			}
+		});
+	}
+	
+	public void gameInfo(Game game){
+		Intent intent = new Intent(this, GameInfoScreen.class);
+		intent.putExtra("id", game.getObjectId());
+		startActivity(intent);
 	}
 
 	public class GameArrayAdapter extends ArrayAdapter<Game> {
@@ -96,7 +112,8 @@ public class GameListScreen extends Activity {
 		private final ArrayList<Game> games;
 		int layoutResourceId;
 
-		public GameArrayAdapter(Context context, int layoutResourceId, ArrayList<Game> games) {
+		public GameArrayAdapter(Context context, int layoutResourceId,
+				ArrayList<Game> games) {
 			super(context, layoutResourceId, games);
 			this.context = context;
 			this.games = games;
@@ -107,12 +124,11 @@ public class GameListScreen extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			View rowView = inflater.inflate(layoutResourceId, parent,
-					false);
+			View rowView = inflater.inflate(layoutResourceId, parent, false);
 			TextView textView = (TextView) rowView
 					.findViewById(R.id.game_title);
 			textView.setText(games.get(position).getName());
-			
+
 			return rowView;
 		}
 	}
