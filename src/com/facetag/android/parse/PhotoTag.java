@@ -76,7 +76,7 @@ public class PhotoTag extends ParseObject {
 	}
 	
 	public int getThreshold(){
-		return getInt("threhold");
+		return getInt("threshold");
 	}
 	
 }

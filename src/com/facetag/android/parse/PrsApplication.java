@@ -30,11 +30,13 @@ public class PrsApplication extends Application {
 		 * For more information on app security and Parse ACL:
 		 * https://www.parse.com/docs/android_guide#security-recommendations
 		 */
+		/*
 		ParseACL defaultACL = new ParseACL();
 
 		defaultACL.setPublicReadAccess(true);
 
 		ParseACL.setDefaultACL(defaultACL, true);
+		*/
 
 		// Create global configuration and initialize ImageLoader with this
 		// configuration

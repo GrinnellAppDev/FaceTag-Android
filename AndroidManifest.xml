@@ -28,12 +28,10 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.facetag.android.PhotoBrowse"
-            android:label="@string/title_activity_photo_browse" >
-        </activity>
-        <activity
             android:name="com.facetag.android.GameScreenActivity"
-            android:label="@string/title_activity_game_screen" >
+            android:label="@string/title_activity_game_screen"
+            android:screenOrientation="portrait" >
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,7 +40,9 @@
         </activity>
         <activity
             android:name="com.facetag.android.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" >
+             >
         </activity>
 
         <meta-data
@@ -53,15 +53,15 @@
         </activity>
         <activity
             android:name="com.facetag.android.CreateGame"
-            android:label="@string/title_activity_create_game" >
+            android:label="@string/title_activity_create_game"
+            android:screenOrientation="portrait" >
+             >
         </activity>
         <activity
             android:name="com.facetag.android.SubmitPhoto"
-            android:label="@string/title_activity_submit_photo" >
-        </activity>
-        <activity
-            android:name="com.facetag.android.PhotoJudgeActivity"
-            android:label="@string/title_activity_photo_judge" >
+            android:label="@string/title_activity_submit_photo"
+            android:screenOrientation="portrait" >
+            >
         </activity>
     </application>
 
