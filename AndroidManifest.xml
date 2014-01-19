@@ -37,7 +37,7 @@
             android:label="@string/title_activity_photo_browse" >
         </activity>
         <activity
-            android:name="com.facetag.android.GameListScreen"
+            android:name="com.facetag.android.GameScreenActivity"
             android:label="@string/title_activity_game_screen" >
         </activity>
         <activity
@@ -58,10 +58,6 @@
         <activity
             android:name="com.facetag.android.SubmitPhoto"
             android:label="@string/title_activity_submit_photo" >
-        </activity>
-        <activity
-            android:name="com.facetag.android.GameInfoScreen"
-            android:label="@string/title_activity_game_info_screen" >
         </activity>
         <activity
             android:name="com.facetag.android.PhotoJudgeActivity"

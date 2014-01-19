@@ -1,43 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/test_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <Button
-        android:id="@+id/create_game"
-        android:layout_width="75dip"
-        android:layout_height="75dip"
-        android:layout_gravity="center"
-        android:layout_marginRight="5dip"
-        android:background="#C0C0C0"
-        android:text="Create Game" />
-
-    <Button
-        android:id="@+id/gameDetail"
-        android:layout_width="75dip"
-        android:layout_height="75dip"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dip"
-        android:layout_marginRight="5dip"
-        android:background="#C0C0C0"
-        android:text="Detail Test" />
-
-    <ListView
-        android:id="@+id/gamelist"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
-    <TextView
-        android:id="@+id/empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="No Active Games" />
-
-</LinearLayout>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
