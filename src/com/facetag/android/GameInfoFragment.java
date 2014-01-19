@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -21,9 +20,6 @@ import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -54,12 +50,11 @@ public class GameInfoFragment extends Fragment {
 		mGame = mActivity.mGame;
 
 		// Find views
-		newPics = (TextView) mView.findViewById(R.id.new_photos);
 		targetInfo = (TextView) mView.findViewById(R.id.target_description);
 		targetPic = (ImageView) mView.findViewById(R.id.target_photo);
 		gameName = (TextView) mView.findViewById(R.id.game_name);
 
-		gameName.setText(mGame.getName());
+		gameName.setText("Game: " + mGame.getName());
 
 		// Set camera button
 		Button cameraButton = (Button) mView.findViewById(R.id.camera_button);
@@ -67,15 +62,6 @@ public class GameInfoFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				launchCamera();
-			}
-		});
-
-		// Set scores button
-		Button scores = (Button) mView.findViewById(R.id.view_scores);
-		scores.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				viewScores();
 			}
 		});
 
@@ -95,8 +81,6 @@ public class GameInfoFragment extends Fragment {
 		pic_query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> pictureList, ParseException e) {
 				if (e == null) {
-					newPics.setText("There are " + pictureList.size()
-							+ " new photos!");
 					mPhotos.clear();
 					for (int i = 0; i < pictureList.size(); i++) {
 						PhotoTag thisPic = (PhotoTag) pictureList.get(i);
@@ -127,26 +111,8 @@ public class GameInfoFragment extends Fragment {
 					// Set target info in view
 					targetInfo.setText("Target: "
 							+ mTarget.getString("fullName"));
-					ImageLoader.getInstance().
-					displayImage(mTarget.getString("profilePictureURL"), targetPic, new ImageLoadingListener() {
-					    @Override
-					    public void onLoadingStarted(String imageUri, View view) {
-					     //   ...
-					    }
-					    @Override
-					    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-					     //   ...
-					    }
-					    @Override
-					    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-					     //   ...
-					    }
-					    @Override
-					    public void onLoadingCancelled(String imageUri, View view) {
-					     //   ...
-					    }
-					});
-
+					ImageLoader.getInstance().displayImage(
+							mTarget.getString("profilePictureURL"), targetPic);
 				}
 			}
 		});
@@ -154,8 +120,10 @@ public class GameInfoFragment extends Fragment {
 	}
 
 	public void viewScores() {
-		HashMap<String, Integer> scoreBoard = mGame.getScoreBoard();
-		// new list fragment to display users and corresponding scores
+		Fragment scoresList = new ScoresListFragment();
+		mActivity.getSupportFragmentManager().beginTransaction()
+				.addToBackStack(TAG)
+				.replace(R.id.fragment_container, scoresList).commit();
 	}
 
 	public void launchPhotoEval() {

@@ -8,9 +8,15 @@
         android:id="@+id/game_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textSize="32sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="#000000" />
 
 </LinearLayout>

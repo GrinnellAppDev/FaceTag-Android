@@ -31,7 +31,6 @@ public class CreateGame extends Activity implements
 	int maxPoints = 5;
 	ParseUser mUser = ParseUser.getCurrentUser();
 	HashMap<String,Integer> scoreBoard = new HashMap<String,Integer>();
-	List<PhotoTag> unconfirmedPhotoTags = new ArrayList<PhotoTag>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +92,6 @@ public class CreateGame extends Activity implements
 				else
 					newGame.setName(inputName);
 				
-				newGame.setUnconfirmedPhotoTags(unconfirmedPhotoTags);
 				newGame.setParticipants(participants);
 				newGame.setPointsToWin(maxPoints);
 				newGame.setTimePerTurn(20);

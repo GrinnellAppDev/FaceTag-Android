@@ -52,14 +52,6 @@ public class Game extends ParseObject{
 		return (HashMap<String, Integer>) get("scoreboard");
 	}
 	
-	public void setUnconfirmedPhotoTags(List<PhotoTag> tags){
-		put("unconfirmedPhotoTags", tags);
-	}
-	
-	public List<PhotoTag> getUnconfirmedPhotoTags(){
-		return getList("unconfirmedPhotoTags");
-	}
-	
 	public HashMap<String, String> getPairings(){
 		return (HashMap<String, String>) get("pairings");
 	}

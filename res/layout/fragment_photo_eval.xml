@@ -4,11 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="#000000" />
+
     <TextView
         android:id="@+id/num_pics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Pictures" />
+        android:layout_marginLeft="30dp"
+        android:text="No Pictures"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="#000000" />
 
     <ImageView
         android:id="@+id/eval_photo"
@@ -17,15 +29,29 @@
         android:gravity="center"
         android:scaleType="fitCenter" />
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="#000000" />
+
     <TextView
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No More Photos to Rank" />
+        android:layout_marginLeft="30dp"
+        android:text="No More Photos to Rank"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="#000000" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal" >
 
         <Button
@@ -33,9 +59,9 @@
             android:layout_width="75dip"
             android:layout_height="75dip"
             android:layout_gravity="left"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#C0C0C0"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/rec_button"
             android:text="Yes" />
 
         <Button
@@ -43,9 +69,9 @@
             android:layout_width="75dip"
             android:layout_height="75dip"
             android:layout_gravity="right"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#C0C0C0"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/rec_button"
             android:text="No" />
     </LinearLayout>
 
