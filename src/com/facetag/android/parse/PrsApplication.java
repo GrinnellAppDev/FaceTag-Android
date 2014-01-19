@@ -7,8 +7,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.parse.Parse;
-import com.parse.ParseAnalytics;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.PushService;
 
@@ -28,6 +28,7 @@ public class PrsApplication extends Application {
 				"isrQzRX1HkVQyuqnab3m8DGEIWWcpKAt2iJ0CtFu");
 		ParseFacebookUtils.initialize("551206871642297");
 		PushService.setDefaultPushCallback(this, GameScreenActivity.class);
+		ParseInstallation.getCurrentInstallation().saveInBackground();
 
 		/*
 		 * For more information on app security and Parse ACL:
