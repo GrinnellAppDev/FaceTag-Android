@@ -18,7 +18,7 @@ Play tag with your friends. Tag them by taking a photo of their face!
 FaceTag is a fun game for Android and iOS. Developed at MHacks Winter 2014.
 
 Description:
-Set up a game with your friends and specify the duration of the game (time or points). Some people will begin the game as "it" and will be given a target to tag! The first person to get a picture of their target's face gets a point; the other people who are "it" do not.
+Set up a game with your friends and specify the duration of the game (time or points). All people will begin the game as "it" and will be given a target to tag! The first person to get a picture of their target's face gets a point; the other people who are "it" do not.
 
 Game Rules:
 
