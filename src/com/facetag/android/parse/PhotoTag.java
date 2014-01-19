@@ -29,12 +29,12 @@ public class PhotoTag extends ParseObject {
 		put("photo", file);
 	}
 
-	public void setGame(Game game) {
+	public void setGame(String game) {
 		put("game", game);
 	}
 
-	public Game getGame() {
-		return (Game) getParseObject("game");
+	public String getGame() {
+		return getString("game");
 	}
 
 	public void setConfirmation(int count) {
@@ -69,6 +69,14 @@ public class PhotoTag extends ParseObject {
 	
 	public ParseUser getTarget(){
 		return getParseUser("target");
+	}
+	
+	public void setThreshold(int thr){
+		put("threshold", thr);
+	}
+	
+	public int getThreshold(){
+		return getInt("threhold");
 	}
 	
 }

@@ -30,6 +30,8 @@ public class CameraActivity extends Activity {
 
 	protected String TAG = "main activity";
 	public static final int MEDIA_TYPE_IMAGE = 1;
+	String mGame;
+	String mTarget;
 
 	protected Boolean preview_active;
 	protected static int cameraID = Camera.CameraInfo.CAMERA_FACING_BACK;
@@ -45,6 +47,10 @@ public class CameraActivity extends Activity {
 
 		setContentView(R.layout.activity_camera);
 
+		Bundle extras = getIntent().getExtras();
+		mGame = extras.getString("game");
+		mTarget = extras.getString("target");
+		
 		setPictureButton();
 		setCameraSwapButton();
 		setFlashButton();	
@@ -235,6 +241,8 @@ public class CameraActivity extends Activity {
 			
 			Intent intent = new Intent(getBaseContext(), SubmitPhoto.class);
 			intent.putExtra("picture", scaledData);
+			intent.putExtra("game", mGame);
+			intent.putExtra("target", mTarget);
 			startActivity(intent);
 		}
 	};

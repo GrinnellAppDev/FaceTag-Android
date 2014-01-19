@@ -3,15 +3,29 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/create_game"
-        android:layout_width="75dip"
-        android:layout_height="75dip"
-        android:layout_gravity="center"
-        android:layout_marginRight="5dip"
-        android:background="#C0C0C0"
-        android:text="Create Game" />
-    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/create_game"
+            android:layout_width="75dip"
+            android:layout_height="75dip"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dip"
+            android:background="#C0C0C0"
+            android:text="Create Game" />
+
+        <Button
+            android:id="@+id/refresh"
+            android:layout_width="75dip"
+            android:layout_height="75dip"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dip"
+            android:background="#C0C0C0"
+            android:text="Refresh" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/gamelist"

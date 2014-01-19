@@ -36,12 +36,19 @@ public class GameListFragment extends Fragment {
 		View v = inflater
 				.inflate(R.layout.fragment_game_list, container, false);
 
-		Button browseButton = (Button) v.findViewById(R.id.create_game);
-		browseButton.setOnClickListener(new View.OnClickListener() {
-
+		Button createGame = (Button) v.findViewById(R.id.create_game);
+		createGame.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				createGame();
+			}
+		});
+		
+		Button refresh = (Button) v.findViewById(R.id.refresh);
+		refresh.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				refresh();
 			}
 		});
 		
@@ -49,9 +56,7 @@ public class GameListFragment extends Fragment {
 				R.layout.game_list_adapter, mActivity.mGameList);
 		mListView = (ListView) v.findViewById(R.id.gamelist);
 		mListView.setAdapter(gameAdapter);
-
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
@@ -67,9 +72,13 @@ public class GameListFragment extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-
 	}
 
+	public void refresh(){
+		mActivity.mGameList.clear();
+		mActivity.loadGames();
+	}
+	
 	public void createGame() {
 		Intent intent = new Intent(getActivity(), CreateGame.class);
 		startActivity(intent);

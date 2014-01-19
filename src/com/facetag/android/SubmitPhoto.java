@@ -17,11 +17,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -33,8 +36,9 @@ public class SubmitPhoto extends Activity {
 	final String TAG = "Submit Photo";
 	byte[] mPhoto;
 	ParseUser mUser = ParseUser.getCurrentUser();
-	Game mGame;
-
+	String mGame;
+	String mTarget;
+	PhotoTag prsPhoto;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +47,9 @@ public class SubmitPhoto extends Activity {
 
 		Bundle extras = getIntent().getExtras();
 		mPhoto = extras.getByteArray("picture");
-		String game = extras.getString("game");
-		Log.i(TAG, game);
+		mGame = extras.getString("game");
+		mTarget = extras.getString("target");
+		Log.i(TAG, mGame);
 
 		Bitmap photoBitmap = BitmapFactory.decodeByteArray(mPhoto, 0,
 				mPhoto.length);
@@ -65,16 +70,11 @@ public class SubmitPhoto extends Activity {
 			public void onClick(View v) {
 				finish();
 			}
-		});	
+		});
 	}
 
 	private void submitPhoto() {
-		ParseFile prsFile = new ParseFile(ParseUser.getCurrentUser().getString(
-				"fullName")
-				+ ".jpg", mPhoto);
-
-		PhotoTag prsPhoto = new PhotoTag();
-		prsPhoto.setPhoto(prsFile);
+		prsPhoto = new PhotoTag();
 
 		prsPhoto.setConfirmation(0);
 		prsPhoto.setRejection(0);
@@ -82,21 +82,50 @@ public class SubmitPhoto extends Activity {
 		ArrayList<ParseUser> voted = new ArrayList<ParseUser>();
 		voted.add(mUser);
 
-		prsPhoto.setTarget(mUser);
+		prsPhoto.setGame(mGame);
 
 		prsPhoto.setVotedArray(voted);
 
 		prsPhoto.setSender(mUser);
+		
+		prsPhoto.setThreshold(1);
 
-		prsPhoto.saveInBackground(new SaveCallback() {
-			public void done(ParseException e) {
+		ParseQuery<ParseUser> query = ParseUser.getQuery();
+		query.whereEqualTo("objectId", mTarget);
+		query.getFirstInBackground(new GetCallback<ParseUser>() {
+			public void done(ParseUser user, ParseException e) {
 				if (e != null) {
-					Log.e("Save To Parse", e.getMessage());
+					Log.e(TAG, e.getMessage());
+					makeErrorToast();
+				} else if (user == null) {
+					Log.d(TAG, "The getFirst request failed.");
+					makeErrorToast();
 				} else {
-					Log.i("Save To Parse", "Parse Upload Successful");
+					prsPhoto.setTarget(user);
+					ParseFile prsFile = new ParseFile(ParseUser.getCurrentUser().getString(
+							"firstName")
+							+ "-" + user.getString("firstName") + ".jpg", mPhoto);
+					prsPhoto.setPhoto(prsFile);
+					prsPhoto.saveInBackground(new SaveCallback() {
+						public void done(ParseException e) {
+							if (e != null) {
+								Log.e("Save To Parse", e.getMessage());
+								makeErrorToast();
+							} else {
+								Log.i("Save To Parse",
+										"Parse Upload Successful");
+							}
+						}
+					});
 				}
 			}
 		});
 		finish();
+	}
+	
+	public void makeErrorToast(){
+		Toast.makeText(getApplicationContext(),
+				"Unable to submit photo",
+				Toast.LENGTH_SHORT).show();	
 	}
 }

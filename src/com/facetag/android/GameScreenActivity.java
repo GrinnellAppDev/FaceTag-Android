@@ -31,6 +31,7 @@ import com.parse.ParseUser;
 public class GameScreenActivity extends FragmentActivity {
 	private final String TAG = "GameScreen";
 	public ArrayList<Game> mGameList = new ArrayList<Game>();
+	ParseUser mUser;
 	public Game mGame;
 
 	@Override
@@ -38,19 +39,21 @@ public class GameScreenActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game_screen);
 
-		ParseUser currentUser = ParseUser.getCurrentUser();
-		if (currentUser != null) {
-			Toast.makeText(
-					getApplicationContext(),
-					"You are signed in as " + currentUser.getString("fullName"),
+		mUser = ParseUser.getCurrentUser();
+		if (mUser != null) {
+			Toast.makeText(getApplicationContext(),
+					"You are signed in as " + mUser.getString("fullName"),
 					Toast.LENGTH_SHORT).show();
+					loadGames();
 		} else {
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		}
+	}
 
+	public void loadGames() {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
-		query.whereEqualTo("participants", currentUser.getObjectId());
+		query.whereEqualTo("participants", mUser.getObjectId());
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> results, ParseException e) {
 				if (e == null) {
