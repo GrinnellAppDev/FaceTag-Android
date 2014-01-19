@@ -26,17 +26,19 @@ import com.parse.ParseUser;
 public class LoginActivity extends Activity {
 	private final String TAG = "LoginActivity";
 	static TextView testText;
+	Button captureButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
-		Button captureButton = (Button) findViewById(R.id.login);
+		captureButton = (Button) findViewById(R.id.login);
 		captureButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				FBlogin();
+				captureButton.setVisibility(View.INVISIBLE);
 			}
 		});
 	}
@@ -50,7 +52,7 @@ public class LoginActivity extends Activity {
 				if (user != null) {
 					Log.d(TAG, "User signed in to FB");
 					getFacebookInfoInBackground();
-					returnToCamera();
+					returnToApp();
 				} else {
 					Log.d(TAG, "FB login error: " + err.toString());
 					Toast.makeText(getApplicationContext(), "Error Logging In " + err.toString(), 
@@ -88,15 +90,8 @@ public class LoginActivity extends Activity {
 				});
 	}
 
-	public void returnToCamera() {
+	public void returnToApp() {
 		finish();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
 	}
 
 	@Override

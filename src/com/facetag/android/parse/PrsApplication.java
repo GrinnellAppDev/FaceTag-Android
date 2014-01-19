@@ -1,12 +1,16 @@
 package com.facetag.android.parse;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.view.View;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener;
 import com.parse.Parse;
-import com.parse.ParseACL;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 
@@ -46,7 +50,7 @@ public class PrsApplication extends Application {
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				getApplicationContext()).defaultDisplayImageOptions(
 				defaultOptions).build();
-
+		
 		ImageLoader.getInstance().init(config);
 	}
 }

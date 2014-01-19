@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,11 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -73,7 +78,7 @@ public class GameInfoFragment extends Fragment {
 				viewScores();
 			}
 		});
-		
+
 		// Set photo judge button
 		Button pictures = (Button) mView.findViewById(R.id.eval_photos);
 		pictures.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +97,8 @@ public class GameInfoFragment extends Fragment {
 				if (e == null) {
 					newPics.setText("There are " + pictureList.size()
 							+ " new photos!");
-					for (int i = 0; i < pictureList.size(); i++){
+					mPhotos.clear();
+					for (int i = 0; i < pictureList.size(); i++) {
 						PhotoTag thisPic = (PhotoTag) pictureList.get(i);
 						mPhotos.add(thisPic);
 					}
@@ -121,29 +127,49 @@ public class GameInfoFragment extends Fragment {
 					// Set target info in view
 					targetInfo.setText("Target: "
 							+ mTarget.getString("fullName"));
-					ImageLoader.getInstance().displayImage(
-							mTarget.getString("profilePictureURL"), targetPic);
+					ImageLoader.getInstance().
+					displayImage(mTarget.getString("profilePictureURL"), targetPic, new ImageLoadingListener() {
+					    @Override
+					    public void onLoadingStarted(String imageUri, View view) {
+					     //   ...
+					    }
+					    @Override
+					    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+					     //   ...
+					    }
+					    @Override
+					    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+					     //   ...
+					    }
+					    @Override
+					    public void onLoadingCancelled(String imageUri, View view) {
+					     //   ...
+					    }
+					});
+
 				}
 			}
 		});
 		return mView;
 	}
 
-	public void ratePhotos(){
-		//begin photo rate fragment
-	}
-	
 	public void viewScores() {
 		HashMap<String, Integer> scoreBoard = mGame.getScoreBoard();
 		// new list fragment to display users and corresponding scores
 	}
 
-	
-	public void launchPhotoEval(){
-        Fragment photoEval = new PhotoEvalFragment();
-        mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, photoEval).addToBackStack(TAG).commit();
+	public void launchPhotoEval() {
+		if (mPhotos.size() == 0) {
+			Toast.makeText(getActivity().getApplicationContext(),
+					"No More Photos To Rank", Toast.LENGTH_SHORT).show();
+		} else {
+			Fragment photoEval = new PhotoEvalFragment();
+			mActivity.getSupportFragmentManager().beginTransaction()
+					.addToBackStack(TAG)
+					.replace(R.id.fragment_container, photoEval).commit();
+		}
 	}
-	
+
 	public void launchCamera() {
 		Intent intent = new Intent(mActivity, CameraActivity.class);
 		intent.putExtra("game", mGame.getObjectId());

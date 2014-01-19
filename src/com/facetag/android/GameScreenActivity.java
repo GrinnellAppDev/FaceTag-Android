@@ -36,14 +36,22 @@ public class GameScreenActivity extends FragmentActivity {
 			Toast.makeText(getApplicationContext(),
 					"You are signed in as " + mUser.getString("fullName"),
 					Toast.LENGTH_SHORT).show();
-					loadGames();
+			loadGames();
+
 		} else {
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		}
+		
+		GameListFragment listfrag = new GameListFragment();
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment_container, listfrag)
+				.commit();
 	}
 
 	public void loadGames() {
+		mUser = ParseUser.getCurrentUser();
+
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
 		query.whereEqualTo("participants", mUser.getObjectId());
 		query.findInBackground(new FindCallback<ParseObject>() {
@@ -53,11 +61,11 @@ public class GameScreenActivity extends FragmentActivity {
 					for (int i = 0; i < results.size(); i++) {
 						Game thisGame = (Game) results.get(i);
 						mGameList.add(thisGame);
+						GameListFragment listfrag = new GameListFragment();
+						getSupportFragmentManager().beginTransaction()
+								.replace(R.id.fragment_container, listfrag)
+								.commit();
 					}
-					GameListFragment listfrag = new GameListFragment();
-					getSupportFragmentManager().beginTransaction()
-							.replace(R.id.fragment_container, listfrag)
-							.commit();
 				} else
 					Log.e(TAG, e.getMessage());
 			}

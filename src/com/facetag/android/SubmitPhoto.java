@@ -88,7 +88,7 @@ public class SubmitPhoto extends Activity {
 
 		prsPhoto.setSender(mUser);
 		
-		prsPhoto.setThreshold(1);
+		prsPhoto.setThreshold(3);
 
 		ParseQuery<ParseUser> query = ParseUser.getQuery();
 		query.whereEqualTo("objectId", mTarget);
