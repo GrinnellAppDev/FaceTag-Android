@@ -11,6 +11,7 @@
         android:layout_marginRight="5dip"
         android:background="#C0C0C0"
         android:text="Create Game" />
+    
 
     <ListView
         android:id="@+id/gamelist"

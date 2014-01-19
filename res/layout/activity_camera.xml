@@ -15,10 +15,11 @@
             android:layout_height="fill_parent"
             android:layout_weight="1" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|top" >
+            android:layout_gravity="center|bottom"
+            android:orientation="horizontal" >
 
             <ImageButton
                 android:id="@+id/button_swap"
@@ -26,32 +27,9 @@
                 android:layout_height="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="20dp"
+                android:layout_toLeftOf="@+id/button_capture"
                 android:background="@drawable/rec_button"
                 android:src="@drawable/ic_action_switch_camera" />
-
-            <ImageButton
-                android:id="@+id/button_flash"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_toRightOf="@+id/button_swap"
-                android:background="@drawable/rec_button"
-                android:src="@drawable/ic_action_flash_off" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/game_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rec_button"
-                android:text="Games"
-                android:textColor="#fff" />
 
             <Button
                 android:id="@+id/button_capture"
@@ -65,13 +43,14 @@
                 android:text="Capture"
                 android:textColor="#fff" />
 
-            <Button
-                android:id="@+id/login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:id="@+id/button_flash"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/button_capture"
                 android:background="@drawable/rec_button"
-                android:text="Login"
-                android:textColor="#fff" />
+                android:src="@drawable/ic_action_flash_off" />
         </LinearLayout>
     </FrameLayout>
 

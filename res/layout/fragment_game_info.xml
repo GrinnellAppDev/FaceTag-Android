@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <Button
+        android:id="@+id/camera_button"
+        android:layout_width="75dip"
+        android:layout_height="75dip"
+        android:layout_gravity="center"
+        android:layout_marginRight="5dip"
+        android:background="#C0C0C0"
+        android:text="Camera" />
+
     <TextView
         android:id="@+id/game_name"
         android:layout_width="wrap_content"

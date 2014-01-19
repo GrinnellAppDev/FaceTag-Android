@@ -4,7 +4,7 @@
     android:layout_height="fill_parent" >
 
     <Button
-        android:id="@id/login"
+        android:id="@+id/login"
         android:layout_width="300dip"
         android:layout_height="100dip"
         android:layout_centerInParent="true"
