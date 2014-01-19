@@ -32,11 +32,8 @@ import com.parse.SaveCallback;
 public class SubmitPhoto extends Activity {
 	final String TAG = "Submit Photo";
 	byte[] mPhoto;
-	List<String> gameList = new ArrayList<String>();
-	ArrayList<ParseObject> parseGameList = new ArrayList<ParseObject>();
 	ParseUser mUser = ParseUser.getCurrentUser();
-	public ArrayList<Game> mGameList = new ArrayList<Game>();
-	Spinner selectGame;
+	Game mGame;
 
 
 	@Override
@@ -46,13 +43,13 @@ public class SubmitPhoto extends Activity {
 
 		Bundle extras = getIntent().getExtras();
 		mPhoto = extras.getByteArray("picture");
+		String game = extras.getString("game");
+		Log.i(TAG, game);
 
 		Bitmap photoBitmap = BitmapFactory.decodeByteArray(mPhoto, 0,
 				mPhoto.length);
 		ImageView picPreview = (ImageView) findViewById(R.id.pic_view);
 		picPreview.setImageBitmap(photoBitmap);
-
-		selectGame = (Spinner) findViewById(R.id.selectGame);
 
 		Button acceptButton = (Button) findViewById(R.id.accept);
 		acceptButton.setOnClickListener(new View.OnClickListener() {
@@ -68,52 +65,7 @@ public class SubmitPhoto extends Activity {
 			public void onClick(View v) {
 				finish();
 			}
-		});
-
-
-		ParseUser user = ParseUser.getCurrentUser();
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
-		query.whereEqualTo("participants", user.getObjectId());
-		query.findInBackground(new FindCallback<ParseObject>() {
-			public void done(List<ParseObject> results, ParseException e) {
-				if (e == null) {
-					Log.i(TAG, results.size() + " games found");
-					for (int i = 0; i < results.size(); i++) {
-						Game thisGame = (Game) results.get(i);
-						mGameList.add(thisGame);
-						ArrayAdapter<String> adp = new ArrayAdapter<String>(this,
-								GameArrayAdapter, mGameList);
-						selectGame.setAdapter(adp);
-					}
-				}
-			}
-		});
-	}
-	
-	public class GameArrayAdapter extends ArrayAdapter<Game> {
-		private final Context context;
-		private final ArrayList<Game> games;
-		int layoutResourceId;
-
-		public GameArrayAdapter(Context context, int layoutResourceId,
-				ArrayList<Game> games) {
-			super(context, layoutResourceId, games);
-			this.context = context;
-			this.games = games;
-			this.layoutResourceId = layoutResourceId;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater = (LayoutInflater) context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			View rowView = inflater.inflate(layoutResourceId, parent, false);
-			TextView textView = (TextView) rowView
-					.findViewById(R.id.game_title);
-			textView.setText(games.get(position).getName());
-
-			return rowView;
-		}
+		});	
 	}
 
 	private void submitPhoto() {

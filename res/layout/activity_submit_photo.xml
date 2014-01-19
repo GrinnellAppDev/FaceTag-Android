@@ -36,10 +36,4 @@
             android:textColor="#fff" />
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/selectGame"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center" />
-
 </LinearLayout>

@@ -12,16 +12,6 @@
         android:background="#C0C0C0"
         android:text="Create Game" />
 
-    <Button
-        android:id="@+id/gameDetail"
-        android:layout_width="75dip"
-        android:layout_height="75dip"
-        android:layout_gravity="center"
-        android:layout_marginRight="5dip"
-        android:layout_marginTop="10dip"
-        android:background="#C0C0C0"
-        android:text="Detail Test" />
-
     <ListView
         android:id="@+id/gamelist"
         android:layout_width="match_parent"

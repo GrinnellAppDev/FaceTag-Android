@@ -26,11 +26,6 @@
             android:name="com.facetag.android.CameraActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.facetag.android.PhotoBrowse"
@@ -39,6 +34,11 @@
         <activity
             android:name="com.facetag.android.GameScreenActivity"
             android:label="@string/title_activity_game_screen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.facetag.android.LoginActivity"
