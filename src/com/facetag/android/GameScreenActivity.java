@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facetag.android.parse.Game;
 import com.facetag_android.R;
@@ -37,9 +38,19 @@ public class GameScreenActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game_screen);
 
-		ParseUser user = ParseUser.getCurrentUser();
+		ParseUser currentUser = ParseUser.getCurrentUser();
+		if (currentUser != null) {
+			Toast.makeText(
+					getApplicationContext(),
+					"You are signed in as " + currentUser.getString("fullName"),
+					Toast.LENGTH_SHORT).show();
+		} else {
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+		}
+
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
-		query.whereEqualTo("participants", user.getObjectId());
+		query.whereEqualTo("participants", currentUser.getObjectId());
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> results, ParseException e) {
 				if (e == null) {
@@ -57,5 +68,4 @@ public class GameScreenActivity extends FragmentActivity {
 			}
 		});
 	}
-
 }

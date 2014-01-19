@@ -47,18 +47,7 @@ public class CameraActivity extends Activity {
 
 		setPictureButton();
 		setCameraSwapButton();
-		setFlashButton();
-		setGameListButton();
-		setLoginButton();
-
-		ParseUser currentUser = ParseUser.getCurrentUser();
-		if (currentUser != null) {
-			Toast.makeText(getApplicationContext(), "You are signed in as " + currentUser.getString("fullName"), 
-					   Toast.LENGTH_SHORT).show();
-		} else {
-		  launchLogin();
-		}
-		
+		setFlashButton();	
 	}
 
 	@Override
@@ -152,38 +141,6 @@ public class CameraActivity extends Activity {
 				toggleFlash();
 			}
 		});
-	}
-	
-	public void setGameListButton() {
-		Button browseButton = (Button) findViewById(R.id.game_list);
-		browseButton.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				launchGameList();
-			}
-		});
-	}
-	
-	public void launchGameList() {
-		Intent intent = new Intent(this, GameScreenActivity.class);
-		startActivity(intent);
-	}
-	
-	public void setLoginButton() {
-		Button browseButton = (Button) findViewById(R.id.login);
-		browseButton.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				launchLogin();
-			}
-		});
-	}
-	
-	public void launchLogin() {
-		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
 	}
 
 	public void toggleFlash() {
