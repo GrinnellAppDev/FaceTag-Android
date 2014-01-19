@@ -4,17 +4,40 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/camera_button"
-        android:layout_width="75dip"
-        android:layout_height="75dip"
-        android:layout_gravity="center"
-        android:layout_marginRight="5dip"
-        android:background="#C0C0C0"
-        android:text="Camera" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/camera_button"
+            android:layout_width="75dip"
+            android:layout_height="75dip"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dip"
+            android:background="#C0C0C0"
+            android:text="Camera" />
+
+        <Button
+            android:id="@+id/get_photos"
+            android:layout_width="75dip"
+            android:layout_height="75dip"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dip"
+            android:background="#C0C0C0"
+            android:text="Judge Photos" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/game_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/new_photos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"

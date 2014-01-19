@@ -244,6 +244,7 @@ public class CameraActivity extends Activity {
 			intent.putExtra("game", mGame);
 			intent.putExtra("target", mTarget);
 			startActivity(intent);
+			finish();
 		}
 	};
 }

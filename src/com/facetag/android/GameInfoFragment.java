@@ -1,6 +1,7 @@
 package com.facetag.android;
 
 import java.util.HashMap;
+import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.facetag.android.parse.Game;
 import com.facetag_android.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -33,6 +35,7 @@ public class GameInfoFragment extends Fragment {
 	TextView targetInfo;
 	ImageView targetPic;
 	TextView gameName;
+	TextView newPics;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +47,8 @@ public class GameInfoFragment extends Fragment {
 		mGame = mActivity.mGame;
 
 		//Find views
+		newPics = (TextView) mView
+				.findViewById(R.id.new_photos);
 		targetInfo = (TextView) mView
 				.findViewById(R.id.target_description);
 		targetPic = (ImageView) mView.findViewById(R.id.target_photo);
@@ -58,6 +63,21 @@ public class GameInfoFragment extends Fragment {
 			}
 		});
 
+		//Find Photos to vote on
+		ParseQuery<ParseObject> pic_query = ParseQuery.getQuery("PhotoTag");
+		pic_query.whereEqualTo("game", mGame.getObjectId());
+		pic_query.whereNotEqualTo("usersArray", mUser);
+		pic_query.findInBackground(new FindCallback<ParseObject>() {
+		    public void done(List<ParseObject> pictureList, ParseException e) {
+		        if (e == null) {
+		            Log.d("score", "Retrieved " + pictureList.size() + " pictures");
+		            newPics.setText("There are " + pictureList.size() +" new photos!");
+		        } else {
+		            Log.d("score", "Error: " + e.getMessage());
+		        }
+		    }
+		});
+		
 		gameName.setText(mGame.getName());
 		
 		//Find Target
@@ -86,11 +106,8 @@ public class GameInfoFragment extends Fragment {
 	}
 	
 	public void viewScores() {
-
-	}
-	
-	public void judgePhotos() {
-
+		HashMap<String, Integer> scoreBoard = mGame.getScoreBoard();
+		//new list fragment t display users and corresponding scores
 	}
 
 	public void launchCamera() {
