@@ -21,6 +21,7 @@ Description:
 Set up a game with your friends and specify the duration of the game (time or points). Some people will begin the game as "it" and will be given a target to tag! The first person to get a picture of their target's face gets a point; the other people who are "it" do not.
 
 Game Rules:
+
 1. Find your target and acquire a picture with their face clearly visible.
 
 2. Picture cannot be a picture of a picture.
