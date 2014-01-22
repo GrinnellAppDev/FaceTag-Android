@@ -23,6 +23,12 @@ public class GameListFragment extends Fragment {
 	ListView mListView;
 	final String TAG = "List Fragment";
 
+	/**
+	 * 
+	 * List of Current Games for the User
+	 * Includes Create Game and Refresh Buttons
+	 * Calls Login Activity
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,7 +46,8 @@ public class GameListFragment extends Fragment {
 		createGame.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				createGame();
+				Intent intent = new Intent(getActivity(), CreateGame.class);
+				startActivity(intent);
 			}
 		});
 		
@@ -48,7 +55,8 @@ public class GameListFragment extends Fragment {
 		refresh.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				refresh();
+				mActivity.mGameList.clear();
+				mActivity.loadGames();
 			}
 		});
 		
@@ -72,16 +80,6 @@ public class GameListFragment extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-	}
-
-	public void refresh(){
-		mActivity.mGameList.clear();
-		mActivity.loadGames();
-	}
-	
-	public void createGame() {
-		Intent intent = new Intent(getActivity(), CreateGame.class);
-		startActivity(intent);
 	}
 	
 	public void gameInfo(Game game){

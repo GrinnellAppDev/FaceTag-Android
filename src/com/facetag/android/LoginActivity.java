@@ -26,19 +26,24 @@ import com.parse.ParseUser;
 public class LoginActivity extends Activity {
 	private final String TAG = "LoginActivity";
 	static TextView testText;
-	Button captureButton;
+	Button loginButton;
 
+	/*
+	 * Logs in to facebook
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
-		captureButton = (Button) findViewById(R.id.login);
-		captureButton.setOnClickListener(new View.OnClickListener() {
+		loginButton = (Button) findViewById(R.id.login);
+		//Make button disapear when clicked
+		//TODO add a loading animation
+		loginButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				FBlogin();
-				captureButton.setVisibility(View.INVISIBLE);
+				loginButton.setVisibility(View.INVISIBLE);
 			}
 		});
 	}
@@ -52,11 +57,12 @@ public class LoginActivity extends Activity {
 				if (user != null) {
 					Log.d(TAG, "User signed in to FB");
 					getFacebookInfoInBackground();
-					returnToApp();
+					finish();
 				} else {
 					Log.d(TAG, "FB login error: " + err.toString());
 					Toast.makeText(getApplicationContext(), "Error Logging In " + err.toString(), 
 							   Toast.LENGTH_SHORT).show();
+					//TODO: Give better prompt to log in with error message
 				}
 			}
 		});
@@ -88,10 +94,6 @@ public class LoginActivity extends Activity {
 						}
 					}
 				});
-	}
-
-	public void returnToApp() {
-		finish();
 	}
 
 	@Override

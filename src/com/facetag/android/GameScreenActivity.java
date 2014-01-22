@@ -34,14 +34,15 @@ public class GameScreenActivity extends FragmentActivity {
 
 		ParseAnalytics.trackAppOpened(getIntent());
 
+		//Get the user object for the current user
 		mUser = ParseUser.getCurrentUser();
 		if (mUser != null) {
 			Toast.makeText(getApplicationContext(),
 					"You are signed in as " + mUser.getString("fullName"),
 					Toast.LENGTH_SHORT).show();
 			loadGames();
-
 		} else {
+			//If not logged in, send to login
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		}

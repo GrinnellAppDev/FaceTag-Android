@@ -26,7 +26,11 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
+/**
+ * 
+ * Show the target user and give buttons for camera and eval photos
+ *
+ */
 public class GameInfoFragment extends Fragment {
 	ParseUser mUser = ParseUser.getCurrentUser();
 	ParseUser mTarget;
@@ -75,6 +79,7 @@ public class GameInfoFragment extends Fragment {
 		});
 
 		// Find Photos to vote on
+		// Add this to the list fragment to display number of photos to vote on in the list
 		ParseQuery<ParseObject> pic_query = ParseQuery.getQuery("PhotoTag");
 		pic_query.whereEqualTo("game", mGame.getObjectId());
 		pic_query.whereNotEqualTo("usersArray", mUser);
@@ -119,6 +124,7 @@ public class GameInfoFragment extends Fragment {
 		return mView;
 	}
 
+	//TODO
 	public void viewScores() {
 		Fragment scoresList = new ScoresListFragment();
 		mActivity.getSupportFragmentManager().beginTransaction()

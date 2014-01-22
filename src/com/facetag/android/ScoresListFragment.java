@@ -24,6 +24,10 @@ public class ScoresListFragment extends Fragment {
 	HashMap<String, Integer> mScoreBoard;
 	ArrayList mScoreList = new ArrayList();
 
+	/**
+	 * Display list of user scores 
+	 * TODO break down hashmap into array
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

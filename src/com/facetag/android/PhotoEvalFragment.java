@@ -31,11 +31,12 @@ public class PhotoEvalFragment extends Fragment {
 	ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
 
 	TextView numPics;
-	TextView question;
+	TextView question; 	//The user being targeted
 	ImageView evalPic;
 
 	Button yesBut;
 	Button noBut;
+	//TODO Button: I Dont Know
 	int picNum = 0;
 	PhotoTag mPhoto;
 
@@ -65,7 +66,7 @@ public class PhotoEvalFragment extends Fragment {
 				mPhoto.setVotedArray(voted);
 				mPhoto.saveInBackground();
 				try {
-					rankPhoto();
+					loadPhoto();
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -84,7 +85,7 @@ public class PhotoEvalFragment extends Fragment {
 				mPhoto.saveInBackground();
 				evalPic.setImageResource(R.drawable.loading);
 				try {
-					rankPhoto();
+					loadPhoto();
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -93,7 +94,7 @@ public class PhotoEvalFragment extends Fragment {
 
 		picNum = mPhotos.size();
 		try {
-			rankPhoto();
+			loadPhoto();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -101,7 +102,7 @@ public class PhotoEvalFragment extends Fragment {
 		return mView;
 	}
 
-	private void rankPhoto() throws ParseException {
+	private void loadPhoto() throws ParseException {
 		numPics.setText(picNum + " pictures to evaluate");
 		if (picNum > 0) {
 			picNum--;
@@ -124,11 +125,15 @@ public class PhotoEvalFragment extends Fragment {
 				}
 			});
 		} else {
+			//If no more photos, return to detail fragment
 			Log.i(TAG, "No Photos To Rank");
 			Toast.makeText(getActivity().getApplicationContext(),
 					"No More Photos To Rank",
 					Toast.LENGTH_SHORT).show();
-			mActivity.getSupportFragmentManager().popBackStack();
+		//	mActivity.getSupportFragmentManager().popBackStack();
+			
+			
+			
 		//	Fragment gameInfo = new GameInfoFragment();
 		//	mActivity.getSupportFragmentManager().beginTransaction()
 		//			.replace(R.id.fragment_container, gameInfo).commit();

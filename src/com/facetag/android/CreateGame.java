@@ -24,6 +24,9 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+// Creates a Games
+//TODO Allow user to invite specific friends
+	// use a new list fragment
 public class CreateGame extends Activity implements
 		OnItemSelectedListener {
 	private final String TAG = "Create Game";
@@ -37,6 +40,7 @@ public class CreateGame extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_game);
 		
+		//Init score max spinner
 		String[] array = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
 		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, array);
@@ -46,6 +50,7 @@ public class CreateGame extends Activity implements
 
 		ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
 
+		//Add alternate way to select friends to invite
 		userQuery.findInBackground(new FindCallback<ParseUser>() {
 			public void done(List<ParseUser> users, ParseException e) {
 				if (e == null) {
@@ -66,13 +71,14 @@ public class CreateGame extends Activity implements
 		setSubmitButton();
 	}
 
+	//Item selector for spinner
 	public void onItemSelected(AdapterView<?> parent, View view, int pos,
 			long id) {
 			maxPoints = pos + 1;
 	}
 
 	public void onNothingSelected(AdapterView<?> parent) {
-		// Another interface callback
+		//Default max points is 5
 		maxPoints = 5;
 	}
 
