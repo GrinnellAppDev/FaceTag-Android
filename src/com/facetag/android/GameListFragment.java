@@ -82,12 +82,14 @@ public class GameListFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 	}
 	
+	//Launch game fragment
 	public void gameInfo(Game game){
 		mActivity.mGame = game;
         Fragment gameInfo = new GameInfoFragment();
         mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, gameInfo).addToBackStack(TAG).commit();
 	}
 
+	//Array Adapter for games list
 	public class GameArrayAdapter extends ArrayAdapter<Game> {
 		private final Context context;
 		private final ArrayList<Game> games;

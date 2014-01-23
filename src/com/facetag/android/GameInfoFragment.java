@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
+import com.facetag.android.utils.ImageLoaderUtility;
 import com.facetag_android.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.FindCallback;
@@ -116,8 +117,10 @@ public class GameInfoFragment extends Fragment {
 					// Set target info in view
 					targetInfo.setText("Target: "
 							+ mTarget.getString("fullName"));
-					ImageLoader.getInstance().displayImage(
-							mTarget.getString("profilePictureURL"), targetPic);
+					//Load target FB image
+					ImageLoaderUtility imageLoader = new ImageLoaderUtility();
+					imageLoader.loadImage(
+							mTarget.getString("profilePictureURL"), targetPic, mActivity);
 				}
 			}
 		});
