@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +24,9 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
+/*
+ * Fragment to prompt the user to evaluate photos that they have not yet seen
+ */
 public class PhotoEvalFragment extends Fragment {
 	final String TAG = "Photo Eval";
 
@@ -29,16 +34,18 @@ public class PhotoEvalFragment extends Fragment {
 	GameScreenActivity mActivity;
 	ParseUser mUser = ParseUser.getCurrentUser();
 	ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
-
+	
 	TextView numPics;
 	TextView question; 	//The user being targeted
 	ImageView evalPic;
 
 	Button yesBut;
 	Button noBut;
-	//TODO Button: I Dont Know
+	//TODO Button: "I Dont Know"
 	int picNum = 0;
 	PhotoTag mPhoto;
+	
+	Animation spin;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,8 +58,12 @@ public class PhotoEvalFragment extends Fragment {
 		mPhotos.addAll(mActivity.mPhotos);
 
 		evalPic = (ImageView) mView.findViewById(R.id.eval_photo);
-		evalPic.setImageResource(R.drawable.loading);
+		startLoadingAnim();
 
+		
+		spin = AnimationUtils.loadAnimation(mActivity, R.anim.loading);
+		evalPic.setAnimation(spin);
+		
 		numPics = (TextView) mView.findViewById(R.id.num_pics);
 		question = (TextView) mView.findViewById(R.id.question);
 
@@ -66,7 +77,7 @@ public class PhotoEvalFragment extends Fragment {
 				voted.add(mUser);
 				mPhoto.setVotedArray(voted);
 				mPhoto.saveInBackground();
-				evalPic.setImageResource(R.drawable.loading);
+				startLoadingAnim();
 				try {
 					loadPhoto();
 				} catch (ParseException e) {
@@ -85,7 +96,7 @@ public class PhotoEvalFragment extends Fragment {
 				voted.add(mUser);
 				mPhoto.setVotedArray(voted);
 				mPhoto.saveInBackground();
-				evalPic.setImageResource(R.drawable.loading);
+				startLoadingAnim();
 				try {
 					loadPhoto();
 				} catch (ParseException e) {
@@ -104,6 +115,12 @@ public class PhotoEvalFragment extends Fragment {
 		return mView;
 	}
 
+	private void startLoadingAnim(){
+		evalPic.setScaleType(ImageView.ScaleType.CENTER);
+		evalPic.setImageResource(R.drawable.loading);
+		evalPic.setAnimation(spin);
+	}
+	
 	private void loadPhoto() throws ParseException {
 		numPics.setText(picNum + " pictures to evaluate");
 		if (picNum > 0) {
@@ -120,6 +137,8 @@ public class PhotoEvalFragment extends Fragment {
 					if (e == null) {
 						Bitmap bMap = BitmapFactory.decodeByteArray(data, 0,
 								data.length);
+						evalPic.clearAnimation();
+						evalPic.setScaleType(ImageView.ScaleType.FIT_CENTER);
 						evalPic.setImageBitmap(bMap);
 					} else {
 						Log.e(TAG, "Parse Error: " + e.getMessage());
@@ -128,13 +147,10 @@ public class PhotoEvalFragment extends Fragment {
 			});
 		} else {
 			//If no more photos, return to detail fragment
-			Log.i(TAG, "No Photos To Rank");
 			Toast.makeText(getActivity().getApplicationContext(),
 					"No More Photos To Rank",
 					Toast.LENGTH_SHORT).show();
-		//	mActivity.getSupportFragmentManager().popBackStack();
-			
-			
+			mActivity.getSupportFragmentManager().popBackStack();
 			
 		//	Fragment gameInfo = new GameInfoFragment();
 		//	mActivity.getSupportFragmentManager().beginTransaction()

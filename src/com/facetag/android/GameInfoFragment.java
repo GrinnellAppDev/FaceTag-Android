@@ -138,6 +138,7 @@ public class GameInfoFragment extends Fragment {
 	}
 
 	public void launchPhotoEval() {
+		//Do not switch to fragment if no photos to rank
 		if (mPhotos.size() == 0) {
 			Toast.makeText(getActivity().getApplicationContext(),
 					"No More Photos To Rank", Toast.LENGTH_SHORT).show();

@@ -31,9 +31,7 @@ public class ImageLoaderUtility {
 		@Override
 		public void onLoadingFailed(String imageUri, View view,
 				FailReason failReason) {
-			@SuppressWarnings("unused")
 			String message = null;
-			view.clearAnimation();
 			switch (failReason.getType()) {
 			case IO_ERROR:
 				message = "Input/Output error";
