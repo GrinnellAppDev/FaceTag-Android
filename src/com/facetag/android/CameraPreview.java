@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-/** A basic Camera preview class */
+/* A basic Camera preview class
+ * This is a SurfaceView that controls how the camera view is displayed.
+ * Must coordinate with CameraActivity to handle lifecycle events*/
 public class CameraPreview extends SurfaceView implements
 		SurfaceHolder.Callback {
 	private SurfaceHolder mHolder;

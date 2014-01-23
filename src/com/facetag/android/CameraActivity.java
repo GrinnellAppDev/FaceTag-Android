@@ -24,6 +24,10 @@ import android.widget.Toast;
 import com.facetag_android.R;
 import com.parse.ParseUser;
 
+/*
+ * This activty creates a camera interface and allows the user to take a photo.
+ * On photo taken, an intent is sent to the SubmitPhoto activity
+  */
 public class CameraActivity extends Activity {
 	protected static Camera mCamera = null;
 	private CameraPreview mPreview;
@@ -59,9 +63,7 @@ public class CameraActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-		Log.i(TAG, "onResume()");
-		
+		//Reinitialize the camera and preview on resume
 		cameraInit(cameraID);
 		FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
 		preview.addView(mPreview);
@@ -101,6 +103,7 @@ public class CameraActivity extends Activity {
 		});
 	}
 
+	//Set a button to flip the camera to front-facing/back-facing
 	public void setCameraSwapButton() {
 		// Add a listener to the Capture button
 		ImageButton swapButton = (ImageButton) findViewById(R.id.button_swap);
@@ -110,7 +113,6 @@ public class CameraActivity extends Activity {
 				FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
 				// must remove view before swapping it
 				preview.removeView(mPreview);
-
 				if (cameraID == Camera.CameraInfo.CAMERA_FACING_BACK) {
 					// switch to front facing camera
 					cameraInit(Camera.CameraInfo.CAMERA_FACING_FRONT);
@@ -131,6 +133,7 @@ public class CameraActivity extends Activity {
 		});
 	}
 
+	//Toggle the camera flash
 	public void setFlashButton() {
 		// Add a listener to the Capture button
 		ImageButton flashButton = (ImageButton) findViewById(R.id.button_flash);
@@ -147,7 +150,6 @@ public class CameraActivity extends Activity {
 		if (cameraID == Camera.CameraInfo.CAMERA_FACING_FRONT) {
 			return;
 		}
-
 		// get Camera parameters
 		Camera.Parameters params = mCamera.getParameters();
 		ImageButton flashButton = (ImageButton) findViewById(R.id.button_flash);
@@ -188,6 +190,7 @@ public class CameraActivity extends Activity {
 		return c; // returns null if camera is unavailable
 	}
 
+	/* End the camera and view on pause */
 	@Override
 	protected void onPause() {
 		super.onPause();

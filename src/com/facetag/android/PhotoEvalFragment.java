@@ -51,6 +51,7 @@ public class PhotoEvalFragment extends Fragment {
 		mPhotos.addAll(mActivity.mPhotos);
 
 		evalPic = (ImageView) mView.findViewById(R.id.eval_photo);
+		evalPic.setImageResource(R.drawable.loading);
 
 		numPics = (TextView) mView.findViewById(R.id.num_pics);
 		question = (TextView) mView.findViewById(R.id.question);
@@ -65,6 +66,7 @@ public class PhotoEvalFragment extends Fragment {
 				voted.add(mUser);
 				mPhoto.setVotedArray(voted);
 				mPhoto.saveInBackground();
+				evalPic.setImageResource(R.drawable.loading);
 				try {
 					loadPhoto();
 				} catch (ParseException e) {

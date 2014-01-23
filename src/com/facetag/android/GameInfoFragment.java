@@ -56,7 +56,9 @@ public class GameInfoFragment extends Fragment {
 
 		// Find views
 		targetInfo = (TextView) mView.findViewById(R.id.target_description);
+		//TODO replace this with animation
 		targetPic = (ImageView) mView.findViewById(R.id.target_photo);
+		
 		gameName = (TextView) mView.findViewById(R.id.game_name);
 
 		gameName.setText("Game: " + mGame.getName());
