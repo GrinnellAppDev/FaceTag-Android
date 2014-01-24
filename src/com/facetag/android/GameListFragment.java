@@ -15,10 +15,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.facetag.android.parse.Game;
 import com.facetag_android.R;
 
-public class GameListFragment extends Fragment {
+public class GameListFragment extends SherlockFragment {
 	GameScreenActivity mActivity;
 	ListView mListView;
 	final String TAG = "List Fragment";
@@ -33,7 +34,7 @@ public class GameListFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mActivity = (GameScreenActivity) getActivity();
+		mActivity = (GameScreenActivity) getSherlockActivity();
 	}
 
 	@Override

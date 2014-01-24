@@ -2,7 +2,6 @@ package com.facetag.android;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,15 +15,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
 import com.facetag.android.utils.ImageLoaderUtility;
 import com.facetag_android.R;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 /**
@@ -32,7 +29,7 @@ import com.parse.ParseUser;
  * Show the target user and give buttons for camera and eval photos
  *
  */
-public class GameInfoFragment extends Fragment {
+public class GameInfoFragment extends SherlockFragment {
 	ParseUser mUser = ParseUser.getCurrentUser();
 	ParseUser mTarget;
 	Game mGame;
@@ -51,7 +48,7 @@ public class GameInfoFragment extends Fragment {
 			Bundle savedInstanceState) {
 		mView = inflater.inflate(R.layout.fragment_game_info, container, false);
 
-		mActivity = (GameScreenActivity) getActivity();
+		mActivity = (GameScreenActivity) getSherlockActivity();
 		mGame = mActivity.mGame;
 
 		// Find views
@@ -80,7 +77,7 @@ public class GameInfoFragment extends Fragment {
 				launchPhotoEval();
 			}
 		});
-
+/*
 		// Find Photos to vote on
 		// Add this to the list fragment to display number of photos to vote on in the list
 		ParseQuery<ParseObject> pic_query = ParseQuery.getQuery("PhotoTag");
@@ -101,6 +98,7 @@ public class GameInfoFragment extends Fragment {
 				}
 			}
 		});
+*/
 
 		// Find Target
 		HashMap<String, String> pairings = mGame.getPairings();

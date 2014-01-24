@@ -3,16 +3,15 @@ package com.facetag.android;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.model.GraphUser;
@@ -23,7 +22,7 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
 /* Login to facebook here and link to parse */
-public class LoginActivity extends Activity {
+public class LoginActivity extends SherlockActivity {
 	private final String TAG = "LoginActivity";
 	static TextView testText;
 	Button loginButton;

@@ -73,7 +73,7 @@
              >
         </activity>
         <activity
-            android:name="com.facetag.android.SubmitPhoto"
+            android:name="com.facetag.android.SubmitPhotoActivity"
             android:label="@string/title_activity_submit_photo"
             android:screenOrientation="portrait" >
             >

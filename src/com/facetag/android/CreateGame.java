@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +15,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.facetag.android.parse.Game;
-import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -27,7 +26,7 @@ import com.parse.ParseUser;
 // Creates a Games
 //TODO Allow user to invite specific friends
 	// use a new list fragment
-public class CreateGame extends Activity implements
+public class CreateGame extends SherlockActivity implements
 		OnItemSelectedListener {
 	private final String TAG = "Create Game";
 	List<String> participants = new ArrayList<String>();

@@ -5,10 +5,10 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
@@ -20,7 +20,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 /* Pull list of parse games here */
-public class GameScreenActivity extends FragmentActivity {
+public class GameScreenActivity extends SherlockFragmentActivity {
 	private final String TAG = "GameScreen";
 	public ArrayList<Game> mGameList = new ArrayList<Game>();
 	public ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();

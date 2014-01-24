@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.facetag.android.parse.Game;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.facetag_android.R;
 
-public class ScoresListFragment extends Fragment {
+public class ScoresListFragment extends SherlockFragment {
 	final String TAG = "Score Board";
 	GameScreenActivity mActivity;
 	ListView mListView;
@@ -32,7 +31,7 @@ public class ScoresListFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mActivity = (GameScreenActivity) getActivity();
+		mActivity = (GameScreenActivity) getSherlockActivity();
 		mScoreBoard = mActivity.mGame.getScoreBoard();
 		mScoreList.addAll(mScoreBoard.entrySet());
 		Log.i(TAG, mScoreList.toString());

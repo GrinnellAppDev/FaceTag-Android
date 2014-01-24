@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
 import com.parse.GetDataCallback;
@@ -27,7 +27,7 @@ import com.parse.ParseUser;
 /*
  * Fragment to prompt the user to evaluate photos that they have not yet seen
  */
-public class PhotoEvalFragment extends Fragment {
+public class PhotoEvalFragment extends SherlockFragment {
 	final String TAG = "Photo Eval";
 
 	View mView;
@@ -54,7 +54,8 @@ public class PhotoEvalFragment extends Fragment {
 		mView = inflater
 				.inflate(R.layout.fragment_photo_eval, container, false);
 
-		mActivity = (GameScreenActivity) getActivity();
+		mActivity = (GameScreenActivity) getSherlockActivity();
+		
 		mPhotos.addAll(mActivity.mPhotos);
 
 		evalPic = (ImageView) mView.findViewById(R.id.eval_photo);
@@ -67,6 +68,7 @@ public class PhotoEvalFragment extends Fragment {
 		numPics = (TextView) mView.findViewById(R.id.num_pics);
 		question = (TextView) mView.findViewById(R.id.question);
 
+		//TODO this code is redundant for each button
 		yesBut = (Button) mView.findViewById(R.id.affirmative);
 		yesBut.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -148,7 +150,7 @@ public class PhotoEvalFragment extends Fragment {
 		} else {
 			//If no more photos, return to detail fragment
 			Toast.makeText(getActivity().getApplicationContext(),
-					"No More Photos To Rank",
+					"No Photos To Rank",
 					Toast.LENGTH_SHORT).show();
 			mActivity.getSupportFragmentManager().popBackStack();
 			

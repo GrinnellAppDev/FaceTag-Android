@@ -3,7 +3,6 @@ package com.facetag.android;
 import java.io.ByteArrayOutputStream;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,22 +12,20 @@ import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.facetag_android.R;
-import com.parse.ParseUser;
 
 /*
  * This activty creates a camera interface and allows the user to take a photo.
  * On photo taken, an intent is sent to the SubmitPhoto activity
   */
-public class CameraActivity extends Activity {
+public class CameraActivity extends SherlockActivity {
 	protected static Camera mCamera = null;
 	private CameraPreview mPreview;
 
@@ -44,13 +41,14 @@ public class CameraActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
+		super.onCreate(savedInstanceState);		
 		// Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.activity_camera);
-
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			
+		
 		Bundle extras = getIntent().getExtras();
 		mGame = extras.getString("game");
 		mTarget = extras.getString("target");
@@ -235,7 +233,7 @@ public class CameraActivity extends Activity {
 			prsImgScaledRotated.compress(Bitmap.CompressFormat.JPEG, 100, bos);
 			byte[] scaledData = bos.toByteArray();
 			
-			Intent intent = new Intent(getBaseContext(), SubmitPhoto.class);
+			Intent intent = new Intent(getBaseContext(), SubmitPhotoActivity.class);
 			intent.putExtra("picture", scaledData);
 			intent.putExtra("game", mGame);
 			intent.putExtra("target", mTarget);
