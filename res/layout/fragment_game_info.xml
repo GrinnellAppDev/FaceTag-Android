@@ -4,38 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/camera_button"
-            android:layout_width="110dip"
-            android:layout_height="75dip"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:background="#3366FF"
-            android:text="Camera" />
-
-        <View
-            android:layout_width="3dp"
-            android:layout_height="fill_parent"
-            android:background="#000000" />
-
-        <Button
-            android:id="@+id/eval_photos"
-            android:layout_width="match_parent"
-            android:layout_height="75dip"
-            android:background="#00FF00"
-            android:text="Evaluate Photos" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="3dp"
-        android:background="#000000" />
-
     <TextView
         android:id="@+id/game_name"
         android:layout_width="wrap_content"

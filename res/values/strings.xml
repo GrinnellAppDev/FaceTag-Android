@@ -14,5 +14,7 @@
     <string name="title_activity_photo_judge">PhotoJudgeActivity</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_newgame">New Game</string>
+    <string name="action_camera">Camera</string>
+    <string name="action_photos">Photo Eval</string>
 
 </resources>

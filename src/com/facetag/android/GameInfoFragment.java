@@ -2,6 +2,7 @@ package com.facetag.android;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,18 +11,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
 import com.facetag.android.utils.ImageLoaderUtility;
 import com.facetag_android.R;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 /**
@@ -50,6 +55,8 @@ public class GameInfoFragment extends SherlockFragment {
 
 		mActivity = (GameScreenActivity) getSherlockActivity();
 		mGame = mActivity.mGame;
+		setHasOptionsMenu(true);
+	    mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		// Find views
 		targetInfo = (TextView) mView.findViewById(R.id.target_description);
@@ -60,24 +67,7 @@ public class GameInfoFragment extends SherlockFragment {
 
 		gameName.setText("Game: " + mGame.getName());
 
-		// Set camera button
-		Button cameraButton = (Button) mView.findViewById(R.id.camera_button);
-		cameraButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				launchCamera();
-			}
-		});
-
-		// Set photo judge button
-		Button pictures = (Button) mView.findViewById(R.id.eval_photos);
-		pictures.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				launchPhotoEval();
-			}
-		});
-/*
+		/*
 		// Find Photos to vote on
 		// Add this to the list fragment to display number of photos to vote on in the list
 		ParseQuery<ParseObject> pic_query = ParseQuery.getQuery("PhotoTag");
@@ -127,6 +117,27 @@ public class GameInfoFragment extends SherlockFragment {
 		return mView;
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		inflater.inflate(R.menu.game_info_screen, menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.action_camera:
+	        	launchCamera();
+				return true;
+	        case R.id.action_photos:
+				launchPhotoEval();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
 	//TODO
 	public void viewScores() {
 		Fragment scoresList = new ScoresListFragment();
