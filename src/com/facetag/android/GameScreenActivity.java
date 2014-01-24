@@ -12,6 +12,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
@@ -36,7 +37,6 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 		setContentView(R.layout.activity_game_screen);
 		
 		ParseAnalytics.trackAppOpened(getIntent());
-		ActionBar actionBar = getSupportActionBar();
 		
 		//Get the user object for the current user
 		mUser = ParseUser.getCurrentUser();
@@ -56,13 +56,6 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 				.replace(R.id.fragment_container, listfrag).commit();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getSupportMenuInflater();
-	    inflater.inflate(R.menu.game_screen, menu);
-	    return super.onCreateOptionsMenu(menu);
-	}
-	
 	public void loadGames() {
 		mUser = ParseUser.getCurrentUser();
 

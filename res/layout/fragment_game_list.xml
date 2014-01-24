@@ -4,34 +4,6 @@
     android:background="#D0D0D0" 
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/create_game"
-            android:layout_width="75dip"
-            android:layout_height="75dip"
-            android:layout_gravity="center"
-            android:layout_weight="3.00"
-            android:background="#33CC00"
-            android:text="Create Game" />
-
-        <View
-            android:layout_width="3dp"
-            android:layout_height="fill_parent"
-            android:background="#000000" />
-
-        <Button
-            android:id="@+id/refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="75dip"
-            android:layout_gravity="right"
-            android:layout_weight="1.19"
-            android:background="#3366FF"
-            android:text="Refresh" />
-    </LinearLayout>
 
     <View
         android:layout_width="fill_parent"

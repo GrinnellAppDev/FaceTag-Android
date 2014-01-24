@@ -16,6 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.facetag.android.parse.Game;
 import com.facetag_android.R;
 
@@ -35,6 +38,7 @@ public class GameListFragment extends SherlockFragment {
 		super.onCreate(savedInstanceState);
 
 		mActivity = (GameScreenActivity) getSherlockActivity();
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -42,24 +46,6 @@ public class GameListFragment extends SherlockFragment {
 			Bundle savedInstanceState) {
 		View v = inflater
 				.inflate(R.layout.fragment_game_list, container, false);
-
-		Button createGame = (Button) v.findViewById(R.id.create_game);
-		createGame.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(), CreateGameActivity.class);
-				startActivity(intent);
-			}
-		});
-		
-		Button refresh = (Button) v.findViewById(R.id.refresh);
-		refresh.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mActivity.mGameList.clear();
-				mActivity.loadGames();
-			}
-		});
 		
 		ArrayAdapter<Game> gameAdapter = new GameArrayAdapter(mActivity,
 				R.layout.game_list_adapter, mActivity.mGameList);
@@ -77,6 +63,31 @@ public class GameListFragment extends SherlockFragment {
 		
 		return v;
 	}
+	
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		inflater.inflate(R.menu.game_screen, menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.action_refresh:
+	        	mActivity.mGameList.clear();
+				mActivity.loadGames();
+				return true;
+	        case R.id.action_newgame:
+	        	Intent intent = new Intent(getActivity(), CreateGameActivity.class);
+				startActivity(intent);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
