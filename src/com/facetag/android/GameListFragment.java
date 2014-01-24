@@ -47,7 +47,7 @@ public class GameListFragment extends SherlockFragment {
 		createGame.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(), CreateGame.class);
+				Intent intent = new Intent(getActivity(), CreateGameActivity.class);
 				startActivity(intent);
 			}
 		});

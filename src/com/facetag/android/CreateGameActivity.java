@@ -26,7 +26,7 @@ import com.parse.ParseUser;
 // Creates a Games
 //TODO Allow user to invite specific friends
 	// use a new list fragment
-public class CreateGame extends SherlockActivity implements
+public class CreateGameActivity extends SherlockActivity implements
 		OnItemSelectedListener {
 	private final String TAG = "Create Game";
 	List<String> participants = new ArrayList<String>();

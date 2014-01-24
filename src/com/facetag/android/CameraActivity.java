@@ -46,9 +46,7 @@ public class CameraActivity extends SherlockActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.activity_camera);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-			
-		
+					
 		Bundle extras = getIntent().getExtras();
 		mGame = extras.getString("game");
 		mTarget = extras.getString("target");
