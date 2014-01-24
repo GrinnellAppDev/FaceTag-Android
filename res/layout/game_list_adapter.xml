@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+
+
     <TextView
         android:id="@+id/game_title"
         android:layout_width="wrap_content"
@@ -14,9 +16,5 @@
         android:gravity="center"
         android:textSize="32sp" />
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="3dp"
-        android:background="#000000" />
 
 </LinearLayout>
