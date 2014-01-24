@@ -37,7 +37,8 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 		setContentView(R.layout.activity_game_screen);
 		
 		ParseAnalytics.trackAppOpened(getIntent());
-		
+	    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 		//Get the user object for the current user
 		mUser = ParseUser.getCurrentUser();
 		if (mUser != null) {

@@ -56,7 +56,6 @@ public class GameInfoFragment extends SherlockFragment {
 		mActivity = (GameScreenActivity) getSherlockActivity();
 		mGame = mActivity.mGame;
 		setHasOptionsMenu(true);
-	    mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		// Find views
 		targetInfo = (TextView) mView.findViewById(R.id.target_description);
