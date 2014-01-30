@@ -46,6 +46,7 @@ public class GameListFragment extends SherlockFragment {
 			Bundle savedInstanceState) {
 		View v = inflater
 				.inflate(R.layout.fragment_game_list, container, false);
+	    mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 		
 		ArrayAdapter<Game> gameAdapter = new GameArrayAdapter(mActivity,
 				R.layout.game_list_adapter, mActivity.mGameList);

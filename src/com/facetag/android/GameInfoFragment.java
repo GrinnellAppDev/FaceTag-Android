@@ -2,7 +2,6 @@ package com.facetag.android;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,10 +22,8 @@ import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
 import com.facetag.android.utils.ImageLoaderUtility;
 import com.facetag_android.R;
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 /**
@@ -54,9 +51,11 @@ public class GameInfoFragment extends SherlockFragment {
 		mView = inflater.inflate(R.layout.fragment_game_info, container, false);
 
 		mActivity = (GameScreenActivity) getSherlockActivity();
+	    mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	    
 		mGame = mActivity.mGame;
 		setHasOptionsMenu(true);
-
+		
 		// Find views
 		targetInfo = (TextView) mView.findViewById(R.id.target_description);
 		//TODO replace this with animation
@@ -65,7 +64,7 @@ public class GameInfoFragment extends SherlockFragment {
 		gameName = (TextView) mView.findViewById(R.id.game_name);
 
 		gameName.setText("Game: " + mGame.getName());
-
+		
 		/*
 		// Find Photos to vote on
 		// Add this to the list fragment to display number of photos to vote on in the list
@@ -126,6 +125,9 @@ public class GameInfoFragment extends SherlockFragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
+	    	case android.R.id.home:
+	    		mActivity.getSupportFragmentManager().popBackStack();
+	    		return true;
 	        case R.id.action_camera:
 	        	launchCamera();
 				return true;
@@ -164,4 +166,6 @@ public class GameInfoFragment extends SherlockFragment {
 		intent.putExtra("target", mTarget.getObjectId());
 		startActivity(intent);
 	}
+	
+
 }

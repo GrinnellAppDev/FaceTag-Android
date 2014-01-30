@@ -61,7 +61,6 @@ public class PhotoEvalFragment extends SherlockFragment {
 		evalPic = (ImageView) mView.findViewById(R.id.eval_photo);
 		startLoadingAnim();
 
-		
 		spin = AnimationUtils.loadAnimation(mActivity, R.anim.loading);
 		evalPic.setAnimation(spin);
 		

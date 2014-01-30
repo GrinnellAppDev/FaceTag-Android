@@ -57,7 +57,7 @@
         <activity
             android:name="com.facetag.android.LoginActivity"
             android:label="@string/title_activity_login"           
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
              >
         </activity>
 
@@ -70,7 +70,8 @@
         <activity
             android:name="com.facetag.android.CreateGameActivity"
             android:label="@string/title_activity_create_game"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" 
+            android:parentActivityName= "com.facetag.android.GameScreenActivity">
              >
         </activity>
         <activity

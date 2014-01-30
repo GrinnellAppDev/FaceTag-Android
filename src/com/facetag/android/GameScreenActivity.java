@@ -8,11 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
@@ -32,12 +28,12 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 	public Game mGame;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game_screen);
 		
 		ParseAnalytics.trackAppOpened(getIntent());
-	    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 		//Get the user object for the current user
 		mUser = ParseUser.getCurrentUser();
@@ -54,8 +50,8 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 
 		GameListFragment listfrag = new GameListFragment();
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.fragment_container, listfrag).commit();
-	}
+				.replace(R.id.fragment_container, listfrag).addToBackStack(TAG).commit();
+			}
 
 	public void loadGames() {
 		mUser = ParseUser.getCurrentUser();
