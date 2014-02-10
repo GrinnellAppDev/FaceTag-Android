@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.facetag.android.parse.Game;
 import com.facetag_android.R;
@@ -28,13 +28,15 @@ import com.parse.ParseUser;
 // Creates a Games
 //TODO Allow user to invite specific friends
 // use a new list fragment
-public class CreateGameActivity extends SherlockActivity implements
+public class CreateGameActivity extends SherlockFragmentActivity implements
 		OnItemSelectedListener {
 	private final String TAG = "Create Game";
 	List<String> participants = new ArrayList<String>();
 	int maxPoints = 5;
 	ParseUser mUser = ParseUser.getCurrentUser();
+	CreateGameActivity mActivity = this;
 	HashMap<String, Integer> scoreBoard = new HashMap<String, Integer>();
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class CreateGameActivity extends SherlockActivity implements
 		setContentView(R.layout.activity_create_game);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		getSupportFragmentManager().findFragmentById(R.id.invite_fragment);
 
 		// Init score max spinner
 		String[] array = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
@@ -72,6 +76,16 @@ public class CreateGameActivity extends SherlockActivity implements
 		});
 
 		setSubmitButton();
+		
+		Button inviteButton = (Button) findViewById(R.id.invite_button);
+		inviteButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				InvitePlayersFragment inviteFrag = new InvitePlayersFragment();
+				mActivity.getSupportFragmentManager().beginTransaction()
+						.replace(R.id.invite_fragment, inviteFrag).addToBackStack(TAG).commit();
+			}
+		});
 	}
 
 	// Item selector for spinner

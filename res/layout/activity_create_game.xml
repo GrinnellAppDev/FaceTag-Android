@@ -42,4 +42,23 @@
         android:background="@drawable/rec_button"
         android:text="Begin Game" />
 
+    <Button
+        android:id="@+id/invite_button"
+        android:layout_width="75dip"
+        android:layout_height="75dip"
+        android:layout_below="@+id/submit"
+        android:layout_marginTop="43dp"
+        android:background="@drawable/rec_button"
+        android:text="Invite Players" />
+
+    <fragment
+        android:id="@+id/invite_fragment"
+        android:name="com.facetag.android.InvitePlayersFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        tools:layout="@layout/fragment_invite_list" >
+    </fragment>
+
 </RelativeLayout>

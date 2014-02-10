@@ -3,11 +3,9 @@ package com.facetag.android;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +14,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.facetag.android.GameListFragment.GameArrayAdapter;
-import com.facetag.android.parse.Game;
 import com.facetag_android.R;
 
+/* Display a list of players in the selected game and their coresponding scores */
 public class ScoresListFragment extends SherlockFragment {
 	final String TAG = "Score Board";
 	GameScreenActivity mActivity;
@@ -27,15 +24,16 @@ public class ScoresListFragment extends SherlockFragment {
 	HashMap<String, Integer> mScoreBoard;
 	ArrayList<scorePair> mScoreList = new ArrayList<scorePair>();
 
-	/**
-	 * Display list of user scores TODO break down hashmap into array
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		mActivity = (GameScreenActivity) getSherlockActivity();
 		mScoreBoard = mActivity.mGame.getScoreBoard();
+		ArrayList<String> players = (ArrayList<String>) mActivity.mGame.getParticipants();
+		
+		
+		
 		Iterator<String> keys = mScoreBoard.keySet().iterator();
 		while (keys.hasNext()) {
 			String thisPlayer = keys.next();

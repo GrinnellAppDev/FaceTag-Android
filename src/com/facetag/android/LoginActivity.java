@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.model.GraphUser;
@@ -22,10 +22,11 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
 /* Login to facebook here and link to parse */
-public class LoginActivity extends SherlockActivity {
+public class LoginActivity extends SherlockFragmentActivity {
 	private final String TAG = "LoginActivity";
 	static TextView testText;
 	Button loginButton;
+	ArrayList<ParseUser> invitedUsers = new ArrayList<ParseUser>();
 
 	/*
 	 * Logs in to facebook
