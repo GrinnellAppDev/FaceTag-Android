@@ -16,5 +16,6 @@
     <string name="action_newgame">New Game</string>
     <string name="action_camera">Camera</string>
     <string name="action_photos">Photo Eval</string>
+    <string name="action_scores">Scores</string>
 
 </resources>

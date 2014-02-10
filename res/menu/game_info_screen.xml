@@ -10,5 +10,11 @@
         android:icon="@drawable/ic_action_picture"
         android:title="@string/action_photos"
         android:showAsAction = "ifRoom"/>
+    
+    <item
+        android:id="@+id/action_scores"
+        android:text="Scores"
+        android:title="@string/action_scores"
+        android:showAsAction = "ifRoom"/>
 
 </menu>

@@ -134,12 +134,14 @@ public class GameInfoFragment extends SherlockFragment {
 	        case R.id.action_photos:
 				launchPhotoEval();
 	            return true;
+	        case R.id.action_scores:
+				viewScores();
+	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-	
-	//TODO
+
 	public void viewScores() {
 		Fragment scoresList = new ScoresListFragment();
 		mActivity.getSupportFragmentManager().beginTransaction()
