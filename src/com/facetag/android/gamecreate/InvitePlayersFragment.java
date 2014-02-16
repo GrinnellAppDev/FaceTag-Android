@@ -82,7 +82,6 @@ public class InvitePlayersFragment extends SherlockFragment {
 			View rowView = inflater.inflate(layoutResourceId, parent, false);
 
 			TextView nameText = (TextView) rowView.findViewById(R.id.invitee);
-		//	nameText.setText(users.get(position).getUsername());
 			nameText.setText(users.get(position).getString("fullName"));
 
 			
