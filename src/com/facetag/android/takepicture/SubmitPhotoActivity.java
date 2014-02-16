@@ -1,4 +1,4 @@
-package com.facetag.android;
+package com.facetag.android.takepicture;
 
 import java.util.ArrayList;
 

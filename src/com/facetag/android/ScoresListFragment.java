@@ -32,8 +32,6 @@ public class ScoresListFragment extends SherlockFragment {
 		mScoreBoard = mActivity.mGame.getScoreBoard();
 		ArrayList<String> players = (ArrayList<String>) mActivity.mGame.getParticipants();
 		
-		
-		
 		Iterator<String> keys = mScoreBoard.keySet().iterator();
 		while (keys.hasNext()) {
 			String thisPlayer = keys.next();

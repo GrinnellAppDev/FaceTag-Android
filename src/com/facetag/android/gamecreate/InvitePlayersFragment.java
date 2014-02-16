@@ -1,4 +1,4 @@
-package com.facetag.android;
+package com.facetag.android.gamecreate;
 
 import java.util.ArrayList;
 import java.util.List;

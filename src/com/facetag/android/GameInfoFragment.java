@@ -20,6 +20,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.facetag.android.parse.Game;
 import com.facetag.android.parse.PhotoTag;
+import com.facetag.android.takepicture.CameraActivity;
 import com.facetag.android.utils.ImageLoaderUtility;
 import com.facetag_android.R;
 import com.parse.GetCallback;
