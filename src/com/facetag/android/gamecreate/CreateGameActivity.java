@@ -28,115 +28,22 @@ import com.parse.ParseUser;
 // Creates a Games
 //TODO Allow user to invite specific friends
 // use a new list fragment
-public class CreateGameActivity extends SherlockFragmentActivity implements
-		OnItemSelectedListener {
+public class CreateGameActivity extends SherlockFragmentActivity {
 	private final String TAG = "Create Game";
 	List<String> participants = new ArrayList<String>();
 	int maxPoints = 5;
 	ParseUser mUser = ParseUser.getCurrentUser();
 	CreateGameActivity mActivity = this;
 	HashMap<String, Integer> scoreBoard = new HashMap<String, Integer>();
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_game);
-
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		getSupportFragmentManager().findFragmentById(R.id.invite_fragment);
-
-		// Init score max spinner
-		String[] array = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
-		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, array);
-		Spinner maxPointsSpinner = (Spinner) findViewById(R.id.points_win);
-		maxPointsSpinner.setAdapter(spinnerAdapter);
-		maxPointsSpinner.setOnItemSelectedListener(this);
-
-		ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
-
-		// Add alternate way to select friends to invite
-		userQuery.findInBackground(new FindCallback<ParseUser>() {
-			public void done(List<ParseUser> users, ParseException e) {
-				if (e == null) {
-					scoreBoard.put(mUser.getObjectId(), 0);
-					participants.add(mUser.getObjectId());
-					Log.d("Query", "Retrieved " + users.size() + " users");
-					for (int i = 0; i < users.size(); i++) {
-						participants.add(users.get(i).getObjectId());
-						scoreBoard.put(users.get(i).getObjectId(), 0);
-					}
-					Log.i(TAG, scoreBoard.toString());
-				} else {
-					Log.d("Query", "Error: " + e.getMessage());
-				}
-			}
-		});
-
-		setSubmitButton();
-		
-		Button inviteButton = (Button) findViewById(R.id.invite_button);
-		inviteButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				InvitePlayersFragment inviteFrag = new InvitePlayersFragment();
-				mActivity.getSupportFragmentManager().beginTransaction()
-						.replace(R.id.invite_fragment, inviteFrag).addToBackStack(TAG).commit();
-			}
-		});
-	}
-
-	// Item selector for spinner
-	public void onItemSelected(AdapterView<?> parent, View view, int pos,
-			long id) {
-		maxPoints = pos + 1;
-	}
-
-	public void onNothingSelected(AdapterView<?> parent) {
-		// Default max points is 5
-		maxPoints = 5;
-	}
-
-	public void setSubmitButton() {
-		// Add a listener to the Capture button
-		Button flashButton = (Button) findViewById(R.id.submit);
-		flashButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Game newGame = new Game();
-				newGame.setScoreBoard(scoreBoard);
-				EditText nameField = (EditText) findViewById(R.id.name_field);
-				String inputName = nameField.getText().toString();
-
-				if (inputName.length() == 0)
-					newGame.setName(mUser.getString("firstName") + "'s game");
-				else
-					newGame.setName(inputName);
-
-				newGame.setParticipants(participants);
-				newGame.setPointsToWin(maxPoints);
-				newGame.setTimePerTurn(20);
-				newGame.saveInBackground();
-				Toast.makeText(getApplicationContext(),
-						"Game Created: " + newGame.getName(),
-						Toast.LENGTH_SHORT).show();
-				finish();
-			}
-		});
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
-		default:
-			super.onOptionsItemSelected(item);
-		}
-		return true;
+		GameSettingsFragment settingsFrag = new GameSettingsFragment();
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.create_fragment_container, settingsFrag)
+				.addToBackStack(TAG).commit();
 	}
 }
