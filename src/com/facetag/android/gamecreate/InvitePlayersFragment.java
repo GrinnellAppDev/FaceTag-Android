@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,7 +29,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 	ArrayList<ParseUser> mUsers = new ArrayList<ParseUser>();
 	ListView mListView;
 	View fragView;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,21 +45,48 @@ public class InvitePlayersFragment extends SherlockFragment {
 				false);
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		mListView = (ListView) v.findViewById(R.id.invitelist);
-		
-		//get players on parse
+
+		// get players on parse
 		ParseQuery<ParseUser> query = ParseUser.getQuery();
 		query.findInBackground(new FindCallback<ParseUser>() {
-		  public void done(List<ParseUser> users, ParseException e) {
-		    if (e == null) {
-		    	Log.i(TAG, users.size() + " Users Retrieved");
-		    	mUsers.addAll(users);
-		    	ArrayAdapter<ParseUser> inviteAdapter = new ScoreListAdapter(mActivity,
-						R.layout.invite_list_adapter, mUsers);
-				mListView.setAdapter(inviteAdapter);
-		    } else {
-		    	Log.e(TAG, e.toString());
-		    }
-		  }
+			public void done(List<ParseUser> users, ParseException e) {
+				if (e == null) {
+					Log.i(TAG, users.size() + " Users Retrieved");
+					mUsers.addAll(users);
+					ArrayAdapter<ParseUser> inviteAdapter = new ScoreListAdapter(
+							mActivity, R.layout.invite_list_adapter, mUsers);
+					mListView.setAdapter(inviteAdapter);
+					// On Click Listener: add user to participant list on click
+					mListView
+							.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+								@Override
+								public void onItemClick(AdapterView<?> arg0,
+										View arg1, int position, long arg3) {
+									ParseUser selectedUser = (ParseUser) mListView
+											.getItemAtPosition(position);
+									CheckedTextView listText = (CheckedTextView) arg1
+											.findViewById(R.id.invitee);
+									
+									//remove the play if they are already on the list
+									if (mActivity.participants.contains(selectedUser.getObjectId())){
+										Log.i(TAG, selectedUser.getString("fullName") + "was removed");
+										mActivity.participants.remove(selectedUser.getObjectId());
+										arg1.setBackgroundColor(getResources()
+												.getColor(R.color.Yellow));
+										listText.toggle();
+									}
+									
+									mActivity.participants.add(selectedUser
+											.getObjectId());
+									arg1.setBackgroundColor(getResources()
+											.getColor(R.color.Red));
+									listText.toggle();
+								}
+							});
+				} else {
+					Log.e(TAG, e.toString());
+				}
+			}
 		});
 		return v;
 	}
@@ -82,13 +111,17 @@ public class InvitePlayersFragment extends SherlockFragment {
 			View rowView = inflater.inflate(layoutResourceId, parent, false);
 
 			TextView nameText = (TextView) rowView.findViewById(R.id.invitee);
+			//If the user has been selected, highlight their row
+			if (mActivity.participants.contains(users.get(position)
+					.getObjectId())) {
+				rowView.setBackgroundColor(getResources().getColor(R.color.Red));
+			}
 			nameText.setText(users.get(position).getString("fullName"));
 
-			
 			return rowView;
 		}
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle presses on the action bar items
@@ -96,7 +129,8 @@ public class InvitePlayersFragment extends SherlockFragment {
 		case android.R.id.home:
 			GameSettingsFragment settingsFrag = new GameSettingsFragment();
 			mActivity.getSupportFragmentManager().beginTransaction()
-					.replace(R.id.create_fragment_container, settingsFrag).commit();
+					.replace(R.id.create_fragment_container, settingsFrag)
+					.commit();
 			return true;
 		default:
 			super.onOptionsItemSelected(item);

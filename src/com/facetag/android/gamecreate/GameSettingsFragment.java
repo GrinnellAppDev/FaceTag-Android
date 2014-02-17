@@ -61,18 +61,6 @@ OnItemSelectedListener {
 
 		ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
 
-		/*
-		 * // Add alternate way to select friends to invite
-		 * userQuery.findInBackground(new FindCallback<ParseUser>() { public
-		 * void done(List<ParseUser> users, ParseException e) { if (e == null) {
-		 * scoreBoard.put(mUser.getObjectId(), 0);
-		 * participants.add(mUser.getObjectId()); Log.d("Query", "Retrieved " +
-		 * users.size() + " users"); for (int i = 0; i < users.size(); i++) {
-		 * participants.add(users.get(i).getObjectId());
-		 * scoreBoard.put(users.get(i).getObjectId(), 0); } Log.i(TAG,
-		 * scoreBoard.toString()); } else { Log.d("Query", "Error: " +
-		 * e.getMessage()); } } });
-		 */
 		setSubmitButton();
 
 		Button inviteButton = (Button) fragView.findViewById(R.id.invite_button);
