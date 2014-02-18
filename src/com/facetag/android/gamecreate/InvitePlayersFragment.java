@@ -101,7 +101,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 			TextView nameText = (TextView) rowView.findViewById(R.id.invitee);
 			// If the user has been selected, highlight their row
 			if (mActivity.participants.contains(users.get(position).getObjectId())) {
-				rowView.setBackgroundColor(getResources().getColor(R.color.Red));
+				rowView.setBackgroundColor(getResources().getColor(R.color.CoralBlue));
 			}
 			nameText.setText(users.get(position).getString("fullName"));
 

@@ -41,6 +41,7 @@ public class GameInfoFragment extends SherlockFragment {
 	ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
 	final String TAG = "Game Info Screen";
 	GameScreenActivity mActivity;
+	Boolean scoresShowing = false;
 
 	TextView targetInfo;
 	ImageView targetPic;
@@ -127,7 +128,11 @@ public class GameInfoFragment extends SherlockFragment {
 			launchPhotoEval();
 			return true;
 		case R.id.action_scores:
-			viewScores();
+			if (scoresShowing) {
+				mActivity.getSupportFragmentManager().popBackStack();
+				scoresShowing = false;
+			} else
+				viewScores();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -135,10 +140,14 @@ public class GameInfoFragment extends SherlockFragment {
 	}
 
 	public void viewScores() {
+		scoresShowing = true;
 		Fragment scoresList = new ScoresListFragment();
-		mActivity.getSupportFragmentManager().beginTransaction()
-		//		.replace(R.id.fragment_container, scoresList).addToBackStack(TAG).commit();
-		.add(R.id.fragment_container, scoresList).addToBackStack(TAG).commit();
+		mActivity
+				.getSupportFragmentManager()
+				.beginTransaction()
+				.setCustomAnimations(R.anim.left_slide_in, R.anim.left_slide_out,
+						R.anim.right_slide_in, R.anim.right_slide_out)
+				.add(R.id.fragment_container, scoresList).addToBackStack(TAG).commit();
 	}
 
 	public void launchPhotoEval() {

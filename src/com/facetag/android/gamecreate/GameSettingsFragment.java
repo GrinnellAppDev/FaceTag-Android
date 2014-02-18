@@ -25,16 +25,15 @@ import com.facetag_android.R;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class GameSettingsFragment extends SherlockFragment implements
-OnItemSelectedListener {
+public class GameSettingsFragment extends SherlockFragment implements OnItemSelectedListener {
 
 	final String TAG = "Invite Screen";
 	CreateGameActivity mActivity;
 	ArrayList<ParseUser> mUsers = new ArrayList<ParseUser>();
 	ListView mListView;
 	View fragView;
-	
-	
+	Boolean inviteShowing = false;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,10 +43,8 @@ OnItemSelectedListener {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		fragView = inflater.inflate(R.layout.fragment_game_settings, container,
-				false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		fragView = inflater.inflate(R.layout.fragment_game_settings, container, false);
 
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -67,10 +64,20 @@ OnItemSelectedListener {
 		inviteButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				InvitePlayersFragment inviteFrag = new InvitePlayersFragment();
-				mActivity.getSupportFragmentManager().beginTransaction()
-						.add(R.id.create_fragment_container, inviteFrag)
-						.addToBackStack(TAG).commit();
+				if (inviteShowing) {
+					inviteShowing = false;
+					mActivity.getSupportFragmentManager().popBackStack();
+				} else {
+					inviteShowing = true;
+					InvitePlayersFragment inviteFrag = new InvitePlayersFragment();
+					mActivity
+							.getSupportFragmentManager()
+							.beginTransaction()
+							.setCustomAnimations(R.anim.left_slide_in, R.anim.left_slide_out,
+									R.anim.right_slide_in, R.anim.right_slide_out)
+							.add(R.id.create_fragment_container, inviteFrag).addToBackStack(TAG)
+							.commit();
+				}
 			}
 		});
 
@@ -82,8 +89,7 @@ OnItemSelectedListener {
 		private final ArrayList<ParseUser> users;
 		int layoutResourceId;
 
-		public ScoreListAdapter(Context context, int layoutResourceId,
-				ArrayList<ParseUser> users) {
+		public ScoreListAdapter(Context context, int layoutResourceId, ArrayList<ParseUser> users) {
 			super(context, layoutResourceId, users);
 			this.context = context;
 			this.users = users;
@@ -104,8 +110,7 @@ OnItemSelectedListener {
 	}
 
 	// Item selector for spinner
-	public void onItemSelected(AdapterView<?> parent, View view, int pos,
-			long id) {
+	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		mActivity.maxPoints = pos + 1;
 	}
 
@@ -135,8 +140,7 @@ OnItemSelectedListener {
 				newGame.setTimePerTurn(20);
 				newGame.saveInBackground();
 				Toast.makeText(mActivity.getApplicationContext(),
-						"Game Created: " + newGame.getName(),
-						Toast.LENGTH_SHORT).show();
+						"Game Created: " + newGame.getName(), Toast.LENGTH_SHORT).show();
 				mActivity.finish();
 			}
 		});
