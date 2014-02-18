@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
@@ -27,6 +27,7 @@ public class GameListFragment extends SherlockFragment {
 	GameScreenActivity mActivity;
 	ListView mListView;
 	final String TAG = "List Fragment";
+	int backButtonCount;
 
 	/**
 	 * 
@@ -42,11 +43,9 @@ public class GameListFragment extends SherlockFragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View v = inflater
-				.inflate(R.layout.fragment_game_list, container, false);
-		
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.fragment_game_list, container, false);
+
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 		ArrayAdapter<Game> gameAdapter = new GameArrayAdapter(mActivity,
@@ -55,10 +54,8 @@ public class GameListFragment extends SherlockFragment {
 		mListView.setAdapter(gameAdapter);
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-				Game selectedGame = (Game) mListView
-						.getItemAtPosition(position);
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				Game selectedGame = (Game) mListView.getItemAtPosition(position);
 				gameInfo(selectedGame);
 			}
 		});
@@ -99,8 +96,7 @@ public class GameListFragment extends SherlockFragment {
 		mActivity.mGame = game;
 		Fragment gameInfo = new GameInfoFragment();
 		mActivity.getSupportFragmentManager().beginTransaction()
-				.replace(R.id.fragment_container, gameInfo).addToBackStack(TAG)
-				.commit();
+				.replace(R.id.fragment_container, gameInfo).addToBackStack(TAG).commit();
 	}
 
 	// Array Adapter for games list
@@ -109,8 +105,7 @@ public class GameListFragment extends SherlockFragment {
 		private final ArrayList<Game> games;
 		int layoutResourceId;
 
-		public GameArrayAdapter(Context context, int layoutResourceId,
-				ArrayList<Game> games) {
+		public GameArrayAdapter(Context context, int layoutResourceId, ArrayList<Game> games) {
 			super(context, layoutResourceId, games);
 			this.context = context;
 			this.games = games;
@@ -122,8 +117,7 @@ public class GameListFragment extends SherlockFragment {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View rowView = inflater.inflate(layoutResourceId, parent, false);
-			TextView textView = (TextView) rowView
-					.findViewById(R.id.game_title);
+			TextView textView = (TextView) rowView.findViewById(R.id.game_title);
 			textView.setText(games.get(position).getName());
 
 			return rowView;

@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.MenuItem;
+import com.facetag.android.gamecreate.GameSettingsFragment;
 import com.facetag_android.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -37,20 +39,17 @@ public class ScoresListFragment extends SherlockFragment {
 
 		mActivity = (GameScreenActivity) getSherlockActivity();
 		mScoreBoard = mActivity.mGame.getScoreBoard();
-
+		setHasOptionsMenu(true);
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_scores_list, container,
-				false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.fragment_scores_list, container, false);
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		mListView = (ListView) v.findViewById(R.id.scorelist);
 
 		// Fetch the full names of each user
-		ArrayList<String> players = (ArrayList<String>) mActivity.mGame
-				.getParticipants();
+		ArrayList<String> players = (ArrayList<String>) mActivity.mGame.getParticipants();
 		ParseQuery<ParseUser> query = ParseUser.getQuery();
 		query.whereContainedIn("objectId", players);
 		query.findInBackground(new FindCallback<ParseUser>() {
@@ -60,13 +59,11 @@ public class ScoresListFragment extends SherlockFragment {
 					Iterator<ParseUser> userIter = mUsers.iterator();
 					while (userIter.hasNext()) {
 						ParseUser thisPlayer = userIter.next();
-						scorePair thisPair = new scorePair(thisPlayer
-								.getString("fullName"), mScoreBoard
-								.get(thisPlayer.getObjectId()));
+						scorePair thisPair = new scorePair(thisPlayer.getString("fullName"), mScoreBoard.get(thisPlayer
+								.getObjectId()));
 						mScoreList.add(thisPair);
-						ArrayAdapter<scorePair> scoreAdapter = new ScoreListAdapter(
-								mActivity, R.layout.score_list_adapter,
-								mScoreList);
+						ArrayAdapter<scorePair> scoreAdapter = new ScoreListAdapter(mActivity,
+								R.layout.score_list_adapter, mScoreList);
 						mListView.setAdapter(scoreAdapter);
 					}
 				} else {
@@ -75,6 +72,19 @@ public class ScoresListFragment extends SherlockFragment {
 			}
 		});
 		return v;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			mActivity.getSupportFragmentManager().popBackStack();
+			return true;
+		default:
+			super.onOptionsItemSelected(item);
+		}
+		return true;
 	}
 
 	// Object in order to transfer hashmap into an array
@@ -101,8 +111,7 @@ public class ScoresListFragment extends SherlockFragment {
 		private final ArrayList<scorePair> scores;
 		int layoutResourceId;
 
-		public ScoreListAdapter(Context context, int layoutResourceId,
-				ArrayList<scorePair> scores) {
+		public ScoreListAdapter(Context context, int layoutResourceId, ArrayList<scorePair> scores) {
 			super(context, layoutResourceId, scores);
 			this.context = context;
 			this.scores = scores;
@@ -111,11 +120,9 @@ public class ScoresListFragment extends SherlockFragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater = (LayoutInflater) context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View rowView = inflater.inflate(layoutResourceId, parent, false);
-			TextView playerText = (TextView) rowView
-					.findViewById(R.id.playername);
+			TextView playerText = (TextView) rowView.findViewById(R.id.playername);
 			playerText.setText(scores.get(position).getPlayer());
 
 			TextView scoreText = (TextView) rowView.findViewById(R.id.score);

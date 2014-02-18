@@ -27,10 +27,11 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
 /**
  * 
  * Show the target user and give buttons for camera and eval photos
- *
+ * 
  */
 public class GameInfoFragment extends SherlockFragment {
 	ParseUser mUser = ParseUser.getCurrentUser();
@@ -47,47 +48,38 @@ public class GameInfoFragment extends SherlockFragment {
 	TextView newPics;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mView = inflater.inflate(R.layout.fragment_game_info, container, false);
 
 		mActivity = (GameScreenActivity) getSherlockActivity();
-	    mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-	    
+		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 		mGame = mActivity.mGame;
 		setHasOptionsMenu(true);
-		
+
 		// Find views
 		targetInfo = (TextView) mView.findViewById(R.id.target_description);
-		//TODO replace this with animation
+		// TODO replace this with animation
 		targetPic = (ImageView) mView.findViewById(R.id.target_photo);
-		
+
 		gameName = (TextView) mView.findViewById(R.id.game_name);
 
 		gameName.setText("Game: " + mGame.getName());
-		
+
 		/*
-		// Find Photos to vote on
-		// Add this to the list fragment to display number of photos to vote on in the list
-		ParseQuery<ParseObject> pic_query = ParseQuery.getQuery("PhotoTag");
-		pic_query.whereEqualTo("game", mGame.getObjectId());
-		pic_query.whereNotEqualTo("usersArray", mUser);
-		pic_query.findInBackground(new FindCallback<ParseObject>() {
-			public void done(List<ParseObject> pictureList, ParseException e) {
-				if (e == null) {
-					mPhotos.clear();
-					for (int i = 0; i < pictureList.size(); i++) {
-						PhotoTag thisPic = (PhotoTag) pictureList.get(i);
-						mPhotos.add(thisPic);
-					}
-					mActivity.mPhotos.clear();
-					mActivity.mPhotos.addAll(mPhotos);
-				} else {
-					Log.d("score", "Error: " + e.getMessage());
-				}
-			}
-		});
-*/
+		 * // Find Photos to vote on // Add this to the list fragment to display
+		 * number of photos to vote on in the list ParseQuery<ParseObject>
+		 * pic_query = ParseQuery.getQuery("PhotoTag");
+		 * pic_query.whereEqualTo("game", mGame.getObjectId());
+		 * pic_query.whereNotEqualTo("usersArray", mUser);
+		 * pic_query.findInBackground(new FindCallback<ParseObject>() { public
+		 * void done(List<ParseObject> pictureList, ParseException e) { if (e ==
+		 * null) { mPhotos.clear(); for (int i = 0; i < pictureList.size(); i++)
+		 * { PhotoTag thisPic = (PhotoTag) pictureList.get(i);
+		 * mPhotos.add(thisPic); } mActivity.mPhotos.clear();
+		 * mActivity.mPhotos.addAll(mPhotos); } else { Log.d("score", "Error: "
+		 * + e.getMessage()); } } });
+		 */
 
 		// Find Target
 		HashMap<String, String> pairings = mGame.getPairings();
@@ -104,12 +96,11 @@ public class GameInfoFragment extends SherlockFragment {
 					Log.d(TAG, "Target: " + user.getString("fullName"));
 					mTarget = user;
 					// Set target info in view
-					targetInfo.setText("Target: "
-							+ mTarget.getString("fullName"));
-					//Load target FB image
+					targetInfo.setText("Target: " + mTarget.getString("fullName"));
+					// Load target FB image
 					ImageLoaderUtility imageLoader = new ImageLoaderUtility();
-					imageLoader.loadImage(
-							mTarget.getString("profilePictureURL"), targetPic, mActivity);
+					imageLoader.loadImage(mTarget.getString("profilePictureURL"), targetPic,
+							mActivity);
 				}
 			}
 		});
@@ -121,44 +112,42 @@ public class GameInfoFragment extends SherlockFragment {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		inflater.inflate(R.menu.game_info_screen, menu);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle presses on the action bar items
-	    switch (item.getItemId()) {
-	    	case android.R.id.home:
-	    		mActivity.getSupportFragmentManager().popBackStack();
-	    		return true;
-	        case R.id.action_camera:
-	        	launchCamera();
-				return true;
-	        case R.id.action_photos:
-				launchPhotoEval();
-	            return true;
-	        case R.id.action_scores:
-				viewScores();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			mActivity.getSupportFragmentManager().popBackStack();
+			return true;
+		case R.id.action_camera:
+			launchCamera();
+			return true;
+		case R.id.action_photos:
+			launchPhotoEval();
+			return true;
+		case R.id.action_scores:
+			viewScores();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public void viewScores() {
 		Fragment scoresList = new ScoresListFragment();
 		mActivity.getSupportFragmentManager().beginTransaction()
-				.addToBackStack(TAG)
-				.replace(R.id.fragment_container, scoresList).commit();
+				.replace(R.id.fragment_container, scoresList).addToBackStack(TAG).commit();
 	}
 
 	public void launchPhotoEval() {
-		//Do not switch to fragment if no photos to rank
+		// Do not switch to fragment if no photos to rank
 		if (mPhotos.size() == 0) {
-			Toast.makeText(getActivity().getApplicationContext(),
-					"No More Photos To Rank", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity().getApplicationContext(), "No More Photos To Rank",
+					Toast.LENGTH_SHORT).show();
 		} else {
 			Fragment photoEval = new PhotoEvalFragment();
 			mActivity.getSupportFragmentManager().beginTransaction()
-					.addToBackStack(TAG)
 					.replace(R.id.fragment_container, photoEval).commit();
 		}
 	}
@@ -169,6 +158,5 @@ public class GameInfoFragment extends SherlockFragment {
 		intent.putExtra("target", mTarget.getObjectId());
 		startActivity(intent);
 	}
-	
 
 }
