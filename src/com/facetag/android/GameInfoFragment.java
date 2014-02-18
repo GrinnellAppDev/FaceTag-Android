@@ -137,7 +137,8 @@ public class GameInfoFragment extends SherlockFragment {
 	public void viewScores() {
 		Fragment scoresList = new ScoresListFragment();
 		mActivity.getSupportFragmentManager().beginTransaction()
-				.replace(R.id.fragment_container, scoresList).addToBackStack(TAG).commit();
+		//		.replace(R.id.fragment_container, scoresList).addToBackStack(TAG).commit();
+		.add(R.id.fragment_container, scoresList).addToBackStack(TAG).commit();
 	}
 
 	public void launchPhotoEval() {

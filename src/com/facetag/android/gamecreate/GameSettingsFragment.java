@@ -69,7 +69,7 @@ OnItemSelectedListener {
 			public void onClick(View v) {
 				InvitePlayersFragment inviteFrag = new InvitePlayersFragment();
 				mActivity.getSupportFragmentManager().beginTransaction()
-						.replace(R.id.create_fragment_container, inviteFrag)
+						.add(R.id.create_fragment_container, inviteFrag)
 						.addToBackStack(TAG).commit();
 			}
 		});

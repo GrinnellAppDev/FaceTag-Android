@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="match_parent"
+    android:layout_gravity="right"
+    android:background="@color/White"
     android:orientation="vertical" >
 
     <ListView
@@ -9,6 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:footerDividersEnabled="true"
-        android:headerDividersEnabled="true" />
+        android:headerDividersEnabled="true"/>
 
 </LinearLayout>

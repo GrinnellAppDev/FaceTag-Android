@@ -38,7 +38,6 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/circular_button"
-                android:text="Capture"
                 android:textColor="#fff" />
 
             <ImageButton

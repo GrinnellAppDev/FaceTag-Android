@@ -25,9 +25,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-// Creates a Games
-//TODO Allow user to invite specific friends
-// use a new list fragment
+// Creates a Game
 public class CreateGameActivity extends SherlockFragmentActivity {
 	private final String TAG = "Create Game";
 	List<String> participants = new ArrayList<String>();
@@ -43,7 +41,6 @@ public class CreateGameActivity extends SherlockFragmentActivity {
 		
 		GameSettingsFragment settingsFrag = new GameSettingsFragment();
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.create_fragment_container, settingsFrag)
-				.addToBackStack(TAG).commit();
+				.replace(R.id.create_fragment_container, settingsFrag).commit();
 	}
 }
