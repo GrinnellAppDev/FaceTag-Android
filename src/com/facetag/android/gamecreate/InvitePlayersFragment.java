@@ -69,7 +69,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 								mActivity.participants.remove(selectedUser.getObjectId());
 							} else {
 								mActivity.participants.add(selectedUser.getObjectId());
-								arg1.setBackgroundColor(getResources().getColor(R.color.Red));
+								arg1.setBackgroundColor(getResources().getColor(R.color.CoralBlue));
 							}
 						}
 					});
