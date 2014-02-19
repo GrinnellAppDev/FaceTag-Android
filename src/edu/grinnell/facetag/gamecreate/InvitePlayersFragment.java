@@ -1,4 +1,4 @@
-package com.facetag.android.gamecreate;
+package edu.grinnell.facetag.gamecreate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,9 +114,6 @@ public class InvitePlayersFragment extends SherlockFragment {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
 		case android.R.id.home:
-		//	GameSettingsFragment settingsFrag = new GameSettingsFragment();
-		//	mActivity.getSupportFragmentManager().beginTransaction()
-		//			.replace(R.id.create_fragment_container, settingsFrag).commit();
 			mActivity.getSupportFragmentManager().popBackStack();
 			return true;
 		default:

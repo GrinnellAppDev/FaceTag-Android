@@ -1,4 +1,4 @@
-package com.facetag.android;
+package edu.grinnell.facetag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,12 +17,13 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
-import com.facetag.android.gamecreate.GameSettingsFragment;
 import com.facetag_android.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import edu.grinnell.facetag.gamecreate.GameSettingsFragment;
 
 /* Display a list of players in the selected game and their coresponding scores */
 public class ScoresListFragment extends SherlockFragment {

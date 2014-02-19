@@ -1,8 +1,7 @@
-package com.facetag.android.parse;
+package edu.grinnell.facetag.parse;
 
 import android.app.Application;
 
-import com.facetag.android.GameScreenActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -11,6 +10,8 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.PushService;
+
+import edu.grinnell.facetag.GameScreenActivity;
 
 public class PrsApplication extends Application {
 

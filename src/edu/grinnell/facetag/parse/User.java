@@ -1,4 +1,4 @@
-package com.facetag.android.parse;
+package edu.grinnell.facetag.parse;
 
 import com.parse.ParseClassName;
 import com.parse.ParseUser;

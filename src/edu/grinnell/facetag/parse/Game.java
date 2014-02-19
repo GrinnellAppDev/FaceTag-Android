@@ -1,4 +1,4 @@
-package com.facetag.android.parse;
+package edu.grinnell.facetag.parse;
 
 import java.util.HashMap;
 import java.util.List;

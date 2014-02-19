@@ -1,4 +1,4 @@
-package com.facetag.android.gamecreate;
+package edu.grinnell.facetag.gamecreate;
 
 import java.util.ArrayList;
 
@@ -20,10 +20,11 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
-import com.facetag.android.parse.Game;
 import com.facetag_android.R;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import edu.grinnell.facetag.parse.Game;
 
 public class GameSettingsFragment extends SherlockFragment implements OnItemSelectedListener {
 

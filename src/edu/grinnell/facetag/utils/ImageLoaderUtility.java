@@ -1,4 +1,4 @@
-package com.facetag.android.utils;
+package edu.grinnell.facetag.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

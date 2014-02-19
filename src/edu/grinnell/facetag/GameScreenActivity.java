@@ -1,4 +1,4 @@
-package com.facetag.android;
+package edu.grinnell.facetag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.facetag.android.parse.Game;
-import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
 import com.parse.FindCallback;
 import com.parse.ParseAnalytics;
@@ -18,6 +16,9 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import edu.grinnell.facetag.parse.Game;
+import edu.grinnell.facetag.parse.PhotoTag;
 
 /* Pull list of parse games here */
 public class GameScreenActivity extends SherlockFragmentActivity {

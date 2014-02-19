@@ -1,4 +1,4 @@
-package com.facetag.android;
+package edu.grinnell.facetag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,15 +18,16 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.facetag.android.parse.Game;
-import com.facetag.android.parse.PhotoTag;
-import com.facetag.android.takepicture.CameraActivity;
-import com.facetag.android.utils.ImageLoaderUtility;
 import com.facetag_android.R;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import edu.grinnell.facetag.parse.Game;
+import edu.grinnell.facetag.parse.PhotoTag;
+import edu.grinnell.facetag.takepicture.CameraActivity;
+import edu.grinnell.facetag.utils.ImageLoaderUtility;
 
 /**
  * 

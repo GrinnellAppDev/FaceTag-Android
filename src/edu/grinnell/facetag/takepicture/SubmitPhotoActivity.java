@@ -1,4 +1,4 @@
-package com.facetag.android.takepicture;
+package edu.grinnell.facetag.takepicture;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -20,6 +19,8 @@ import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import edu.grinnell.facetag.parse.PhotoTag;
 
 public class SubmitPhotoActivity extends SherlockActivity {
 	final String TAG = "Submit Photo";

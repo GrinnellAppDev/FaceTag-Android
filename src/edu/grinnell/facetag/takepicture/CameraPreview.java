@@ -1,4 +1,4 @@
-package com.facetag.android.takepicture;
+package edu.grinnell.facetag.takepicture;
 
 import java.io.IOException;
 

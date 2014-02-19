@@ -1,4 +1,4 @@
-package com.facetag.android;
+package edu.grinnell.facetag;
 
 import java.util.ArrayList;
 import java.util.Collection;

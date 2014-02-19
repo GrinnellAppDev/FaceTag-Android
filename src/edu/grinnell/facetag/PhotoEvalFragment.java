@@ -1,4 +1,4 @@
-package com.facetag.android;
+package edu.grinnell.facetag;
 
 import java.util.ArrayList;
 
@@ -17,12 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.facetag.android.parse.PhotoTag;
 import com.facetag_android.R;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+
+import edu.grinnell.facetag.parse.PhotoTag;
 
 /*
  * Fragment to prompt the user to evaluate photos that they have not yet seen

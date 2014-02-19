@@ -1,4 +1,4 @@
-package com.facetag.android;
+package edu.grinnell.facetag;
 
 import java.util.ArrayList;
 
@@ -19,9 +19,10 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.facetag.android.gamecreate.CreateGameActivity;
-import com.facetag.android.parse.Game;
 import com.facetag_android.R;
+
+import edu.grinnell.facetag.gamecreate.CreateGameActivity;
+import edu.grinnell.facetag.parse.Game;
 
 public class GameListFragment extends SherlockFragment {
 	GameScreenActivity mActivity;

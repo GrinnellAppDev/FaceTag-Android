@@ -1,4 +1,4 @@
-package com.facetag.android.gamecreate;
+package edu.grinnell.facetag.gamecreate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,12 +18,13 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.facetag.android.parse.Game;
 import com.facetag_android.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import edu.grinnell.facetag.parse.Game;
 
 // Creates a Game
 public class CreateGameActivity extends SherlockFragmentActivity {
