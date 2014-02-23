@@ -32,13 +32,28 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/prompt" />
 
+    <TextView
+        android:id="@+id/time_prompt"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/points_win"
+        android:layout_marginTop="25dp"
+        android:text="Time Per Round:"
+        android:textSize="20dp" />
+
+    <Spinner
+        android:id="@+id/round_time"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time_prompt" />
+
     <Button
         android:id="@+id/submit"
         android:layout_width="75dip"
         android:layout_height="75dip"
         android:layout_alignLeft="@+id/points_win"
         android:layout_alignRight="@+id/points_win"
-        android:layout_below="@+id/points_win"
+        android:layout_below="@+id/round_time"
         android:layout_marginTop="43dp"
         android:background="@drawable/rec_button"
         android:text="Begin Game" />

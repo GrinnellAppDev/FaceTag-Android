@@ -2,7 +2,6 @@ package edu.grinnell.facetag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,8 +26,6 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import edu.grinnell.facetag.ScoresListFragment.ScoreListAdapter;
-import edu.grinnell.facetag.ScoresListFragment.scorePair;
 import edu.grinnell.facetag.parse.Game;
 import edu.grinnell.facetag.parse.PhotoTag;
 import edu.grinnell.facetag.takepicture.CameraActivity;
@@ -95,7 +91,7 @@ public class GameInfoFragment extends SherlockFragment {
 		return mView;
 	}
 
-	// Retrieves the target for this game, calls getScores when finished
+	// Retrieves the target for this game, calls getUsers when finished
 	void getTarget() {
 		// Find Target
 		HashMap<String, String> pairings = mGame.getPairings();
@@ -105,7 +101,7 @@ public class GameInfoFragment extends SherlockFragment {
 		query.whereEqualTo("objectId", targetID);
 		query.getFirstInBackground(new GetCallback<ParseUser>() {
 			public void done(ParseUser user, ParseException e) {
-				getScores();
+				getUsers();
 				if (e != null) {
 					Log.e(TAG, e.getMessage());
 				} else if (user == null) {
@@ -124,7 +120,8 @@ public class GameInfoFragment extends SherlockFragment {
 		});
 	}
 
-	void getScores() {
+	//Retrieve the users for the game
+	void getUsers() {
 		// Fetch the full names and score for each player
 		mActivity.mUsers.clear();
 		ArrayList<String> players = (ArrayList<String>) mActivity.mGame.getParticipants();

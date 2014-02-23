@@ -3,11 +3,9 @@ package edu.grinnell.facetag;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +16,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
 import com.facetag_android.R;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import edu.grinnell.facetag.gamecreate.GameSettingsFragment;
 
 /* Display a list of players in the selected game and their coresponding scores */
 public class ScoresListFragment extends SherlockFragment {
@@ -48,16 +41,17 @@ public class ScoresListFragment extends SherlockFragment {
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		mListView = (ListView) v.findViewById(R.id.scorelist);
 
+		// Create scorePair objects to link the user's name with their score
 		Iterator<ParseUser> userIter = mActivity.mUsers.iterator();
 		while (userIter.hasNext()) {
 			ParseUser thisPlayer = userIter.next();
 			scorePair thisPair = new scorePair(thisPlayer.getString("fullName"),
 					mScoreBoard.get(thisPlayer.getObjectId()));
 			mScoreList.add(thisPair);
-			ArrayAdapter<scorePair> scoreAdapter = new ScoreListAdapter(mActivity,
-					R.layout.score_list_adapter, mScoreList);
-			mListView.setAdapter(scoreAdapter);
 		}
+		ArrayAdapter<scorePair> scoreAdapter = new ScoreListAdapter(mActivity,
+				R.layout.score_list_adapter, mScoreList);
+		mListView.setAdapter(scoreAdapter);
 
 		return v;
 	}
