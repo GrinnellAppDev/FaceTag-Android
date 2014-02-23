@@ -32,7 +32,6 @@ public class ScoresListFragment extends SherlockFragment {
 	ListView mListView;
 	HashMap<String, Integer> mScoreBoard;
 	ArrayList<scorePair> mScoreList = new ArrayList<scorePair>();
-	ArrayList<ParseUser> mUsers = new ArrayList<ParseUser>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,29 +48,17 @@ public class ScoresListFragment extends SherlockFragment {
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		mListView = (ListView) v.findViewById(R.id.scorelist);
 
-		// Fetch the full names of each user
-		ArrayList<String> players = (ArrayList<String>) mActivity.mGame.getParticipants();
-		ParseQuery<ParseUser> query = ParseUser.getQuery();
-		query.whereContainedIn("objectId", players);
-		query.findInBackground(new FindCallback<ParseUser>() {
-			public void done(List<ParseUser> users, ParseException e) {
-				if (e == null) {
-					mUsers.addAll(users);
-					Iterator<ParseUser> userIter = mUsers.iterator();
-					while (userIter.hasNext()) {
-						ParseUser thisPlayer = userIter.next();
-						scorePair thisPair = new scorePair(thisPlayer.getString("fullName"), mScoreBoard.get(thisPlayer
-								.getObjectId()));
-						mScoreList.add(thisPair);
-						ArrayAdapter<scorePair> scoreAdapter = new ScoreListAdapter(mActivity,
-								R.layout.score_list_adapter, mScoreList);
-						mListView.setAdapter(scoreAdapter);
-					}
-				} else {
-					Log.e(TAG, e.toString());
-				}
-			}
-		});
+		Iterator<ParseUser> userIter = mActivity.mUsers.iterator();
+		while (userIter.hasNext()) {
+			ParseUser thisPlayer = userIter.next();
+			scorePair thisPair = new scorePair(thisPlayer.getString("fullName"),
+					mScoreBoard.get(thisPlayer.getObjectId()));
+			mScoreList.add(thisPair);
+			ArrayAdapter<scorePair> scoreAdapter = new ScoreListAdapter(mActivity,
+					R.layout.score_list_adapter, mScoreList);
+			mListView.setAdapter(scoreAdapter);
+		}
+
 		return v;
 	}
 
@@ -121,7 +108,8 @@ public class ScoresListFragment extends SherlockFragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View rowView = inflater.inflate(layoutResourceId, parent, false);
 			TextView playerText = (TextView) rowView.findViewById(R.id.playername);
 			playerText.setText(scores.get(position).getPlayer());

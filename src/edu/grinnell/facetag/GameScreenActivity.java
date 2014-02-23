@@ -17,6 +17,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import edu.grinnell.facetag.ScoresListFragment.scorePair;
 import edu.grinnell.facetag.parse.Game;
 import edu.grinnell.facetag.parse.PhotoTag;
 
@@ -25,7 +26,9 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 	private final String TAG = "GameScreen";
 	public ArrayList<Game> mGameList = new ArrayList<Game>();
 	public ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
-	ParseUser mUser;
+	ParseUser mUser; //the current user
+	ArrayList<ParseUser> mUsers = new ArrayList<ParseUser>(); // all the users in the selected game
+	ArrayList<scorePair> mScoreList = new ArrayList<scorePair>(); // the pairings of score and user
 	public Game mGame;
 
 	@Override
@@ -56,9 +59,9 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 
 	public void loadGames() {
 		mUser = ParseUser.getCurrentUser();
-
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
 		query.whereEqualTo("participants", mUser.getObjectId());
+		query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> results, ParseException e) {
 				if (e == null) {

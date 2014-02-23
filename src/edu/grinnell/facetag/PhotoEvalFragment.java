@@ -38,7 +38,7 @@ public class PhotoEvalFragment extends SherlockFragment {
 	ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
 
 	TextView numPics;
-	TextView question; // The user being targeted
+	TextView question; // Indicates the user being targeted
 	ImageView evalPic;
 
 	Button yesBut;

@@ -2,6 +2,8 @@ package edu.grinnell.facetag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,11 +22,14 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.facetag_android.R;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import edu.grinnell.facetag.ScoresListFragment.ScoreListAdapter;
+import edu.grinnell.facetag.ScoresListFragment.scorePair;
 import edu.grinnell.facetag.parse.Game;
 import edu.grinnell.facetag.parse.PhotoTag;
 import edu.grinnell.facetag.takepicture.CameraActivity;
@@ -39,6 +45,7 @@ public class GameInfoFragment extends SherlockFragment {
 	ParseUser mTarget;
 	Game mGame;
 	View mView;
+
 	ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
 	final String TAG = "Game Info Screen";
 	GameScreenActivity mActivity;
@@ -83,13 +90,22 @@ public class GameInfoFragment extends SherlockFragment {
 		 * + e.getMessage()); } } });
 		 */
 
+		getTarget();
+
+		return mView;
+	}
+
+	// Retrieves the target for this game, calls getScores when finished
+	void getTarget() {
 		// Find Target
 		HashMap<String, String> pairings = mGame.getPairings();
 		String targetID = pairings.get(mUser.getObjectId());
 		ParseQuery<ParseUser> query = ParseUser.getQuery();
+		query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
 		query.whereEqualTo("objectId", targetID);
 		query.getFirstInBackground(new GetCallback<ParseUser>() {
 			public void done(ParseUser user, ParseException e) {
+				getScores();
 				if (e != null) {
 					Log.e(TAG, e.getMessage());
 				} else if (user == null) {
@@ -106,7 +122,24 @@ public class GameInfoFragment extends SherlockFragment {
 				}
 			}
 		});
-		return mView;
+	}
+
+	void getScores() {
+		// Fetch the full names and score for each player
+		mActivity.mUsers.clear();
+		ArrayList<String> players = (ArrayList<String>) mActivity.mGame.getParticipants();
+		ParseQuery<ParseUser> scoreQuery = ParseUser.getQuery();
+		scoreQuery.whereContainedIn("objectId", players);
+		scoreQuery.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
+		scoreQuery.findInBackground(new FindCallback<ParseUser>() {
+			public void done(List<ParseUser> users, ParseException e) {
+				if (e == null) {
+					mActivity.mUsers.addAll(users);
+				} else {
+					Log.e(TAG, e.toString());
+				}
+			}
+		});
 	}
 
 	@Override
