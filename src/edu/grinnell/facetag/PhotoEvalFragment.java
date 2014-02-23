@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -35,28 +36,26 @@ public class PhotoEvalFragment extends SherlockFragment {
 	GameScreenActivity mActivity;
 	ParseUser mUser = ParseUser.getCurrentUser();
 	ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
-	
+
 	TextView numPics;
-	TextView question; 	//The user being targeted
+	TextView question; // The user being targeted
 	ImageView evalPic;
 
 	Button yesBut;
 	Button noBut;
-	//TODO Button: "I Dont Know"
+	// TODO Button: "I Dont Know"
 	int picNum = 0;
 	PhotoTag mPhoto;
-	
+
 	Animation spin;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-				
-		mView = inflater
-				.inflate(R.layout.fragment_photo_eval, container, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+		mView = inflater.inflate(R.layout.fragment_photo_eval, container, false);
 
 		mActivity = (GameScreenActivity) getSherlockActivity();
-		
+
 		mPhotos.addAll(mActivity.mPhotos);
 
 		evalPic = (ImageView) mView.findViewById(R.id.eval_photo);
@@ -64,48 +63,34 @@ public class PhotoEvalFragment extends SherlockFragment {
 
 		spin = AnimationUtils.loadAnimation(mActivity, R.anim.loading);
 		evalPic.setAnimation(spin);
-		
+
 		numPics = (TextView) mView.findViewById(R.id.num_pics);
 		question = (TextView) mView.findViewById(R.id.question);
 
-		//TODO this code is redundant for each button
+		OnClickListener voteButtonListener = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (v.getId() == R.id.affirmative)
+					mPhoto.setConfirmation(mPhoto.getConfirmation() + 1);
+				else if (v.getId() == R.id.negative)
+					mPhoto.setRejection(mPhoto.getRejection() + 1);
+				ArrayList<ParseUser> voted = (ArrayList<ParseUser>) mPhoto.getVotedArray();
+				voted.add(mUser);
+				mPhoto.setVotedArray(voted);
+				mPhoto.saveInBackground();
+				startLoadingAnim();
+				try {
+					loadPhoto();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
 		yesBut = (Button) mView.findViewById(R.id.affirmative);
-		yesBut.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mPhoto.setConfirmation(mPhoto.getConfirmation() + 1);
-				ArrayList<ParseUser> voted = (ArrayList<ParseUser>) mPhoto
-						.getVotedArray();
-				voted.add(mUser);
-				mPhoto.setVotedArray(voted);
-				mPhoto.saveInBackground();
-				startLoadingAnim();
-				try {
-					loadPhoto();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
+		yesBut.setOnClickListener(voteButtonListener);
 		noBut = (Button) mView.findViewById(R.id.negative);
-		noBut.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mPhoto.setRejection(mPhoto.getRejection() + 1);
-				ArrayList<ParseUser> voted = (ArrayList<ParseUser>) mPhoto
-						.getVotedArray();
-				voted.add(mUser);
-				mPhoto.setVotedArray(voted);
-				mPhoto.saveInBackground();
-				startLoadingAnim();
-				try {
-					loadPhoto();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		noBut.setOnClickListener(voteButtonListener);
 
 		picNum = mPhotos.size();
 		try {
@@ -117,12 +102,12 @@ public class PhotoEvalFragment extends SherlockFragment {
 		return mView;
 	}
 
-	private void startLoadingAnim(){
+	private void startLoadingAnim() {
 		evalPic.setScaleType(ImageView.ScaleType.CENTER);
 		evalPic.setImageResource(R.drawable.loading);
 		evalPic.setAnimation(spin);
 	}
-	
+
 	private void loadPhoto() throws ParseException {
 		numPics.setText(picNum + " pictures to evaluate");
 		if (picNum > 0) {
@@ -131,14 +116,13 @@ public class PhotoEvalFragment extends SherlockFragment {
 
 			ParseFile pic = mPhoto.getPhoto();
 			ParseUser target = mPhoto.getTarget();
-			question.setText("Does this look like "
-					+ target.fetchIfNeeded().getString("fullName") + "?");
+			question.setText("Does this look like " + target.fetchIfNeeded().getString("fullName")
+					+ "?");
 
 			pic.getDataInBackground(new GetDataCallback() {
 				public void done(byte[] data, ParseException e) {
 					if (e == null) {
-						Bitmap bMap = BitmapFactory.decodeByteArray(data, 0,
-								data.length);
+						Bitmap bMap = BitmapFactory.decodeByteArray(data, 0, data.length);
 						evalPic.clearAnimation();
 						evalPic.setScaleType(ImageView.ScaleType.FIT_CENTER);
 						evalPic.setImageBitmap(bMap);
@@ -148,15 +132,10 @@ public class PhotoEvalFragment extends SherlockFragment {
 				}
 			});
 		} else {
-			//If no more photos, return to detail fragment
-			Toast.makeText(getActivity().getApplicationContext(),
-					"No Photos To Rank",
+			// If no more photos, return to detail fragment
+			Toast.makeText(getActivity().getApplicationContext(), "No Photos To Rank",
 					Toast.LENGTH_SHORT).show();
 			mActivity.getSupportFragmentManager().popBackStack();
-			
-		//	Fragment gameInfo = new GameInfoFragment();
-		//	mActivity.getSupportFragmentManager().beginTransaction()
-		//			.replace(R.id.fragment_container, gameInfo).commit();
 		}
 	}
 }
