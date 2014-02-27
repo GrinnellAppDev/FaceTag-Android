@@ -23,6 +23,7 @@ import com.facetag_android.R;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -71,21 +72,6 @@ public class GameInfoFragment extends SherlockFragment {
 
 		gameName.setText("Game: " + mGame.getName());
 
-		/*
-		 * // Find Photos to vote on // Add this to the list fragment to display
-		 * number of photos to vote on in the list ParseQuery<ParseObject>
-		 * pic_query = ParseQuery.getQuery("PhotoTag");
-		 * pic_query.whereEqualTo("game", mGame.getObjectId());
-		 * pic_query.whereNotEqualTo("usersArray", mUser);
-		 * pic_query.findInBackground(new FindCallback<ParseObject>() { public
-		 * void done(List<ParseObject> pictureList, ParseException e) { if (e ==
-		 * null) { mPhotos.clear(); for (int i = 0; i < pictureList.size(); i++)
-		 * { PhotoTag thisPic = (PhotoTag) pictureList.get(i);
-		 * mPhotos.add(thisPic); } mActivity.mPhotos.clear();
-		 * mActivity.mPhotos.addAll(mPhotos); } else { Log.d("score", "Error: "
-		 * + e.getMessage()); } } });
-		 */
-
 		getTarget();
 
 		return mView;
@@ -120,7 +106,7 @@ public class GameInfoFragment extends SherlockFragment {
 		});
 	}
 
-	//Retrieve the users for the game
+	// Retrieve the users for the game
 	void getUsers() {
 		// Fetch the full names and score for each player
 		mActivity.mUsers.clear();
