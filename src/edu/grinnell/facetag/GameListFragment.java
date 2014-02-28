@@ -122,8 +122,11 @@ public class GameListFragment extends SherlockFragment {
 			
 			String gameID = games.get(position).getObjectId();
 			if (mActivity.photoMap.containsKey(gameID)) {
-				rowView.setBackgroundColor(getResources().getColor(R.color.CoralBlue));
+				rowView.findViewById(R.id.game_status).setBackgroundResource(R.drawable.photos_to_judge_circle);
 			}
+			else
+				rowView.findViewById(R.id.game_status).setBackgroundResource(R.drawable.waiting_status_circle);
+
 			
 			return rowView;
 		}
