@@ -1,6 +1,7 @@
 package edu.grinnell.facetag;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Intent;
@@ -21,21 +22,13 @@ import edu.grinnell.facetag.ScoresListFragment.scorePair;
 import edu.grinnell.facetag.parse.Game;
 import edu.grinnell.facetag.parse.PhotoTag;
 
-/* Pull list of parse games here */
 public class GameScreenActivity extends SherlockFragmentActivity {
 	private final String TAG = "GameScreen";
 	public ArrayList<Game> mGameList = new ArrayList<Game>();
-	public ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
-	public ArrayList<String> gameIds = new ArrayList<String>();
-
 	ParseUser mUser; // the current user
-	ArrayList<ParseUser> mUsers = new ArrayList<ParseUser>(); // all the users
-																// in the
-																// selected game
-	ArrayList<scorePair> mScoreList = new ArrayList<scorePair>(); // the
-																	// pairings
-																	// of score
-																	// and user
+	ArrayList<ParseUser> mUsers = new ArrayList<ParseUser>();
+	ArrayList<scorePair> mScoreList = new ArrayList<scorePair>();
+	HashMap<String, ArrayList<PhotoTag>> photoMap = new HashMap<String, ArrayList<PhotoTag>>();
 	public Game mGame;
 
 	@Override
@@ -58,19 +51,17 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		}
-
-		GameListFragment listfrag = new GameListFragment();
-		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, listfrag)
-				.addToBackStack(TAG).commit();
 	}
 
 	public void loadGames() {
+		// Retrieve all games that current user is in
 		mUser = ParseUser.getCurrentUser();
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
 		query.whereEqualTo("participants", mUser.getObjectId());
 		query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> results, ParseException e) {
+				ArrayList<String> gameIds = new ArrayList<String>();
 				if (e == null) {
 					Log.i(TAG, results.size() + " games found");
 					for (int i = 0; i < results.size(); i++) {
@@ -78,28 +69,35 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 						mGameList.add(thisGame);
 						gameIds.add(thisGame.getObjectId());
 					}
-
-					//Retrieve the photos for each game
+					// Retrieve the photos for each game
 					ParseQuery<ParseObject> pic_query = ParseQuery.getQuery("PhotoTag");
-					// pic_query.whereEqualTo("game", mGame.getObjectId());
 					pic_query.whereContainedIn("game", gameIds);
 					pic_query.whereNotEqualTo("usersArray", mUser);
 					pic_query.findInBackground(new FindCallback<ParseObject>() {
 						public void done(List<ParseObject> pictureList, ParseException e) {
 							if (e == null) {
+								ArrayList<PhotoTag> gamePhotos = new ArrayList<PhotoTag>();
 								for (int i = 0; i < pictureList.size(); i++) {
 									PhotoTag thisPic = (PhotoTag) pictureList.get(i);
-									mPhotos.add(thisPic);
+									String gameID = thisPic.getGame();
+									gamePhotos.clear();
+									if (photoMap.containsKey(gameID)) {
+										gamePhotos = photoMap.get(gameID);
+										gamePhotos.add(thisPic);
+										photoMap.put(gameID, gamePhotos);
+									} else {
+										gamePhotos.add(thisPic);
+										photoMap.put(gameID, gamePhotos);
+									}
 								}
 							} else {
 								Log.d("score", "Error: " + e.getMessage());
 							}
+							GameListFragment listfrag = new GameListFragment();
+							getSupportFragmentManager().beginTransaction()
+									.replace(R.id.fragment_container, listfrag).commit();
 						}
 					});
-
-					GameListFragment listfrag = new GameListFragment();
-					getSupportFragmentManager().beginTransaction()
-							.replace(R.id.fragment_container, listfrag).commit();
 				} else
 					Log.e(TAG, e.getMessage());
 			}

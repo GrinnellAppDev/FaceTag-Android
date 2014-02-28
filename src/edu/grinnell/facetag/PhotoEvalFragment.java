@@ -56,7 +56,7 @@ public class PhotoEvalFragment extends SherlockFragment {
 
 		mActivity = (GameScreenActivity) getSherlockActivity();
 
-		mPhotos.addAll(mActivity.mPhotos);
+	//	mPhotos.addAll(mActivity.mPhotos);
 
 		evalPic = (ImageView) mView.findViewById(R.id.eval_photo);
 		startLoadingAnim();

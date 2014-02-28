@@ -119,7 +119,12 @@ public class GameListFragment extends SherlockFragment {
 			View rowView = inflater.inflate(layoutResourceId, parent, false);
 			TextView textView = (TextView) rowView.findViewById(R.id.game_title);
 			textView.setText(games.get(position).getName());
-						
+			
+			String gameID = games.get(position).getObjectId();
+			if (mActivity.photoMap.containsKey(gameID)) {
+				rowView.setBackgroundColor(getResources().getColor(R.color.CoralBlue));
+			}
+			
 			return rowView;
 		}
 	}
