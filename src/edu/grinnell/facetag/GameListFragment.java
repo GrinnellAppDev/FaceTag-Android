@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -75,7 +76,7 @@ public class GameListFragment extends SherlockFragment {
 		switch (item.getItemId()) {
 		case R.id.action_refresh:
 			mActivity.mGameList.clear();
-			mActivity.loadGames();
+			mActivity.downloadGames();
 			return true;
 		case R.id.action_newgame:
 			Intent intent = new Intent(getActivity(), CreateGameActivity.class);
@@ -119,15 +120,17 @@ public class GameListFragment extends SherlockFragment {
 			View rowView = inflater.inflate(layoutResourceId, parent, false);
 			TextView textView = (TextView) rowView.findViewById(R.id.game_title);
 			textView.setText(games.get(position).getName());
-			
-			String gameID = games.get(position).getObjectId();
-			if (mActivity.photoMap.containsKey(gameID)) {
-				rowView.findViewById(R.id.game_status).setBackgroundResource(R.drawable.photos_to_judge_circle);
-			}
-			else
-				rowView.findViewById(R.id.game_status).setBackgroundResource(R.drawable.waiting_status_circle);
 
-			
+			String gameID = games.get(position).getObjectId();
+			ImageView gameStatus = (ImageView) rowView.findViewById(R.id.game_status);
+			// Select an appropriate drawable for the game status
+			if (mActivity.photoMap.containsKey(gameID)) {
+				gameStatus.setBackgroundResource(
+						R.drawable.photos_to_judge_circle);
+			} else
+				gameStatus.setBackgroundResource(
+						R.drawable.waiting_status_circle);
+
 			return rowView;
 		}
 	}

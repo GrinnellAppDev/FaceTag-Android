@@ -45,7 +45,7 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 			Toast.makeText(getApplicationContext(),
 					"You are signed in as " + mUser.getString("fullName"), Toast.LENGTH_SHORT)
 					.show();
-			loadGames();
+			downloadGames();
 		} else {
 			// If not logged in, send to login
 			Intent intent = new Intent(this, LoginActivity.class);
@@ -53,7 +53,7 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 		}
 	}
 
-	public void loadGames() {
+	public void downloadGames() {
 		// Retrieve all games that current user is in
 		mUser = ParseUser.getCurrentUser();
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
@@ -69,37 +69,42 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 						mGameList.add(thisGame);
 						gameIds.add(thisGame.getObjectId());
 					}
-					// Retrieve the photos for each game
-					ParseQuery<ParseObject> pic_query = ParseQuery.getQuery("PhotoTag");
-					pic_query.whereContainedIn("game", gameIds);
-					pic_query.whereNotEqualTo("usersArray", mUser);
-					pic_query.findInBackground(new FindCallback<ParseObject>() {
-						public void done(List<ParseObject> pictureList, ParseException e) {
-							if (e == null) {
-								ArrayList<PhotoTag> gamePhotos = new ArrayList<PhotoTag>();
-								for (int i = 0; i < pictureList.size(); i++) {
-									PhotoTag thisPic = (PhotoTag) pictureList.get(i);
-									String gameID = thisPic.getGame();
-									gamePhotos.clear();
-									if (photoMap.containsKey(gameID)) {
-										gamePhotos = photoMap.get(gameID);
-										gamePhotos.add(thisPic);
-										photoMap.put(gameID, gamePhotos);
-									} else {
-										gamePhotos.add(thisPic);
-										photoMap.put(gameID, gamePhotos);
-									}
-								}
-							} else {
-								Log.d("score", "Error: " + e.getMessage());
-							}
-							GameListFragment listfrag = new GameListFragment();
-							getSupportFragmentManager().beginTransaction()
-									.replace(R.id.fragment_container, listfrag).commit();
-						}
-					});
+					downloadPhotos(gameIds);
 				} else
 					Log.e(TAG, e.getMessage());
+			}
+		});
+	}
+
+	public void downloadPhotos(ArrayList<String> gameIds) {
+		// Retrieve the photos for each game
+		ParseQuery<ParseObject> pic_query = ParseQuery.getQuery("PhotoTag");
+		pic_query.whereContainedIn("game", gameIds);
+		pic_query.whereNotEqualTo("usersArray", mUser);
+		pic_query.findInBackground(new FindCallback<ParseObject>() {
+			public void done(List<ParseObject> pictureList, ParseException e) {
+				if (e == null) {
+					ArrayList<PhotoTag> gamePhotos = new ArrayList<PhotoTag>();
+					for (int i = 0; i < pictureList.size(); i++) {
+						PhotoTag thisPic = (PhotoTag) pictureList.get(i);
+						String gameID = thisPic.getGame();
+						gamePhotos.clear();
+						if (photoMap.containsKey(gameID)) {
+							gamePhotos = photoMap.get(gameID);
+							gamePhotos.add(thisPic);
+							photoMap.put(gameID, gamePhotos);
+						} else {
+							gamePhotos.add(thisPic);
+							photoMap.put(gameID, gamePhotos);
+						}
+					}
+				} else {
+					Log.d("score", "Error: " + e.getMessage());
+				}
+				//Load list fragment to display downloaded game data
+				GameListFragment listfrag = new GameListFragment();
+				getSupportFragmentManager().beginTransaction()
+						.replace(R.id.fragment_container, listfrag).commit();
 			}
 		});
 	}
