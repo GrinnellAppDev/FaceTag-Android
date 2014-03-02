@@ -23,7 +23,6 @@ import com.facetag_android.R;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -31,6 +30,7 @@ import edu.grinnell.facetag.parse.Game;
 import edu.grinnell.facetag.parse.PhotoTag;
 import edu.grinnell.facetag.takepicture.CameraActivity;
 import edu.grinnell.facetag.utils.ImageLoaderUtility;
+import edu.grinnell.facetag.utils.RoundedImageView;
 
 /**
  * 
@@ -49,7 +49,7 @@ public class GameInfoFragment extends SherlockFragment {
 	Boolean scoresShowing = false;
 
 	TextView targetInfo;
-	ImageView targetPic;
+	RoundedImageView targetPic;
 	TextView gameName;
 	TextView newPics;
 
@@ -66,7 +66,7 @@ public class GameInfoFragment extends SherlockFragment {
 		// Find views
 		targetInfo = (TextView) mView.findViewById(R.id.target_description);
 		// TODO replace this with animation
-		targetPic = (ImageView) mView.findViewById(R.id.target_photo);
+		targetPic = (RoundedImageView) mView.findViewById(R.id.target_photo);
 
 		gameName = (TextView) mView.findViewById(R.id.game_name);
 

@@ -29,10 +29,12 @@
         android:gravity="center"
         android:text="Your Target Is: ..." />
 
-    <ImageView
+    <edu.grinnell.facetag.utils.RoundedImageView
         android:id="@+id/target_photo"
         android:layout_width="fill_parent"
         android:layout_height="400dp"
+        android:layout_marginTop="40dp"
+        class="edu.grinnell.facetag.utils.RoundedImageView"
         android:gravity="center"
         android:scaleType="fitCenter" />
 
