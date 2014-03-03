@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.facetag_android.R;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -50,13 +52,21 @@ public class PhotoEvalFragment extends SherlockFragment {
 	Animation spin;
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		mActivity = (GameScreenActivity) getSherlockActivity();
+		setHasOptionsMenu(true);
+	}
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+		mActivity.invalidateOptionsMenu();
+		
 		mView = inflater.inflate(R.layout.fragment_photo_eval, container, false);
 
-		mActivity = (GameScreenActivity) getSherlockActivity();
-
-	//	mPhotos.addAll(mActivity.mPhotos);
+		mPhotos.clear();
+		mPhotos.addAll(mActivity.mPhotos);
 
 		evalPic = (ImageView) mView.findViewById(R.id.eval_photo);
 		startLoadingAnim();
@@ -86,7 +96,7 @@ public class PhotoEvalFragment extends SherlockFragment {
 				}
 			}
 		};
-		
+
 		yesBut = (Button) mView.findViewById(R.id.affirmative);
 		yesBut.setOnClickListener(voteButtonListener);
 		noBut = (Button) mView.findViewById(R.id.negative);
@@ -101,13 +111,19 @@ public class PhotoEvalFragment extends SherlockFragment {
 
 		return mView;
 	}
+	
 
+	@Override
+	public void onPrepareOptionsMenu(Menu menu){
+        menu.removeItem(R.id.action_photos);
+	}
+	
 	private void startLoadingAnim() {
 		evalPic.setScaleType(ImageView.ScaleType.CENTER);
 		evalPic.setImageResource(R.drawable.loading);
 		evalPic.setAnimation(spin);
 	}
-
+	
 	private void loadPhoto() throws ParseException {
 		numPics.setText(picNum + " pictures to evaluate");
 		if (picNum > 0) {
@@ -136,6 +152,9 @@ public class PhotoEvalFragment extends SherlockFragment {
 			Toast.makeText(getActivity().getApplicationContext(), "No Photos To Rank",
 					Toast.LENGTH_SHORT).show();
 			mActivity.getSupportFragmentManager().popBackStack();
+		//	Fragment infoFrag = new GameInfoFragment();
+		//	mActivity.getSupportFragmentManager().beginTransaction()
+		//			.replace(R.id.fragment_container, infoFrag).commit();
 		}
 	}
 }

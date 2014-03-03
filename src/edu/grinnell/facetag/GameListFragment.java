@@ -23,6 +23,7 @@ import com.facetag_android.R;
 
 import edu.grinnell.facetag.gamecreate.CreateGameActivity;
 import edu.grinnell.facetag.parse.Game;
+import edu.grinnell.facetag.parse.PhotoTag;
 
 public class GameListFragment extends SherlockFragment {
 	GameScreenActivity mActivity;
@@ -95,6 +96,13 @@ public class GameListFragment extends SherlockFragment {
 	// Launch game fragment
 	public void gameInfo(Game game) {
 		mActivity.mGame = game;
+		mActivity.mPhotos.clear();
+		String gameID = mActivity.mGame.getObjectId();
+		
+		if (mActivity.photoMap.containsKey(gameID)){
+			mActivity.mPhotos.addAll(mActivity.photoMap.get(gameID));
+		}
+		
 		Fragment gameInfo = new GameInfoFragment();
 		mActivity.getSupportFragmentManager().beginTransaction()
 				.replace(R.id.fragment_container, gameInfo).addToBackStack(TAG).commit();

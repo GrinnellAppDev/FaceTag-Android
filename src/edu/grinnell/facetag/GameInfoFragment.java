@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +26,6 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import edu.grinnell.facetag.parse.Game;
-import edu.grinnell.facetag.parse.PhotoTag;
 import edu.grinnell.facetag.takepicture.CameraActivity;
 import edu.grinnell.facetag.utils.ImageLoaderUtility;
 import edu.grinnell.facetag.utils.RoundedImageView;
@@ -43,7 +41,6 @@ public class GameInfoFragment extends SherlockFragment {
 	Game mGame;
 	View mView;
 
-	ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
 	final String TAG = "Game Info Screen";
 	GameScreenActivity mActivity;
 	Boolean scoresShowing = false;
@@ -59,8 +56,15 @@ public class GameInfoFragment extends SherlockFragment {
 
 		mActivity = (GameScreenActivity) getSherlockActivity();
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+		setHasOptionsMenu(true);
+		
 		mGame = mActivity.mGame;
+		
+		//Launch photo eval if photos to judge
+		if (!mActivity.mPhotos.isEmpty()){
+			launchPhotoEval();
+		}
+		
 		setHasOptionsMenu(true);
 
 		// Find views
@@ -70,7 +74,7 @@ public class GameInfoFragment extends SherlockFragment {
 
 		gameName = (TextView) mView.findViewById(R.id.game_name);
 
-		gameName.setText("Game: " + mGame.getName());
+		gameName.setText("Game: " + mActivity.mGame.getName());
 
 		getTarget();
 
@@ -129,6 +133,7 @@ public class GameInfoFragment extends SherlockFragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		inflater.inflate(R.menu.game_info_screen, menu);
+        super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override
@@ -169,13 +174,13 @@ public class GameInfoFragment extends SherlockFragment {
 
 	public void launchPhotoEval() {
 		// Do not switch to fragment if no photos to rank
-		if (mPhotos.size() == 0) {
+		if (mActivity.mPhotos.size() == 0) {
 			Toast.makeText(getActivity().getApplicationContext(), "No More Photos To Rank",
 					Toast.LENGTH_SHORT).show();
 		} else {
 			Fragment photoEval = new PhotoEvalFragment();
 			mActivity.getSupportFragmentManager().beginTransaction()
-					.replace(R.id.fragment_container, photoEval).commit();
+					.add(R.id.fragment_container, photoEval).addToBackStack(TAG).commit();
 		}
 	}
 

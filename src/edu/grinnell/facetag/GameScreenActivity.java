@@ -28,6 +28,7 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 	ParseUser mUser; // the current user
 	ArrayList<ParseUser> mUsers = new ArrayList<ParseUser>();
 	ArrayList<scorePair> mScoreList = new ArrayList<scorePair>();
+	ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
 	HashMap<String, ArrayList<PhotoTag>> photoMap = new HashMap<String, ArrayList<PhotoTag>>();
 	public Game mGame;
 
