@@ -23,10 +23,10 @@
         android:layout_height="3dp"
         android:background="#000000" />
 
-    <ImageView
+    <edu.grinnell.facetag.utils.RoundedImageView
         android:id="@+id/eval_photo"
         android:layout_width="fill_parent"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         android:gravity="center"
         android:scaleType="fitCenter" />
 

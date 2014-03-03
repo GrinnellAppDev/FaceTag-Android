@@ -39,7 +39,6 @@ public class GameListFragment extends SherlockFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		mActivity = (GameScreenActivity) getSherlockActivity();
 		setHasOptionsMenu(true);
 	}

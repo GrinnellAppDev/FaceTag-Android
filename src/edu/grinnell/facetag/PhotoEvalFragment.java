@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.facetag_android.R;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -27,6 +26,7 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import edu.grinnell.facetag.parse.PhotoTag;
+import edu.grinnell.facetag.utils.RoundedImageView;
 
 /*
  * Fragment to prompt the user to evaluate photos that they have not yet seen
@@ -41,7 +41,7 @@ public class PhotoEvalFragment extends SherlockFragment {
 
 	TextView numPics;
 	TextView question; // Indicates the user being targeted
-	ImageView evalPic;
+	RoundedImageView evalPic;
 
 	Button yesBut;
 	Button noBut;
@@ -57,18 +57,18 @@ public class PhotoEvalFragment extends SherlockFragment {
 		mActivity = (GameScreenActivity) getSherlockActivity();
 		setHasOptionsMenu(true);
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		mActivity.invalidateOptionsMenu();
-		
+
 		mView = inflater.inflate(R.layout.fragment_photo_eval, container, false);
 
 		mPhotos.clear();
 		mPhotos.addAll(mActivity.mPhotos);
 
-		evalPic = (ImageView) mView.findViewById(R.id.eval_photo);
+		evalPic = (RoundedImageView) mView.findViewById(R.id.eval_photo);
 		startLoadingAnim();
 
 		spin = AnimationUtils.loadAnimation(mActivity, R.anim.loading);
@@ -111,19 +111,18 @@ public class PhotoEvalFragment extends SherlockFragment {
 
 		return mView;
 	}
-	
 
 	@Override
-	public void onPrepareOptionsMenu(Menu menu){
-        menu.removeItem(R.id.action_photos);
+	public void onPrepareOptionsMenu(Menu menu) {
+		menu.removeItem(R.id.action_photos);
 	}
-	
+
 	private void startLoadingAnim() {
 		evalPic.setScaleType(ImageView.ScaleType.CENTER);
 		evalPic.setImageResource(R.drawable.loading);
 		evalPic.setAnimation(spin);
 	}
-	
+
 	private void loadPhoto() throws ParseException {
 		numPics.setText(picNum + " pictures to evaluate");
 		if (picNum > 0) {
@@ -152,9 +151,9 @@ public class PhotoEvalFragment extends SherlockFragment {
 			Toast.makeText(getActivity().getApplicationContext(), "No Photos To Rank",
 					Toast.LENGTH_SHORT).show();
 			mActivity.getSupportFragmentManager().popBackStack();
-		//	Fragment infoFrag = new GameInfoFragment();
-		//	mActivity.getSupportFragmentManager().beginTransaction()
-		//			.replace(R.id.fragment_container, infoFrag).commit();
+			// Fragment infoFrag = new GameInfoFragment();
+			// mActivity.getSupportFragmentManager().beginTransaction()
+			// .replace(R.id.fragment_container, infoFrag).commit();
 		}
 	}
 }
