@@ -6,14 +6,9 @@ import java.util.List;
 
 import android.os.Bundle;
 
-<<<<<<< HEAD
 import com.facetag_android.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-=======
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.facetag_android.R;
->>>>>>> 7ecd10fd2381dfb48a312bb9f8ba77610b2ca588
 import com.parse.ParseUser;
 
 // Creates a Game
@@ -45,6 +40,9 @@ public class CreateGameActivity extends SlidingFragmentActivity {
 		menu.setMode(SlidingMenu.RIGHT);
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		menu.setFadeDegree(0.35f);
+		menu.setShadowWidthRes(R.dimen.shadow_width);
+		menu.setShadowDrawable(R.drawable.shadow_right);
+		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		menu.setBehindOffset(140);
 		menu.setMenu(R.layout.menu_frame);
 	}
