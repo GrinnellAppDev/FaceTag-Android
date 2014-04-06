@@ -28,7 +28,7 @@
     <uses-permission android:name="com.parse.tutorials.pushnotifications.permission.C2D_MESSAGE" />
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
     <application

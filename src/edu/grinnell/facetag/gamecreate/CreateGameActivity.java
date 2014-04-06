@@ -6,9 +6,14 @@ import java.util.List;
 
 import android.os.Bundle;
 
+<<<<<<< HEAD
 import com.facetag_android.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+=======
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.facetag_android.R;
+>>>>>>> 7ecd10fd2381dfb48a312bb9f8ba77610b2ca588
 import com.parse.ParseUser;
 
 // Creates a Game
@@ -16,6 +21,7 @@ public class CreateGameActivity extends SlidingFragmentActivity {
 	private final String TAG = "Create Game";
 	List<String> participants = new ArrayList<String>();
 	int maxPoints = 5;
+	int maxTime = 4;
 	ParseUser mUser = ParseUser.getCurrentUser();
 	CreateGameActivity mActivity = this;
 	HashMap<String, Integer> scoreBoard = new HashMap<String, Integer>();

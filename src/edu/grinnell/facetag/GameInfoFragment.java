@@ -138,25 +138,24 @@ public class GameInfoFragment extends SherlockFragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case android.R.id.home:
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home) {
 			mActivity.getSupportFragmentManager().popBackStack();
 			return true;
-		case R.id.action_camera:
+		} else if (itemId == R.id.action_camera) {
 			launchCamera();
 			return true;
-		case R.id.action_photos:
+		} else if (itemId == R.id.action_photos) {
 			launchPhotoEval();
 			return true;
-		case R.id.action_scores:
+		} else if (itemId == R.id.action_scores) {
 			if (scoresShowing) {
 				mActivity.getSupportFragmentManager().popBackStack();
 				scoresShowing = false;
 			} else
 				viewScores();
 			return true;
-		default:
+		} else {
 			return super.onOptionsItemSelected(item);
 		}
 	}

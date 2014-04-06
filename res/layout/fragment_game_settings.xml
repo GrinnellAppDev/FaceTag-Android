@@ -11,50 +11,42 @@
 
     <EditText
         android:id="@+id/name_field"
-        android:layout_width="fill_parent"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_weight="1"
         android:hint="Game Name"
         android:inputType="text" />
 
-    <TextView
-        android:id="@+id/prompt"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
+    <EditText
+        android:id="@+id/max_points"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:hint="Max points"
+        android:layout_alignLeft="@+id/name_field"
         android:layout_below="@+id/name_field"
-        android:layout_marginTop="25dp"
-        android:text="Points til Win:"
-        android:textSize="20dp" />
-
-    <Spinner
-        android:id="@+id/points_win"
-        android:layout_width="fill_parent"
+        android:layout_marginTop="62dp"
+        android:inputType="numberSigned"
+        android:ems="10" />
+    
+     <EditText
+        android:id="@+id/max_time"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/prompt" />
-
-    <TextView
-        android:id="@+id/time_prompt"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/points_win"
-        android:layout_marginTop="25dp"
-        android:text="Time Per Round:"
-        android:textSize="20dp" />
-
-    <Spinner
-        android:id="@+id/round_time"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/time_prompt" />
+        android:layout_above="@+id/submit"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/max_points"
+        android:ems="10"
+        android:hint="Max time(hours)"
+        android:inputType="numberSigned" />
 
     <Button
         android:id="@+id/submit"
-        android:layout_width="75dip"
-        android:layout_height="75dip"
-        android:layout_alignLeft="@+id/points_win"
-        android:layout_alignRight="@+id/points_win"
-        android:layout_below="@+id/round_time"
-        android:layout_marginTop="43dp"
+        android:layout_width="90dip"
+        android:layout_height="60dip"
+        android:layout_alignLeft="@+id/max_points"
+        android:layout_below="@+id/max_points"
+        android:layout_marginLeft="31dp"
+        android:layout_marginTop="89dp"
         android:background="@drawable/rec_button"
         android:text="Begin Game" />
 
@@ -62,9 +54,12 @@
         android:id="@+id/invite_button"
         android:layout_width="75dip"
         android:layout_height="75dip"
-        android:layout_below="@+id/submit"
-        android:layout_marginTop="43dp"
+        android:layout_alignBottom="@+id/submit"
+        android:layout_alignRight="@+id/max_time"
+        android:layout_marginRight="9dp"
         android:background="@drawable/rec_button"
         android:text="Invite Players" />
+
+ 
 
 </RelativeLayout>

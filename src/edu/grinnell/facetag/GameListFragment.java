@@ -23,7 +23,6 @@ import com.facetag_android.R;
 
 import edu.grinnell.facetag.gamecreate.CreateGameActivity;
 import edu.grinnell.facetag.parse.Game;
-import edu.grinnell.facetag.parse.PhotoTag;
 
 public class GameListFragment extends SherlockFragment {
 	GameScreenActivity mActivity;
@@ -72,17 +71,16 @@ public class GameListFragment extends SherlockFragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case R.id.action_refresh:
+		int itemId = item.getItemId();
+		if (itemId == R.id.action_refresh) {
 			mActivity.mGameList.clear();
 			mActivity.downloadGames();
 			return true;
-		case R.id.action_newgame:
+		} else if (itemId == R.id.action_newgame) {
 			Intent intent = new Intent(getActivity(), CreateGameActivity.class);
 			startActivity(intent);
 			return true;
-		default:
+		} else {
 			return super.onOptionsItemSelected(item);
 		}
 	}
