@@ -33,6 +33,7 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 	ArrayList<ParseUser> mUsers = new ArrayList<ParseUser>();
 	ListView mListView;
 	View fragView;
+	TextView mMaxPointsView, mMaxTimeView;
 	Boolean inviteShowing = false;
 
 	@Override
@@ -49,13 +50,25 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		// Init score max spinner
-		String[] array = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
-		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(mActivity,
-				android.R.layout.simple_spinner_item, array);
+		/*// Init score max spinner
+		String[] arrayScore = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+		ArrayAdapter<String> spinnerScoreAdapter = new ArrayAdapter<String>(mActivity,
+				android.R.layout.simple_spinner_dropdown_item, arrayScore);
 		Spinner maxPointsSpinner = (Spinner) fragView.findViewById(R.id.points_win);
-		maxPointsSpinner.setAdapter(spinnerAdapter);
-		maxPointsSpinner.setOnItemSelectedListener(this);
+		maxPointsSpinner.setAdapter(spinnerScoreAdapter);
+		maxPointsSpinner.setOnItemSelectedListener(this);*/
+		
+		// spinner for maxTime
+	/*	String[] arrayTime = {"2 hrs", "5 hrs", "9 hrs", "16 hrs", "24 hrs"};
+		ArrayAdapter<String> spinnerTimerAdapter = new ArrayAdapter<String>(mActivity, 
+				android.R.layout.simple_spinner_dropdown_item, arrayTime);
+		Spinner timeRoundSpinner = (Spinner) fragView.findViewById(R.id.round_time);
+		timeRoundSpinner.setAdapter(spinnerTimerAdapter);
+		timeRoundSpinner.setOnItemSelectedListener(this);*/
+		
+		mMaxPointsView = (TextView) fragView.findViewById(R.id.max_points);
+		mMaxTimeView = (TextView) fragView.findViewById(R.id.max_time);
+		
 
 		ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
 
@@ -112,12 +125,14 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 
 	// Item selector for spinner
 	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-		mActivity.maxPoints = pos + 1;
+	
+		
+		
 	}
 
+	
 	public void onNothingSelected(AdapterView<?> parent) {
-		// Default max points is 5
-		mActivity.maxPoints = 5;
+
 	}
 
 	public void setSubmitButton() {
@@ -130,7 +145,9 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 				newGame.setScoreBoard(mActivity.scoreBoard);
 				EditText nameField = (EditText) fragView.findViewById(R.id.name_field);
 				String inputName = nameField.getText().toString();
-
+				mActivity.maxPoints= Integer.parseInt(mMaxPointsView.getText().toString());
+				mActivity.maxTime= Integer.parseInt(mMaxTimeView.getText().toString());
+					
 				if (inputName.length() == 0)
 					newGame.setName(mActivity.mUser.getString("firstName") + "'s game");
 				else
@@ -138,7 +155,7 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 
 				newGame.setParticipants(mActivity.participants);
 				newGame.setPointsToWin(mActivity.maxPoints);
-				newGame.setTimePerTurn(20);
+				newGame.setTimePerTurn(mActivity.maxTime);
 				newGame.saveInBackground();
 				Toast.makeText(mActivity.getApplicationContext(),
 						"Game Created: " + newGame.getName(), Toast.LENGTH_SHORT).show();
