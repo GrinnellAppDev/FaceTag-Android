@@ -65,23 +65,9 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 		inviteButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (inviteShowing) {
-					inviteShowing = false;
-					mActivity.getSupportFragmentManager().popBackStack();
-				} else {
-					inviteShowing = true;
-					InvitePlayersFragment inviteFrag = new InvitePlayersFragment();
-					mActivity
-							.getSupportFragmentManager()
-							.beginTransaction()
-							.setCustomAnimations(R.anim.left_slide_in, R.anim.left_slide_out,
-									R.anim.right_slide_in, R.anim.right_slide_out)
-							.add(R.id.create_fragment_container, inviteFrag).addToBackStack(TAG)
-							.commit();
-				}
+					mActivity.getSlidingMenu().toggle();
 			}
 		});
-
 		return fragView;
 	}
 

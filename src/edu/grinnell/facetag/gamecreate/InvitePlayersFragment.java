@@ -51,7 +51,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 				if (e == null) {
 					Log.i(TAG, users.size() + " Users Retrieved");
 					mUsers.addAll(users);
-					ArrayAdapter<ParseUser> inviteAdapter = new ScoreListAdapter(mActivity,
+					ArrayAdapter<ParseUser> inviteAdapter = new InviteListAdapter(mActivity,
 							R.layout.invite_list_adapter, mUsers);
 					mListView.setAdapter(inviteAdapter);
 					// On Click Listener: add user to participant list on click
@@ -81,12 +81,12 @@ public class InvitePlayersFragment extends SherlockFragment {
 		return v;
 	}
 
-	public class ScoreListAdapter extends ArrayAdapter<ParseUser> {
+	public class InviteListAdapter extends ArrayAdapter<ParseUser> {
 		private final Context context;
 		private final ArrayList<ParseUser> users;
 		int layoutResourceId;
 
-		public ScoreListAdapter(Context context, int layoutResourceId, ArrayList<ParseUser> users) {
+		public InviteListAdapter(Context context, int layoutResourceId, ArrayList<ParseUser> users) {
 			super(context, layoutResourceId, users);
 			this.context = context;
 			this.users = users;
