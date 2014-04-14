@@ -29,6 +29,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 	ArrayList<ParseUser> mUsers = new ArrayList<ParseUser>();
 	ListView mListView;
 	View fragView;
+	ParseUser mUser;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,16 @@ public class InvitePlayersFragment extends SherlockFragment {
 				if (e == null) {
 					Log.i(TAG, users.size() + " Users Retrieved");
 					mUsers.addAll(users);
+					mUser = ParseUser.getCurrentUser();
+					
+					//Remove current user from invitee list
+					for (int k = 0; k < mUsers.size(); k++){
+						
+					if (mUsers.get(k).getString("fullName").equals(mUser.getString("fullName")))
+						mUsers.remove(k);
+					
+					}
+					
 					ArrayAdapter<ParseUser> inviteAdapter = new InviteListAdapter(mActivity,
 							R.layout.invite_list_adapter, mUsers);
 					mListView.setAdapter(inviteAdapter);
@@ -60,6 +71,8 @@ public class InvitePlayersFragment extends SherlockFragment {
 						public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 							ParseUser selectedUser = (ParseUser) mListView.getItemAtPosition(position);
 							CheckedTextView listText = (CheckedTextView) arg1.findViewById(R.id.invitee);
+							//Always add current user to game
+							mActivity.participants.add(mUser.getObjectId());
 
 							// remove the player if they are already on
 							// the list

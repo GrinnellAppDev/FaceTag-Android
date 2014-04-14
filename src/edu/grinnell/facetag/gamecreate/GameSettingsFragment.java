@@ -2,6 +2,7 @@ package edu.grinnell.facetag.gamecreate;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -14,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -126,13 +126,35 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 		Button flashButton = (Button) fragView.findViewById(R.id.submit);
 		flashButton.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v) {			
+				//If no friends are invited
+				if (mActivity.participants.size() < 2){
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setMessage("Please invite a friend to create a game.")
+						.setTitle("Ooops!")
+						.setPositiveButton(android.R.string.ok,null);
+					
+					AlertDialog dialog = builder.create();
+					dialog.show();
+					
+					
+				} else {
 				Game newGame = new Game();
 				newGame.setScoreBoard(mActivity.scoreBoard);
 				EditText nameField = (EditText) fragView.findViewById(R.id.name_field);
 				String inputName = nameField.getText().toString();
-				mActivity.maxPoints= Integer.parseInt(mMaxPointsView.getText().toString());
-				mActivity.maxTime= Integer.parseInt(mMaxTimeView.getText().toString());
+				
+				if (mMaxPointsView.getText().toString().equals(""))
+					mActivity.maxPoints = 5;
+				else
+					mActivity.maxPoints= Integer.parseInt(mMaxPointsView.getText().toString());
+				
+				if (mMaxTimeView.getText().toString().equals(""))
+					mActivity.maxTime=10;
+				else
+					mActivity.maxTime= Integer.parseInt(mMaxTimeView.getText().toString());
+
 					
 				if (inputName.length() == 0)
 					newGame.setName(mActivity.mUser.getString("firstName") + "'s game");
@@ -146,6 +168,7 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 				Toast.makeText(mActivity.getApplicationContext(),
 						"Game Created: " + newGame.getName(), Toast.LENGTH_SHORT).show();
 				mActivity.finish();
+			}
 			}
 		});
 	}
