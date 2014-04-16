@@ -31,6 +31,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 	ListView mListView;
 	View fragView;
 	ParseUser mUser;
+	TextView mInviteCount;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		mListView = (ListView) v.findViewById(R.id.invitelist);
 		
+		
 
 		// get players on parse
 		ParseQuery<ParseUser> query = ParseUser.getQuery();
@@ -58,6 +60,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 					Log.i(TAG, users.size() + " Users Retrieved");
 					mUsers.addAll(users);
 					mUser = ParseUser.getCurrentUser();
+					mInviteCount = (TextView) mActivity.findViewById(R.id.invite_counter);
 					
 					//Remove current user from invitee list
 					for (int k = 0; k < mUsers.size(); k++){
@@ -88,10 +91,18 @@ public class InvitePlayersFragment extends SherlockFragment {
 								Log.i(TAG, selectedUser.getString("fullName") + "was removed");
 								arg1.setBackgroundColor(getResources().getColor(R.color.White));
 								mActivity.participants.remove(selectedUser.getObjectId());
+								mActivity.invite_count--;
 							} else {
 								mActivity.participants.add(selectedUser.getObjectId());
+								mActivity.invite_count++;								
 								arg1.setBackgroundColor(getResources().getColor(R.color.CoralBlue));
 							}
+							
+							
+							mInviteCount.setText(Integer.toString(mActivity.invite_count));
+							
+							
+							
 						}
 					});
 				} else {
@@ -99,6 +110,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 				}
 			}
 		});
+		
 		return v;
 	}
 

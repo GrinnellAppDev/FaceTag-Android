@@ -16,7 +16,16 @@
    android:layout_marginTop="40dp"
    android:background="@drawable/rectangle">
    
-   
+      <TextView
+            android:id="@+id/invite_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="50dip"
+            android:text="0"
+            android:textColor="#63add0"
+            android:textSize="20sp" />
+      
       <TextView 
           android:id="@+id/Invite_friends"
           android:layout_width="wrap_content"
@@ -31,6 +40,8 @@
           android:layout_height="20dp"
           android:layout_gravity="center_vertical|right"
           android:src="@drawable/arrow" />
+
+  
       
       </FrameLayout>
 
@@ -64,6 +75,8 @@
           android:layout_marginLeft="10dp"
           android:text="GAME SETTINGS"
           android:textSize="20sp" />
+      
+      
 
       <FrameLayout
           android:id="@+id/frame_name"

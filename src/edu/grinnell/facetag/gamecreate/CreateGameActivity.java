@@ -18,6 +18,7 @@ public class CreateGameActivity extends SlidingFragmentActivity {
 	List<String> participants = new ArrayList<String>();
 	int maxPoints = 5;
 	int maxTime = 4;
+	int invite_count = 0;
 	ParseUser mUser = ParseUser.getCurrentUser();
 	CreateGameActivity mActivity = this;
 	HashMap<String, Integer> scoreBoard = new HashMap<String, Integer>();

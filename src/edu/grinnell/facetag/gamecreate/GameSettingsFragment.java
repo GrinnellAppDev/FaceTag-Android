@@ -92,9 +92,9 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 		timeText.setTypeface(tf);
 		
 		mMaxPointsView = (TextView) fragView.findViewById(R.id.max_points);
-		mMaxPointsView.setTypeface(tf);
 		mMaxTimeView = (TextView) fragView.findViewById(R.id.max_time);
-		mMaxTimeView.setTypeface(tf);
+		
+	
 		
 		flashButton = (Button) fragView.findViewById(R.id.submit);
 		flashButton.setTypeface(tf);
