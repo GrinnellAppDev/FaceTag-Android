@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.facetag_android.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -45,7 +48,21 @@ public class CreateGameActivity extends SlidingFragmentActivity {
 		menu.setShadowWidthRes(R.dimen.shadow_width);
 		menu.setShadowDrawable(R.drawable.shadow_right);
 		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		menu.setBehindOffset(140);
+		menu.setBehindOffset(200);
 		menu.setMenu(R.layout.menu_frame);
+	}
+	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(mActivity);
+			return true;
+		default:
+			super.onOptionsItemSelected(item);
+		}
+		return true;
 	}
 }
