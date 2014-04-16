@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +28,6 @@ public class LoginActivity extends SherlockFragmentActivity {
 	static TextView testText;
 	Button loginButton;
 	ArrayList<ParseUser> invitedUsers = new ArrayList<ParseUser>();
-
 	/*
 	 * Logs in to facebook
 	 */
@@ -35,6 +35,9 @@ public class LoginActivity extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+
+
 
 		loginButton = (Button) findViewById(R.id.login);
 		//Make button disapear when clicked

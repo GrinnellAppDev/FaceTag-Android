@@ -2,64 +2,144 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/White"
+    android:background="@drawable/settings_background"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CreateGameActivity" >
 
-    <EditText
-        android:id="@+id/name_field"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        android:hint="Game Name"
-        android:inputType="text" />
+  <FrameLayout
+   android:id="@+id/frame_invite"
+   android:clickable="true"
+   android:layout_width="fill_parent"
+   android:layout_height="45dp"
+   android:layout_marginTop="40dp"
+   android:background="@drawable/rectangle">
+   
+   
+      <TextView 
+          android:id="@+id/Invite_friends"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:text="Select to invite"
+          android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/max_points"
-        android:layout_width="160dp"
+      <ImageView
+          android:id="@+id/arrow"
+          android:layout_width="91dp"
+          android:layout_height="20dp"
+          android:layout_gravity="center_vertical|right"
+          android:layout_marginLeft="200dp"
+          android:src="@drawable/arrow" />
+      
+      </FrameLayout>
+
+    <TextView
+        android:id="@+id/invite_Friends_textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Max points"
-        android:layout_alignLeft="@+id/name_field"
-        android:layout_below="@+id/name_field"
-        android:layout_marginTop="62dp"
-        android:inputType="numberSigned"
-        android:ems="10" />
-    
-     <EditText
-        android:id="@+id/max_time"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/submit"
-        android:layout_marginLeft="8dp"
-        android:layout_toRightOf="@+id/max_points"
-        android:ems="10"
-        android:hint="Max time(hours)"
-        android:inputType="numberSigned" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Invite Friends"
+        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="90dip"
-        android:layout_height="60dip"
-        android:layout_alignLeft="@+id/max_points"
-        android:layout_below="@+id/max_points"
-        android:layout_marginLeft="31dp"
-        android:layout_marginTop="89dp"
-        android:background="@drawable/rec_button"
-        android:text="Begin Game" />
+      <Button
+          android:id="@+id/submit"
+          android:layout_width="90dip"
+          android:layout_height="60dip"
+          android:layout_alignParentBottom="true"
+          android:layout_centerHorizontal="true"
+          android:layout_marginBottom="28dp"
+          android:background="@drawable/rec_button"
+          android:text="Begin Game" />
 
-    <Button
-        android:id="@+id/invite_button"
-        android:layout_width="75dip"
-        android:layout_height="75dip"
-        android:layout_alignBottom="@+id/submit"
-        android:layout_alignRight="@+id/max_time"
-        android:layout_marginRight="9dp"
-        android:background="@drawable/rec_button"
-        android:text="Invite Players" />
+      <TextView
+          android:id="@+id/settings_textview"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_below="@+id/frame_invite"
+          android:layout_marginTop="26dp"
+          android:text="Game Settings"
+          android:textSize="20sp" />
 
- 
+      <FrameLayout
+          android:id="@+id/frame_name"
+          android:layout_width="fill_parent"
+          android:layout_height="45dp"
+          android:layout_alignParentLeft="true"
+          android:layout_below="@+id/settings_textview"
+          android:layout_marginTop="14dp"
+          android:background="@drawable/rectangle" >
+
+          <TextView
+              android:id="@+id/game_name"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="Name"
+              android:textSize="20sp" />
+
+          <EditText
+              android:id="@+id/name_field"
+              android:layout_width="160dp"
+              android:layout_height="28dp"
+              android:layout_gravity="center_vertical|right"
+              android:background="@drawable/rectangle"
+              android:ems="10"
+              android:inputType="text" />
+      </FrameLayout>
+
+      <FrameLayout
+          android:id="@+id/frame_points"
+          android:layout_width="fill_parent"
+          android:layout_height="45dp"
+          android:layout_alignParentLeft="true"
+          android:layout_below="@+id/frame_name"
+          android:background="@drawable/rectangle" >
+
+          <TextView
+              android:id="@+id/points_textview"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="Points to win"
+              android:textSize="20sp" />
+
+          <EditText
+              android:id="@+id/max_points"
+              android:layout_width="80dp"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical|right"
+              android:background="@drawable/rectangle"
+              android:ems="10"
+              android:inputType="numberSigned" />
+      </FrameLayout>
+
+      <FrameLayout
+          android:id="@+id/frame_time"
+          android:layout_width="fill_parent"
+          android:layout_height="45dp"
+          android:layout_alignParentLeft="true"
+          android:layout_below="@+id/frame_points"
+          android:background="@drawable/rectangle" >
+
+          <TextView
+              android:id="@+id/time_textview"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:text="Time per turn"
+              android:textSize="20sp" />
+
+          <EditText
+              android:id="@+id/max_time"
+              android:layout_width="80dp"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical|right"
+              android:background="@drawable/rectangle"
+              android:ems="10"
+              android:inputType="numberSigned" />
+      </FrameLayout>
 
 </RelativeLayout>

@@ -14,6 +14,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,8 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 		fragView = inflater.inflate(R.layout.fragment_game_settings, container, false);
 
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		
 
 		/*// Init score max spinner
 		String[] arrayScore = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
@@ -66,15 +69,35 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 		timeRoundSpinner.setAdapter(spinnerTimerAdapter);
 		timeRoundSpinner.setOnItemSelectedListener(this);*/
 		
-		mMaxPointsView = (TextView) fragView.findViewById(R.id.max_points);
-		mMaxTimeView = (TextView) fragView.findViewById(R.id.max_time);
+		//Change fonts
+		TextView inviteHeadText = (TextView) fragView.findViewById(R.id.Invite_friends);
+		inviteHeadText.setTypeface(mActivity.tf);
 		
+		TextView inviteText = (TextView) fragView.findViewById(R.id.invite_Friends_textView);
+		inviteText.setTypeface(mActivity.tf);
+		
+		TextView settingsText = (TextView) fragView.findViewById(R.id.settings_textview);
+		settingsText.setTypeface(mActivity.tf);
+		
+		TextView namegameText = (TextView) fragView.findViewById(R.id.game_name);
+		namegameText.setTypeface(mActivity.tf);
+		
+		TextView pointsText = (TextView) fragView.findViewById(R.id.points_textview);
+		pointsText.setTypeface(mActivity.tf);
+		
+		TextView timeText = (TextView) fragView.findViewById(R.id.time_textview);
+		timeText.setTypeface(mActivity.tf);
+		
+		mMaxPointsView = (TextView) fragView.findViewById(R.id.max_points);
+		mMaxPointsView.setTypeface(mActivity.tf);
+		mMaxTimeView = (TextView) fragView.findViewById(R.id.max_time);
+		mMaxTimeView.setTypeface(mActivity.tf);
 
 		ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
 
 		setSubmitButton();
 
-		Button inviteButton = (Button) fragView.findViewById(R.id.invite_button);
+		FrameLayout inviteButton = (FrameLayout) fragView.findViewById(R.id.frame_invite);
 		inviteButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
