@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,8 +43,12 @@ public class InvitePlayersFragment extends SherlockFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_invite_list, container, false);
+		
+		
+		
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		mListView = (ListView) v.findViewById(R.id.invitelist);
+		
 
 		// get players on parse
 		ParseQuery<ParseUser> query = ParseUser.getQuery();
@@ -71,6 +76,9 @@ public class InvitePlayersFragment extends SherlockFragment {
 						public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 							ParseUser selectedUser = (ParseUser) mListView.getItemAtPosition(position);
 							CheckedTextView listText = (CheckedTextView) arg1.findViewById(R.id.invitee);
+							
+						
+							
 							//Always add current user to game
 							mActivity.participants.add(mUser.getObjectId());
 
@@ -112,6 +120,10 @@ public class InvitePlayersFragment extends SherlockFragment {
 			View rowView = inflater.inflate(layoutResourceId, parent, false);
 
 			TextView nameText = (TextView) rowView.findViewById(R.id.invitee);
+			
+			Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Raleway-Regular.ttf");
+			nameText.setTypeface(tf);
+			
 			// If the user has been selected, highlight their row
 			if (mActivity.participants.contains(users.get(position).getObjectId())) {
 				rowView.setBackgroundColor(getResources().getColor(R.color.CoralBlue));
