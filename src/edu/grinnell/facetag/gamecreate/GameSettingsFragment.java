@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -199,18 +200,5 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 			}
 			}
 		});
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(mActivity);
-			return true;
-		default:
-			super.onOptionsItemSelected(item);
-		}
-		return true;
 	}
 }
