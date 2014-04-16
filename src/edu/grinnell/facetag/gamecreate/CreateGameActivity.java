@@ -44,7 +44,7 @@ public class CreateGameActivity extends SlidingFragmentActivity {
 		menu.setShadowWidthRes(R.dimen.shadow_width);
 		menu.setShadowDrawable(R.drawable.shadow_right);
 		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		menu.setBehindOffset(140);
+		menu.setBehindOffset(200);
 		menu.setMenu(R.layout.menu_frame);
 	}
 }
