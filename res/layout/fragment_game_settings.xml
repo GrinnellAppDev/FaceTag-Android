@@ -11,7 +11,7 @@
    android:id="@+id/frame_invite"
    android:clickable="true"
    android:layout_width="fill_parent"
-   android:layout_height="45dp"
+   android:layout_height="50dp"
    android:layout_marginTop="40dp"
    android:background="@drawable/rectangle">
    
@@ -40,7 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Invite Friends"
+        android:layout_marginLeft="10dp"
+        android:text="INVITE FRIENDS"
         android:textSize="20sp" />
 
       <Button
@@ -59,14 +60,15 @@
           android:layout_height="wrap_content"
           android:layout_alignParentLeft="true"
           android:layout_below="@+id/frame_invite"
-          android:layout_marginTop="26dp"
-          android:text="Game Settings"
+          android:layout_marginTop="46dp"
+          android:layout_marginLeft="10dp"
+          android:text="GAME SETTINGS"
           android:textSize="20sp" />
 
       <FrameLayout
           android:id="@+id/frame_name"
           android:layout_width="fill_parent"
-          android:layout_height="45dp"
+          android:layout_height="50dp"
           android:layout_alignParentLeft="true"
           android:layout_below="@+id/settings_textview"
           android:layout_marginTop="14dp"
@@ -93,7 +95,7 @@
       <FrameLayout
           android:id="@+id/frame_points"
           android:layout_width="fill_parent"
-          android:layout_height="45dp"
+          android:layout_height="50dp"
           android:layout_alignParentLeft="true"
           android:layout_below="@+id/frame_name"
           android:background="@drawable/rectangle" >
@@ -119,7 +121,7 @@
       <FrameLayout
           android:id="@+id/frame_time"
           android:layout_width="fill_parent"
-          android:layout_height="45dp"
+          android:layout_height="50dp"
           android:layout_alignParentLeft="true"
           android:layout_below="@+id/frame_points"
           android:background="@drawable/rectangle" >

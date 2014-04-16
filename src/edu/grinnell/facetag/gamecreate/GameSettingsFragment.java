@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
@@ -36,6 +37,8 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 	View fragView;
 	TextView mMaxPointsView, mMaxTimeView;
 	Boolean inviteShowing = false;
+	Button flashButton;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 		fragView = inflater.inflate(R.layout.fragment_game_settings, container, false);
 
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Raleway-Regular.ttf");
 		
 
 		/*// Init score max spinner
@@ -71,27 +74,30 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 		
 		//Change fonts
 		TextView inviteHeadText = (TextView) fragView.findViewById(R.id.Invite_friends);
-		inviteHeadText.setTypeface(mActivity.tf);
+		inviteHeadText.setTypeface(tf);
 		
 		TextView inviteText = (TextView) fragView.findViewById(R.id.invite_Friends_textView);
-		inviteText.setTypeface(mActivity.tf);
+		inviteText.setTypeface(tf);
 		
 		TextView settingsText = (TextView) fragView.findViewById(R.id.settings_textview);
-		settingsText.setTypeface(mActivity.tf);
+		settingsText.setTypeface(tf);
 		
 		TextView namegameText = (TextView) fragView.findViewById(R.id.game_name);
-		namegameText.setTypeface(mActivity.tf);
+		namegameText.setTypeface(tf);
 		
 		TextView pointsText = (TextView) fragView.findViewById(R.id.points_textview);
-		pointsText.setTypeface(mActivity.tf);
+		pointsText.setTypeface(tf);
 		
 		TextView timeText = (TextView) fragView.findViewById(R.id.time_textview);
-		timeText.setTypeface(mActivity.tf);
+		timeText.setTypeface(tf);
 		
 		mMaxPointsView = (TextView) fragView.findViewById(R.id.max_points);
-		mMaxPointsView.setTypeface(mActivity.tf);
+		mMaxPointsView.setTypeface(tf);
 		mMaxTimeView = (TextView) fragView.findViewById(R.id.max_time);
-		mMaxTimeView.setTypeface(mActivity.tf);
+		mMaxTimeView.setTypeface(tf);
+		
+		flashButton = (Button) fragView.findViewById(R.id.submit);
+		flashButton.setTypeface(tf);
 
 		ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
 
@@ -146,7 +152,6 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 
 	public void setSubmitButton() {
 		// Add a listener to the Capture button
-		Button flashButton = (Button) fragView.findViewById(R.id.submit);
 		flashButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {			

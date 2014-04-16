@@ -18,8 +18,6 @@ public class CreateGameActivity extends SlidingFragmentActivity {
 	List<String> participants = new ArrayList<String>();
 	int maxPoints = 5;
 	int maxTime = 4;
-	public String fontPath = "fonts/Raleway-Regular.ttf";
-	public Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
 	ParseUser mUser = ParseUser.getCurrentUser();
 	CreateGameActivity mActivity = this;
 	HashMap<String, Integer> scoreBoard = new HashMap<String, Integer>();
