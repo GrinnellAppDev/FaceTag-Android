@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,13 +103,17 @@ public class ScoresListFragment extends SherlockFragment {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
+			Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Raleway-Regular.ttf");
+			
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View rowView = inflater.inflate(layoutResourceId, parent, false);
 			TextView playerText = (TextView) rowView.findViewById(R.id.playername);
+			playerText.setTypeface(tf);
 			playerText.setText(scores.get(position).getPlayer());
 
 			TextView scoreText = (TextView) rowView.findViewById(R.id.score);
+			scoreText.setTypeface(tf);
 			scoreText.setText("" + scores.get(position).getScore());
 
 			return rowView;

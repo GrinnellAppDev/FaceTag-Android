@@ -2,40 +2,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="@color/White"
+    android:background="@drawable/main_background"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/game_name"
+        android:id="@+id/heading_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:textColor="#63add0"
         android:gravity="center"
-        android:textSize="30sp" />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="3dp"
-        android:background="#000000"
-        android:padding="40dp" />
-
-    <TextView
-        android:id="@+id/target_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="Your Target Is: ..." />
+        android:text="TARGET"
+        android:textSize="40sp" />
 
     <edu.grinnell.facetag.utils.RoundedImageView
         android:id="@+id/target_photo"
-        android:layout_width="fill_parent"
-        android:layout_height="400dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
         class="edu.grinnell.facetag.utils.RoundedImageView"
-        android:gravity="center"
+        android:baselineAlignBottom="true"
+        android:gravity="center|center_horizontal"
         android:scaleType="fitCenter" />
+    
+     <TextView
+         android:id="@+id/target_description"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="25dp"
+         android:textSize="20sp"
+         android:textColor="#808080"
+         android:gravity="center_horizontal"
+         android:text="" />
+
+     <ImageView
+         android:id="@+id/camera_info"
+         android:layout_width="70dp"
+         android:layout_height="70dp"
+         android:layout_marginTop="15dp"
+         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

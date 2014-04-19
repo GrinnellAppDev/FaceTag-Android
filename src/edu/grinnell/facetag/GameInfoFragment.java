@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,8 +49,9 @@ public class GameInfoFragment extends SherlockFragment {
 
 	TextView targetInfo;
 	RoundedImageView targetPic;
-	TextView gameName;
+	TextView headInfo;
 	TextView newPics;
+	ImageView cameraLaunch;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +60,9 @@ public class GameInfoFragment extends SherlockFragment {
 		mActivity = (GameScreenActivity) getSherlockActivity();
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setHasOptionsMenu(true);
+		
+		//define raleway font
+		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Raleway-Regular.ttf");
 		
 		mGame = mActivity.mGame;
 		
@@ -69,12 +75,18 @@ public class GameInfoFragment extends SherlockFragment {
 
 		// Find views
 		targetInfo = (TextView) mView.findViewById(R.id.target_description);
+		headInfo = (TextView) mView.findViewById(R.id.heading_info);
+		cameraLaunch = (ImageView) mView.findViewById(R.id.camera_info);
+		
+		
+		
+		headInfo.setTypeface(tf);
+		targetInfo.setTypeface(tf);
 		// TODO replace this with animation
 		targetPic = (RoundedImageView) mView.findViewById(R.id.target_photo);
 
-		gameName = (TextView) mView.findViewById(R.id.game_name);
+		mActivity.setTitle(mActivity.mGame.getName());
 
-		gameName.setText("Game: " + mActivity.mGame.getName());
 
 		getTarget();
 
@@ -100,15 +112,26 @@ public class GameInfoFragment extends SherlockFragment {
 					Log.d(TAG, "Target: " + user.getString("fullName"));
 					mTarget = user;
 					// Set target info in view
-					targetInfo.setText("Target: " + mTarget.getString("fullName"));
+					targetInfo.setText(mTarget.getString("fullName"));
 					// Load target FB image
 					ImageLoaderUtility imageLoader = new ImageLoaderUtility();
 					imageLoader.loadImage(mTarget.getString("profilePictureURL"), targetPic,
 							mActivity);
+					
+					cameraLaunch.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							launchCamera();
+							
+						}
+					});
+					cameraLaunch.setImageResource(R.drawable.camera_info);
 				}
 			}
 		});
 	}
+	
 
 	// Retrieve the users for the game
 	void getUsers() {
@@ -141,9 +164,6 @@ public class GameInfoFragment extends SherlockFragment {
 		int itemId = item.getItemId();
 		if (itemId == android.R.id.home) {
 			mActivity.getSupportFragmentManager().popBackStack();
-			return true;
-		} else if (itemId == R.id.action_camera) {
-			launchCamera();
 			return true;
 		} else if (itemId == R.id.action_photos) {
 			launchPhotoEval();
