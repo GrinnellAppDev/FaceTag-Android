@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 
@@ -14,6 +12,8 @@ import com.facetag_android.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.parse.ParseUser;
+
+import edu.grinnell.facetag.utils.actionBarFont;
 
 // Creates a Game
 public class CreateGameActivity extends SlidingFragmentActivity {
@@ -32,6 +32,8 @@ public class CreateGameActivity extends SlidingFragmentActivity {
 		setContentView(R.layout.activity_create_game);
 		setBehindContentView(R.layout.menu_frame);
 		initMenu(getSlidingMenu());
+		
+		actionBarFont.fontChange(this.getWindow().getDecorView(), this);
 
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.menu_frame, new InvitePlayersFragment()).commit();

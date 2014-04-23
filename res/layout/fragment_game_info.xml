@@ -16,16 +16,37 @@
         android:text="TARGET"
         android:textSize="40sp" />
 
+    <RelativeLayout
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal" >
+        
+        <TextView 
+        
+        android:id="@+id/load_text_info"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="Loading..."
+        android:textSize="20sp"
+        android:gravity="center"
+        
+        />
+        
     <edu.grinnell.facetag.utils.RoundedImageView
         android:id="@+id/target_photo"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
         class="edu.grinnell.facetag.utils.RoundedImageView"
         android:baselineAlignBottom="true"
         android:gravity="center|center_horizontal"
         android:scaleType="fitCenter" />
+    
+    
+    
+    </RelativeLayout>
     
      <TextView
          android:id="@+id/target_description"
@@ -38,11 +59,15 @@
          android:gravity="center_horizontal"
          android:text="" />
 
+   
      <ImageView
          android:id="@+id/camera_info"
          android:layout_width="70dp"
          android:layout_height="70dp"
          android:layout_marginTop="15dp"
          android:layout_gravity="center_horizontal" />
+     
+     
+     
 
 </LinearLayout>

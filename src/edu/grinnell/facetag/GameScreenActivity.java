@@ -6,12 +6,11 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.facetag_android.R;
 import com.parse.FindCallback;
 import com.parse.ParseAnalytics;
@@ -23,6 +22,7 @@ import com.parse.ParseUser;
 import edu.grinnell.facetag.ScoresListFragment.scorePair;
 import edu.grinnell.facetag.parse.Game;
 import edu.grinnell.facetag.parse.PhotoTag;
+import edu.grinnell.facetag.utils.actionBarFont;
 
 public class GameScreenActivity extends SherlockFragmentActivity {
 	private final String TAG = "GameScreen";
@@ -33,14 +33,21 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 	ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
 	HashMap<String, ArrayList<PhotoTag>> photoMap = new HashMap<String, ArrayList<PhotoTag>>();
 	public Game mGame;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		actionBarFont.fontChange(this.getWindow().getDecorView(), this);
+		
 		setContentView(R.layout.activity_game_screen);
+		//getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_action));
+		
+		
 
 		ParseAnalytics.trackAppOpened(getIntent());
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
 
 		// Get the user object for the current user
 		mUser = ParseUser.getCurrentUser();

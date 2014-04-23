@@ -3,10 +3,12 @@ package edu.grinnell.facetag;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import edu.grinnell.facetag.parse.Game;
 import edu.grinnell.facetag.takepicture.CameraActivity;
 import edu.grinnell.facetag.utils.ImageLoaderUtility;
 import edu.grinnell.facetag.utils.RoundedImageView;
+import edu.grinnell.facetag.utils.actionBarFont;
 
 /**
  * 
@@ -52,6 +55,7 @@ public class GameInfoFragment extends SherlockFragment {
 	TextView headInfo;
 	TextView newPics;
 	ImageView cameraLaunch;
+	TextView placeholder;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,8 +65,15 @@ public class GameInfoFragment extends SherlockFragment {
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setHasOptionsMenu(true);
 		
-		//define raleway font
-		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Raleway-Regular.ttf");
+		//loading text
+		placeholder = (TextView) mView.findViewById(R.id.load_text_info);
+		actionBarFont.fontChangeText(placeholder, mView.getContext());
+		
+		
+		
+	
+	
+		
 		
 		mGame = mActivity.mGame;
 		
@@ -80,8 +91,8 @@ public class GameInfoFragment extends SherlockFragment {
 		
 		
 		
-		headInfo.setTypeface(tf);
-		targetInfo.setTypeface(tf);
+		actionBarFont.fontChangeText(headInfo, getActivity());
+		actionBarFont.fontChangeText(targetInfo, getActivity());
 		// TODO replace this with animation
 		targetPic = (RoundedImageView) mView.findViewById(R.id.target_photo);
 
@@ -115,8 +126,14 @@ public class GameInfoFragment extends SherlockFragment {
 					targetInfo.setText(mTarget.getString("fullName"));
 					// Load target FB image
 					ImageLoaderUtility imageLoader = new ImageLoaderUtility();
-					imageLoader.loadImage(mTarget.getString("profilePictureURL"), targetPic,
-							mActivity);
+					String fbPic = mTarget.getString("profilePictureURL");
+					
+					//Check if there's no picture
+					if (fbPic == null)
+						placeholder.setText("No image found :(");
+					else
+						imageLoader.loadImage(fbPic, targetPic,	mActivity);
+					
 					
 					cameraLaunch.setOnClickListener(new View.OnClickListener() {
 						
@@ -126,7 +143,7 @@ public class GameInfoFragment extends SherlockFragment {
 							
 						}
 					});
-					cameraLaunch.setImageResource(R.drawable.camera_info);
+					cameraLaunch.setImageResource(R.drawable.info_camera_final);
 				}
 			}
 		});

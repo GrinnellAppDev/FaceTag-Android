@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +21,8 @@ import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
+import edu.grinnell.facetag.utils.actionBarFont;
+
 /* Login to facebook here and link to parse */
 public class LoginActivity extends SherlockFragmentActivity {
 	private final String TAG = "LoginActivity";
@@ -38,7 +39,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 		
 
 
-
+		actionBarFont.fontChange(this.getWindow().getDecorView(), this);
 		loginButton = (Button) findViewById(R.id.login);
 		//Make button disapear when clicked
 		//TODO add a loading animation
