@@ -3,13 +3,12 @@ package edu.grinnell.facetag;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,9 +95,15 @@ public class GameInfoFragment extends SherlockFragment {
 		// TODO replace this with animation
 		targetPic = (RoundedImageView) mView.findViewById(R.id.target_photo);
 
-		mActivity.setTitle(mActivity.mGame.getName());
-
-
+		//mActivity.setTitle(mActivity.mGame.getName());
+		mActivity.getSupportFragmentManager().addOnBackStackChangedListener(new OnBackStackChangedListener() {
+			
+			@Override
+			public void onBackStackChanged() {
+				// TODO Auto-generated method stub
+				mActivity.setTitle(mActivity.mGame.getName());
+			}
+		});
 		getTarget();
 
 		return mView;
@@ -130,7 +135,7 @@ public class GameInfoFragment extends SherlockFragment {
 					
 					//Check if there's no picture
 					if (fbPic == null)
-						placeholder.setText("No image found :(");
+						targetPic.setImageResource(R.drawable.no_user);
 					else
 						imageLoader.loadImage(fbPic, targetPic,	mActivity);
 					

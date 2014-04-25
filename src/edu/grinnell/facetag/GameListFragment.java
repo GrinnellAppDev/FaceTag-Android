@@ -2,7 +2,10 @@ package edu.grinnell.facetag;
 
 import java.util.ArrayList;
 
+import android.R.drawable;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,15 +23,20 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.facetag_android.R;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import edu.grinnell.facetag.gamecreate.CreateGameActivity;
 import edu.grinnell.facetag.parse.Game;
+import edu.grinnell.facetag.utils.actionBarFont;
 
 public class GameListFragment extends SherlockFragment {
 	GameScreenActivity mActivity;
 	ListView mListView;
 	final String TAG = "List Fragment";
 	int backButtonCount;
+	
 
 	/**
 	 * 
@@ -40,6 +48,8 @@ public class GameListFragment extends SherlockFragment {
 		super.onCreate(savedInstanceState);
 		mActivity = (GameScreenActivity) getSherlockActivity();
 		setHasOptionsMenu(true);
+		
+		
 	}
 
 	@Override
@@ -52,11 +62,53 @@ public class GameListFragment extends SherlockFragment {
 				R.layout.game_list_adapter, mActivity.mGameList);
 		mListView = (ListView) v.findViewById(R.id.gamelist);
 		mListView.setAdapter(gameAdapter);
+		
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
 				Game selectedGame = (Game) mListView.getItemAtPosition(position);
+				view.setBackgroundResource(R.drawable.rectangle_2);
 				gameInfo(selectedGame);
+			}
+		});
+		
+		mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View view,
+					final int position, long id) {
+				
+			/*	AlertDialog.Builder builder = new AlertDialog.Builder(mActivity.getApplicationContext());
+				builder.setItems(R.array.menu_click_option, mDialogListener);
+				AlertDialog dialog = builder.create();
+				dialog.show(); */
+		
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setMessage("Are you sure you want to leave this game?");
+					builder.setNegativeButton("Cancel", null);
+					builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+				    {
+				        @Override
+				        public void onClick(DialogInterface dialog, int whichButton)
+				        {
+				           try{
+				        	ParseUser user = ParseUser.getCurrentUser();   
+				        	Game game = (Game) mListView.getItemAtPosition(position);
+				        	game.getParticipants().remove(user.getObjectId());
+				        	game.delete();
+				        	mActivity.mGameList.clear();
+							mActivity.downloadGames();
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				        }
+				    });
+					AlertDialog dialog = builder.create();
+					dialog.show();
+				
+				
+				return true;
 			}
 		});
 
@@ -124,7 +176,10 @@ public class GameListFragment extends SherlockFragment {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View rowView = inflater.inflate(layoutResourceId, parent, false);
 			TextView textView = (TextView) rowView.findViewById(R.id.game_title);
+			actionBarFont.fontChangeText(textView, mActivity.getApplicationContext());
 			textView.setText(games.get(position).getName());
+			
+			
 
 			String gameID = games.get(position).getObjectId();
 			ImageView gameStatus = (ImageView) rowView.findViewById(R.id.game_status);

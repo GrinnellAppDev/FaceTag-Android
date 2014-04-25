@@ -67,6 +67,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 						
 					if (mUsers.get(k).getString("fullName").equals(mUser.getString("fullName")))
 						mUsers.remove(k);
+						
 					
 					}
 					

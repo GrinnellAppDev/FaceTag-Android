@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/waiting_status_circle" android:state_enabled="true" android:state_pressed="true"/>
+    <item android:drawable="@drawable/abs__ab_bottom_solid_dark_holo" android:state_enabled="true" android:state_selected="true"/>
+
+
+ </selector>

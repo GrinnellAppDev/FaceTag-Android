@@ -141,4 +141,6 @@
  <color name="Navy">#000080</color>
  <color name="Black">#000000</color>
  <color name="CoralBlue">#33b5e5</color>
+ <color name="pressed_color">#008080</color>
+ <color name="default_color">#ffffff</color>
 </resources>
