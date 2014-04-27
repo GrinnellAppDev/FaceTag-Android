@@ -24,7 +24,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.facetag_android.R;
 import com.parse.ParseException;
-import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
 import edu.grinnell.facetag.gamecreate.CreateGameActivity;

@@ -18,7 +18,6 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
 import com.facetag_android.R;
 import com.parse.ParseUser;
-
 /* Display a list of players in the selected game and their coresponding scores */
 public class ScoresListFragment extends SherlockFragment {
 	final String TAG = "Score Board";

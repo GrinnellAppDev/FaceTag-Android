@@ -4,15 +4,12 @@ import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.internal.widget.IcsAdapterView;
+import com.actionbarsherlock.internal.widget.IcsAdapterView.OnItemSelectedListener;
 import com.facetag_android.R;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -200,5 +198,18 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 			}
 			}
 		});
+	}
+
+	@Override
+	public void onItemSelected(IcsAdapterView<?> parent, View view,
+			int position, long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onNothingSelected(IcsAdapterView<?> parent) {
+		// TODO Auto-generated method stub
+		
 	}
 }

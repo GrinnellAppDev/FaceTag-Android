@@ -24,6 +24,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+
 public class InvitePlayersFragment extends SherlockFragment {
 	final String TAG = "Invite Screen";
 	CreateGameActivity mActivity;
