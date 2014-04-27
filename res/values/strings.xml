@@ -7,7 +7,6 @@
     <string name="title_activity_photo_browse">Photo Browse</string>
     <string name="title_activity_game_screen">GameScreen</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="app_id">551206871642297</string>
     <string name="title_activity_create_game">CreateGame</string>
     <string name="title_activity_submit_photo">SubmitPhoto</string>
     <string name="title_activity_game_info_screen">GameInfoScreen</string>
@@ -17,8 +16,9 @@
     <string name="action_camera">Camera</string>
     <string name="action_photos">Photo Eval</string>
     <string name="action_scores">Scores</string>
+
     <string-array name="menu_click_option">
-        <item />
+        <item/>
     </string-array>
 
 </resources>
