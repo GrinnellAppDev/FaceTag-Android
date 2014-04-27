@@ -87,9 +87,8 @@ public class LoginActivity extends SherlockFragmentActivity {
 		});
 	}
 
-	@SuppressWarnings("deprecation")
 	private static void getFacebookInfoInBackground() {
-		Request.executeMeRequestAsync(ParseFacebookUtils.getSession(),
+		Request.newMeRequest(ParseFacebookUtils.getSession(),
 				new Request.GraphUserCallback() {
 					@Override
 					public void onCompleted(GraphUser user, Response response) {
@@ -112,7 +111,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 							ParseUser.getCurrentUser().saveInBackground();
 						}
 					}
-				});
+				}).executeAsync();
 	}
 
 	@Override
