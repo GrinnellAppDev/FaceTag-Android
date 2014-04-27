@@ -56,7 +56,8 @@
         </activity>
         <activity
             android:name="edu.grinnell.facetag.LoginActivity"
-            android:label="@string/title_activity_login"           
+            android:label="@string/title_activity_login"   
+            android:theme="@style/Theme.Sherlock.Light.NoActionBar"        
             android:screenOrientation="portrait">
              >
         </activity>

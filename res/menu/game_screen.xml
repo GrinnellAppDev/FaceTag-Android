@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
+    <item android:id="@+id/action_logout" android:icon="@drawable/logout" android:showAsAction="ifRoom"></item><item
         android:id="@+id/action_refresh"
         android:icon="@drawable/ic_action_refresh"
         android:title="@string/action_refresh"
@@ -10,5 +10,6 @@
         android:icon="@drawable/ic_action_new"
         android:title="@string/action_newgame"
         android:showAsAction = "ifRoom"/>
+    
 
 </menu>

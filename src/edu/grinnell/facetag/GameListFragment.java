@@ -2,13 +2,13 @@ package edu.grinnell.facetag;
 
 import java.util.ArrayList;
 
-import android.R.drawable;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +24,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.facetag_android.R;
 import com.parse.ParseException;
-import com.parse.ParseObject;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
 import edu.grinnell.facetag.gamecreate.CreateGameActivity;
@@ -124,8 +124,23 @@ public class GameListFragment extends SherlockFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int itemId = item.getItemId();
-		if (itemId == R.id.action_refresh) {
-			mActivity.mGameList.clear();
+		
+		if (itemId == R.id.action_logout){
+			ParseUser currentUser = ParseUser.getCurrentUser();
+			ParseUser.logOut();
+			if (currentUser != null){
+				Log.d(TAG, "USER IS NOT NULL TROLLOLOLOL");
+			} 
+			
+			Intent intent = new Intent(mActivity.getApplicationContext(), LoginActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			startActivity(intent);
+			
+			return true;
+		}
+		else if (itemId == R.id.action_refresh) {
+			mActivity.mGameList.clear(); 
 			mActivity.downloadGames();
 			return true;
 		} else if (itemId == R.id.action_newgame) {

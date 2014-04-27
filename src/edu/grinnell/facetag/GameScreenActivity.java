@@ -118,4 +118,11 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 			}
 		});
 	}
+	
+	@Override
+	protected void onResume() {
+		
+		getSupportActionBar().setTitle("FaceTag");
+		super.onResume();
+	}
 }

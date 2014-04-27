@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ import edu.grinnell.facetag.utils.actionBarFont;
 public class LoginActivity extends SherlockFragmentActivity {
 	private final String TAG = "LoginActivity";
 	static TextView testText;
-	Button loginButton;
+	ImageButton loginButton;
 	ArrayList<ParseUser> invitedUsers = new ArrayList<ParseUser>();
 	/*
 	 * Logs in to facebook
@@ -36,18 +37,18 @@ public class LoginActivity extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
 
 
-		actionBarFont.fontChange(this.getWindow().getDecorView(), this);
-		loginButton = (Button) findViewById(R.id.login);
+
+		loginButton = (ImageButton) findViewById(R.id.login);
 		//Make button disapear when clicked
 		//TODO add a loading animation
 		loginButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				loginButton.setBackgroundResource(R.drawable.facebook_button_pressed);
 				FBlogin();
-				loginButton.setVisibility(View.INVISIBLE);
+				//loginButton.setVisibility(View.INVISIBLE);
 			}
 		});
 	}
@@ -58,15 +59,29 @@ public class LoginActivity extends SherlockFragmentActivity {
 		ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
 			@Override
 			public void done(ParseUser user, ParseException err) {
-				if (user != null) {
-					Log.d(TAG, "User signed in to FB");
-					getFacebookInfoInBackground();
-					finish();
-				} else {
+				if (user == null) {
 					Log.d(TAG, "FB login error: " + err.toString());
 					Toast.makeText(getApplicationContext(), "Error Logging In " + err.toString(), 
 							   Toast.LENGTH_SHORT).show();
-					//TODO: Give better prompt to log in with error message
+					
+				}
+					
+				else if(user.isNew()){
+					Log.d(TAG, "User signed in to FB");
+					Log.d(TAG, user.getObjectId().toString());
+					getFacebookInfoInBackground();
+					Intent intent = new Intent(LoginActivity.this, GameScreenActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+					startActivity(intent);
+				} else { 
+					Log.d(TAG, "User signed in to FB");
+					Log.d(TAG, user.getObjectId().toString());
+					getFacebookInfoInBackground();
+					Intent intent = new Intent(LoginActivity.this, GameScreenActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+					startActivity(intent);
 				}
 			}
 		});
