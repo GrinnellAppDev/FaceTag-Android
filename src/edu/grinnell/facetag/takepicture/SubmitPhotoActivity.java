@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,18 +47,22 @@ public class SubmitPhotoActivity extends SherlockActivity {
 		ImageView picPreview = (ImageView) findViewById(R.id.pic_view);
 		picPreview.setImageBitmap(photoBitmap);
 
-		Button acceptButton = (Button) findViewById(R.id.accept);
+		final Button acceptButton = (Button) findViewById(R.id.accept);
 		acceptButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				acceptButton.setBackgroundResource(R.drawable.rec_button_press);
+				acceptButton.setTextColor(Color.parseColor("#7F7F7F"));
 				submitPhoto();
 			}
 		});
 
-		Button rejectButton = (Button) findViewById(R.id.reject);
+		final Button rejectButton = (Button) findViewById(R.id.reject);
 		rejectButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				rejectButton.setBackgroundResource(R.drawable.rec_button_press);
+				acceptButton.setTextColor(Color.parseColor("#7F7F7F"));
 				finish();
 			}
 		});

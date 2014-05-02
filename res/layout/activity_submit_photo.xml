@@ -2,13 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/settings_background"
     android:orientation="vertical" >
 
-    <ImageView
+    <edu.grinnell.facetag.utils.RoundedImageView
         android:id="@+id/pic_view"
-        android:layout_width="fill_parent"
-        android:layout_height="400dp"
-        android:layout_gravity="top|center"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_gravity="center"
+        class="edu.grinnell.facetag.utils.RoundedImageView"
+        android:layout_marginTop="20dp"
+        android:baselineAlignBottom="true"
+        android:gravity="center|center_horizontal"
         android:scaleType="fitCenter" />
 
     <LinearLayout
@@ -20,7 +25,7 @@
 
         <Button
             android:id="@+id/accept"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rec_button"
             android:text="Submit"
@@ -28,7 +33,7 @@
 
         <Button
             android:id="@+id/reject"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:background="@drawable/rec_button"
