@@ -58,7 +58,7 @@
         <Button
             android:id="@+id/affirmative"
             android:layout_width="75dip"
-            android:layout_height="75dip"
+            android:layout_height="45dip"
             android:layout_gravity="left"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="40dp"
@@ -68,7 +68,7 @@
         <Button
             android:id="@+id/negative"
             android:layout_width="75dip"
-            android:layout_height="75dip"
+            android:layout_height="45dip"
             android:layout_gravity="right"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
