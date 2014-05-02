@@ -4,13 +4,13 @@
     android:background="@drawable/login_bg"
     android:layout_height="fill_parent" >
 
-    <ImageButton
-        android:id="@+id/login"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="212dp"
-        android:background="@drawable/facebook_button" />
+   <com.facebook.widget.LoginButton
+       android:id="@+id/login"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentRight="true"
+       android:layout_alignParentTop="true"
+       android:layout_marginRight="81dp"
+       android:layout_marginTop="227dp" />
 
 </RelativeLayout>

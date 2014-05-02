@@ -14,7 +14,10 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.facebook.Request;
 import com.facebook.Response;
+import com.facebook.android.Facebook;
 import com.facebook.model.GraphUser;
+import com.facebook.widget.FacebookDialog;
+import com.facebook.widget.LoginButton;
 import com.facetag_android.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -25,7 +28,8 @@ import com.parse.ParseUser;
 public class LoginActivity extends SherlockFragmentActivity {
 	private final String TAG = "LoginActivity";
 	static TextView testText;
-	ImageButton loginButton;
+	LoginButton loginButton;
+	ParseUser currentUser = ParseUser.getCurrentUser();
 	ArrayList<ParseUser> invitedUsers = new ArrayList<ParseUser>();
 	/*
 	 * Logs in to facebook
@@ -37,17 +41,24 @@ public class LoginActivity extends SherlockFragmentActivity {
 
 
 
-		loginButton = (ImageButton) findViewById(R.id.login);
+		loginButton = (LoginButton) findViewById(R.id.login);
 		//Make button disapear when clicked
 		//TODO add a loading animation
 		loginButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				loginButton.setBackgroundResource(R.drawable.facebook_button_pressed);
 				FBlogin();
 				//loginButton.setVisibility(View.INVISIBLE);
 			}
 		});
+		
+		  if ((currentUser != null) && ParseFacebookUtils.isLinked(currentUser)) {
+		        // Go to the user info activity
+		    	Intent intent = new Intent(LoginActivity.this, GameScreenActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				startActivity(intent);
+		    }
 	}
 
 	private void FBlogin() {
@@ -55,6 +66,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 		permissions.add("email");
 		ParseFacebookUtils.logIn(permissions, this, new LogInCallback() {
 			@Override
+			
 			public void done(ParseUser user, ParseException err) {
 				if (user == null) {
 					Log.d(TAG, "FB login error: " + err.toString());
@@ -64,7 +76,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 				}
 					
 				else if(user.isNew()){
-					Log.d(TAG, "User signed in to FB");
+					Log.d(TAG, "New User signed in to FB");
 					Log.d(TAG, user.getObjectId().toString());
 					getFacebookInfoInBackground();
 					Intent intent = new Intent(LoginActivity.this, GameScreenActivity.class);
@@ -116,5 +128,9 @@ public class LoginActivity extends SherlockFragmentActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
 	}
+
+	
+	 	
+	  
 
 }
