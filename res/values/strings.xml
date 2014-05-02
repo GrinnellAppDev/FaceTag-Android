@@ -20,5 +20,6 @@
     <string-array name="menu_click_option">
         <item/>
     </string-array>
+    <string name="content_desc">ButtonSwapImage</string>
 
 </resources>
