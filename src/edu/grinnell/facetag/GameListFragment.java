@@ -36,7 +36,6 @@ public class GameListFragment extends SherlockFragment {
 	ListView mListView;
 	final String TAG = "List Fragment";
 	int backButtonCount;
-	
 
 	/**
 	 * 
@@ -48,8 +47,7 @@ public class GameListFragment extends SherlockFragment {
 		super.onCreate(savedInstanceState);
 		mActivity = (GameScreenActivity) getSherlockActivity();
 		setHasOptionsMenu(true);
-		
-		
+
 	}
 
 	@Override
@@ -62,7 +60,7 @@ public class GameListFragment extends SherlockFragment {
 				R.layout.game_list_adapter, mActivity.mGameList);
 		mListView = (ListView) v.findViewById(R.id.gamelist);
 		mListView.setAdapter(gameAdapter);
-		
+
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
@@ -71,43 +69,38 @@ public class GameListFragment extends SherlockFragment {
 				gameInfo(selectedGame);
 			}
 		});
-		
+
 		mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
 			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View view,
-					final int position, long id) {
-				
-			/*	AlertDialog.Builder builder = new AlertDialog.Builder(mActivity.getApplicationContext());
-				builder.setItems(R.array.menu_click_option, mDialogListener);
+			public boolean onItemLongClick(AdapterView<?> arg0, View view, final int position,
+					long id) {
+
+				/*
+				 * AlertDialog.Builder builder = new
+				 * AlertDialog.Builder(mActivity.getApplicationContext());
+				 * builder.setItems(R.array.menu_click_option, mDialogListener);
+				 * AlertDialog dialog = builder.create(); dialog.show();
+				 */
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setMessage("Are you sure you want to leave this game?");
+				builder.setNegativeButton("Cancel", null);
+				builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int whichButton) {
+						ParseUser user = ParseUser.getCurrentUser();
+						Game game = (Game) mListView.getItemAtPosition(position);
+						game.getParticipants().remove(user.getObjectId());
+						mActivity.mGameList.remove(position);
+						game.saveInBackground();
+						mActivity.mGameList.clear();
+						mActivity.downloadGames();
+					}
+				});
 				AlertDialog dialog = builder.create();
-				dialog.show(); */
-		
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setMessage("Are you sure you want to leave this game?");
-					builder.setNegativeButton("Cancel", null);
-					builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
-				    {
-				        @Override
-				        public void onClick(DialogInterface dialog, int whichButton)
-				        {
-				           try{
-				        	ParseUser user = ParseUser.getCurrentUser();   
-				        	Game game = (Game) mListView.getItemAtPosition(position);
-				        	game.getParticipants().remove(user.getObjectId());
-				        	game.delete();
-				        	mActivity.mGameList.clear();
-							mActivity.downloadGames();
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-				        }
-				    });
-					AlertDialog dialog = builder.create();
-					dialog.show();
-				
-				
+				dialog.show();
+
 				return true;
 			}
 		});
@@ -124,25 +117,24 @@ public class GameListFragment extends SherlockFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int itemId = item.getItemId();
-		
-		if (itemId == R.id.action_logout){
+
+		if (itemId == R.id.action_logout) {
 			ParseUser currentUser = ParseUser.getCurrentUser();
 			ParseFacebookUtils.getSession().closeAndClearTokenInformation();
-			
+
 			ParseUser.logOut();
-			if (currentUser != null){
+			if (currentUser != null) {
 				Log.d(TAG, "USER IS NOT NULL TROLLOLOLOL");
-			} 
-			
+			}
+
 			Intent intent = new Intent(mActivity.getApplicationContext(), LoginActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			startActivity(intent);
-			
+
 			return true;
-		}
-		else if (itemId == R.id.action_refresh) {
-			mActivity.mGameList.clear(); 
+		} else if (itemId == R.id.action_refresh) {
+			mActivity.mGameList.clear();
 			mActivity.downloadGames();
 			return true;
 		} else if (itemId == R.id.action_newgame) {
@@ -164,11 +156,11 @@ public class GameListFragment extends SherlockFragment {
 		mActivity.mGame = game;
 		mActivity.mPhotos.clear();
 		String gameID = mActivity.mGame.getObjectId();
-		
-		if (mActivity.photoMap.containsKey(gameID)){
+
+		if (mActivity.photoMap.containsKey(gameID)) {
 			mActivity.mPhotos.addAll(mActivity.photoMap.get(gameID));
 		}
-		
+
 		Fragment gameInfo = new GameInfoFragment();
 		mActivity.getSupportFragmentManager().beginTransaction()
 				.replace(R.id.fragment_container, gameInfo).addToBackStack(TAG).commit();
@@ -195,18 +187,14 @@ public class GameListFragment extends SherlockFragment {
 			TextView textView = (TextView) rowView.findViewById(R.id.game_title);
 			actionBarFont.fontChangeText(textView, mActivity.getApplicationContext());
 			textView.setText(games.get(position).getName());
-			
-			
 
 			String gameID = games.get(position).getObjectId();
 			ImageView gameStatus = (ImageView) rowView.findViewById(R.id.game_status);
 			// Select an appropriate drawable for the game status
 			if (mActivity.photoMap.containsKey(gameID)) {
-				gameStatus.setBackgroundResource(
-						R.drawable.photos_to_judge_circle);
+				gameStatus.setBackgroundResource(R.drawable.photos_to_judge_circle);
 			} else
-				gameStatus.setBackgroundResource(
-						R.drawable.waiting_status_circle);
+				gameStatus.setBackgroundResource(R.drawable.waiting_status_circle);
 
 			return rowView;
 		}
