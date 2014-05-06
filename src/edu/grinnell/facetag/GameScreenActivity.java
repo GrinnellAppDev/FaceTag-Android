@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Window;
 import com.facetag_android.R;
 import com.parse.FindCallback;
 import com.parse.ParseAnalytics;
@@ -41,9 +42,11 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS); 
 		actionBarFont.fontChange(this.getWindow().getDecorView(), this);
-		
 		setContentView(R.layout.activity_game_screen);
+		 
+		
 		//getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_action));
 	
 		
@@ -68,7 +71,6 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 			Toast.makeText(getApplicationContext(),
 					"You are signed in as " + mUser.getString("fullName"), Toast.LENGTH_SHORT)
 					.show();
-			downloadGames();
 		} else {
 			// If not logged in, send to login
 			Intent intent = new Intent(this, LoginActivity.class);
@@ -79,12 +81,15 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 
 	public void downloadGames() {
 		// Retrieve all games that current user is in
+		setProgressBarIndeterminateVisibility(true);
 		mUser = ParseUser.getCurrentUser();
 		ParseQuery<ParseObject> query = ParseQuery.getQuery("Game");
 		query.whereEqualTo("participants", mUser.getObjectId());
 		query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> results, ParseException e) {
+				setProgressBarIndeterminateVisibility(false);
+				
 				ArrayList<String> gameIds = new ArrayList<String>();
 				if (e == null) {
 					Log.i(TAG, results.size() + " games found");
@@ -148,6 +153,7 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 				super.onResume();
 				
 			} else {
+        mGameList.clear();		
 		downloadGames();
 		getSupportActionBar().setTitle("FaceTag");
 		super.onResume();
