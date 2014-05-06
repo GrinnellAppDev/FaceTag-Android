@@ -27,6 +27,7 @@ import com.parse.ParseUser;
 
 import edu.grinnell.facetag.parse.PhotoTag;
 import edu.grinnell.facetag.utils.RoundedImageView;
+import edu.grinnell.facetag.utils.actionBarFont;
 
 /*
  * Fragment to prompt the user to evaluate photos that they have not yet seen
@@ -55,6 +56,7 @@ public class PhotoEvalFragment extends SherlockFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mActivity = (GameScreenActivity) getSherlockActivity();
+		Log.v(TAG , mUser.toString());
 		setHasOptionsMenu(true);
 	}
 
@@ -124,6 +126,7 @@ public class PhotoEvalFragment extends SherlockFragment {
 	}
 
 	private void loadPhoto() throws ParseException {
+		actionBarFont.fontChangeText(numPics, mView.getContext());
 		numPics.setText(picNum + " pictures to evaluate");
 		if (picNum > 0) {
 			picNum--;
@@ -131,6 +134,7 @@ public class PhotoEvalFragment extends SherlockFragment {
 
 			ParseFile pic = mPhoto.getPhoto();
 			ParseUser target = mPhoto.getTarget();
+			actionBarFont.fontChangeText(question, mView.getContext());
 			question.setText("Does this look like " + target.fetchIfNeeded().getString("fullName")
 					+ "?");
 

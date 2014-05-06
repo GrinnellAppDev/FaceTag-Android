@@ -9,6 +9,7 @@
     <ListView
         android:id="@+id/invitelist"
         android:layout_width="match_parent"
+        android:dividerHeight="1dp"
         android:layout_height="match_parent"
         android:choiceMode="multipleChoice"
         android:footerDividersEnabled="true"

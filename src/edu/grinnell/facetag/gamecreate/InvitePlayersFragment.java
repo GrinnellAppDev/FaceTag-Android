@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -91,7 +92,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 							// the list
 							if (mActivity.participants.contains(selectedUser.getObjectId())) {
 								Log.i(TAG, selectedUser.getString("fullName") + "was removed");
-								arg1.setBackgroundColor(getResources().getColor(R.color.White));
+								arg1.setBackgroundColor(Color.parseColor("#cde4f0"));
 								mActivity.participants.remove(selectedUser.getObjectId());
 								mActivity.invite_count--;
 							} else {

@@ -3,13 +3,14 @@
     android:layout_width="300dp"
     android:layout_height="match_parent"
     android:layout_gravity="right"
-    android:background="@color/White"
     android:orientation="vertical" >
 
     <ListView
         android:id="@+id/scorelist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="#FFFFFFFF"   
+        android:dividerHeight="1dp" 
         android:footerDividersEnabled="true"
         android:headerDividersEnabled="true"/>
 

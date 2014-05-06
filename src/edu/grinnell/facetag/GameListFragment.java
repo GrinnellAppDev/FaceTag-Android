@@ -6,6 +6,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.TransitionDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -77,6 +80,8 @@ public class GameListFragment extends SherlockFragment {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View view,
 					final int position, long id) {
+			
+		//		TransitionDrawable drawable = (TransitionDrawable) view.getDrawable();
 				
 			/*	AlertDialog.Builder builder = new AlertDialog.Builder(mActivity.getApplicationContext());
 				builder.setItems(R.array.menu_click_option, mDialogListener);
@@ -91,17 +96,12 @@ public class GameListFragment extends SherlockFragment {
 				        @Override
 				        public void onClick(DialogInterface dialog, int whichButton)
 				        {
-				           try{
-				        	ParseUser user = ParseUser.getCurrentUser();   
-				        	Game game = (Game) mListView.getItemAtPosition(position);
-				        	game.getParticipants().remove(user.getObjectId());
-				        	game.delete();
-				        	mActivity.mGameList.clear();
-							mActivity.downloadGames();
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+				           ParseUser user = ParseUser.getCurrentUser();   
+						Game game = (Game) mListView.getItemAtPosition(position);
+						game.getParticipants().remove(user.getObjectId());
+						game.deleteInBackground();
+						mActivity.mGameList.clear();
+						mActivity.downloadGames();
 				        }
 				    });
 					AlertDialog dialog = builder.create();
@@ -142,9 +142,24 @@ public class GameListFragment extends SherlockFragment {
 			return true;
 		}
 		else if (itemId == R.id.action_refresh) {
+			 if (isNetworkNotAvailable()){
+					
+					
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setMessage("Please make sure you are connected to the internet!")
+						.setTitle("Error")
+						.setPositiveButton(android.R.string.ok,null);
+					
+					AlertDialog dialog = builder.create();
+					dialog.show();
+					super.onResume();
+					return true;
+				}
+			 else {
 			mActivity.mGameList.clear(); 
 			mActivity.downloadGames();
 			return true;
+			 }
 		} else if (itemId == R.id.action_newgame) {
 			Intent intent = new Intent(getActivity(), CreateGameActivity.class);
 			startActivity(intent);
@@ -157,6 +172,18 @@ public class GameListFragment extends SherlockFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+	}
+	
+	public boolean isNetworkNotAvailable() {
+		ConnectivityManager manager = (ConnectivityManager) mActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+		
+		boolean isAvailable = true;
+		if (networkInfo != null && networkInfo.isConnected()) {
+			
+			isAvailable = false;
+		}
+		return isAvailable;
 	}
 
 	// Launch game fragment

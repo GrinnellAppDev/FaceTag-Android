@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/White"
+    android:background="@drawable/main_background"
     android:orientation="vertical" >
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="3dp"
-        android:background="#000000" />
+        android:background="#63add0"/>
 
     <TextView
         android:id="@+id/num_pics"
@@ -21,7 +21,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="3dp"
-        android:background="#000000" />
+        android:background="#63add0" />
 
     <edu.grinnell.facetag.utils.RoundedImageView
         android:id="@+id/eval_photo"
@@ -33,20 +33,21 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="3dp"
-        android:background="#000000" />
+        android:background="#63add0"/>
 
     <TextView
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
+        android:gravity="center_horizontal"
         android:text="No More Photos to Rank"
         android:textSize="20sp" />
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="3dp"
-        android:background="#000000" />
+        android:background="#63add0"/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:choiceMode="singleChoice"
         android:dividerHeight="2dp"
+        android:divider="#9fcde2"
         android:footerDividersEnabled="true"
         android:headerDividersEnabled="true"
         />

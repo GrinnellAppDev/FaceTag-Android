@@ -158,7 +158,7 @@ public class GameSettingsFragment extends SherlockFragment implements OnItemSele
 				if (mActivity.participants.size() < 2){
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setMessage("Please invite a friend to create a game.")
+					builder.setMessage("k invite a friend to create a game.")
 						.setTitle("Ooops!")
 						.setPositiveButton(android.R.string.ok,null);
 					
