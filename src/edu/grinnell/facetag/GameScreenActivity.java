@@ -37,45 +37,40 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 	ArrayList<PhotoTag> mPhotos = new ArrayList<PhotoTag>();
 	HashMap<String, ArrayList<PhotoTag>> photoMap = new HashMap<String, ArrayList<PhotoTag>>();
 	public Game mGame;
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS); 
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		actionBarFont.fontChange(this.getWindow().getDecorView(), this);
 		setContentView(R.layout.activity_game_screen);
-		 
-		
-		//getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_action));
-	
-		
-	 if (isNetworkNotAvailable()){
-			
-			
+
+		// getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_action));
+
+		if (isNetworkNotAvailable()) {
+
 			AlertDialog.Builder builder = new AlertDialog.Builder(GameScreenActivity.this);
 			builder.setMessage("Please make sure you are connected to the internet!")
-				.setTitle("Error")
-				.setPositiveButton(android.R.string.ok,null);
-			
+					.setTitle("Error").setPositiveButton(android.R.string.ok, null);
+
 			AlertDialog dialog = builder.create();
 			dialog.show();
-			
+
 		} else {
-		
+
 			ParseAnalytics.trackAppOpened(getIntent());
 			getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-		// Get the user object for the current user
-		mUser = ParseUser.getCurrentUser();
-		if (mUser != null) {
-			Toast.makeText(getApplicationContext(),
-					"You are signed in as " + mUser.getString("fullName"), Toast.LENGTH_SHORT)
-					.show();
-		} else {
-			// If not logged in, send to login
-			Intent intent = new Intent(this, LoginActivity.class);
-			startActivity(intent);
-		}
+			// Get the user object for the current user
+			mUser = ParseUser.getCurrentUser();
+			if (mUser != null) {
+				Toast.makeText(getApplicationContext(),
+						"You are signed in as " + mUser.getString("fullName"), Toast.LENGTH_SHORT)
+						.show();
+			} else {
+				// If not logged in, send to login
+				Intent intent = new Intent(this, LoginActivity.class);
+				startActivity(intent);
+			}
 		}
 	}
 
@@ -89,7 +84,7 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 		query.findInBackground(new FindCallback<ParseObject>() {
 			public void done(List<ParseObject> results, ParseException e) {
 				setProgressBarIndeterminateVisibility(false);
-				
+
 				ArrayList<String> gameIds = new ArrayList<String>();
 				if (e == null) {
 					Log.i(TAG, results.size() + " games found");
@@ -130,43 +125,41 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 				} else {
 					Log.d("score", "Error: " + e.getMessage());
 				}
-				//Load list fragment to display downloaded game data
+				// Load list fragment to display downloaded game data
 				GameListFragment listfrag = new GameListFragment();
 				getSupportFragmentManager().beginTransaction()
 						.replace(R.id.fragment_container, listfrag).commit();
 			}
 		});
 	}
-	
+
 	@Override
 	protected void onResume() {
-		 if (isNetworkNotAvailable()){
-				
-				
-				AlertDialog.Builder builder = new AlertDialog.Builder(GameScreenActivity.this);
-				builder.setMessage("Please make sure you are connected to the internet!")
-					.setTitle("Error")
-					.setPositiveButton(android.R.string.ok,null);
-				
-				AlertDialog dialog = builder.create();
-				dialog.show();
-				super.onResume();
-				
-			} else {
-        mGameList.clear();		
-		downloadGames();
-		getSupportActionBar().setTitle("FaceTag");
 		super.onResume();
-			}
+		if (isNetworkNotAvailable()) {
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(GameScreenActivity.this);
+			builder.setMessage("Please make sure you are connected to the internet!")
+					.setTitle("Error").setPositiveButton(android.R.string.ok, null);
+
+			AlertDialog dialog = builder.create();
+			dialog.show();
+			super.onResume();
+
+		} else if (mUser != null) {
+				mGameList.clear();
+				downloadGames();
+				getSupportActionBar().setTitle("FaceTag");
+		}
 	}
-	
+
 	public boolean isNetworkNotAvailable() {
 		ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-		
+
 		boolean isAvailable = true;
 		if (networkInfo != null && networkInfo.isConnected()) {
-			
+
 			isAvailable = false;
 		}
 		return isAvailable;
