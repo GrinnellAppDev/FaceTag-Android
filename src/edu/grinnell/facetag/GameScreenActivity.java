@@ -130,9 +130,7 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 				// Load list fragment to display downloaded game data
 				GameListFragment listfrag = new GameListFragment();
 				getSupportFragmentManager().beginTransaction()
-						.replace(R.id.fragment_container, listfrag).commit();
-				getSupportFragmentManager().beginTransaction()
-				.commitAllowingStateLoss();
+						.replace(R.id.fragment_container, listfrag).commitAllowingStateLoss();
 			}
 		});
 	}
