@@ -93,7 +93,7 @@ public class GameInfoFragment extends SherlockFragment {
 		// TODO replace this with animation
 		targetPic = (RoundedImageView) mView.findViewById(R.id.target_photo);
 
-		mActivity.setTitle(mActivity.mGame.getName());
+	//	mActivity.setTitle(mActivity.mGame.getName());
 		
 		getTarget();
 

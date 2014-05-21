@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -62,6 +63,7 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 			getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 			// Get the user object for the current user
 			mUser = ParseUser.getCurrentUser();
+			
 			if (mUser != null) {
 				Toast.makeText(getApplicationContext(),
 						"You are signed in as " + mUser.getString("fullName"), Toast.LENGTH_SHORT)
@@ -129,6 +131,8 @@ public class GameScreenActivity extends SherlockFragmentActivity {
 				GameListFragment listfrag = new GameListFragment();
 				getSupportFragmentManager().beginTransaction()
 						.replace(R.id.fragment_container, listfrag).commit();
+				getSupportFragmentManager().beginTransaction()
+				.commitAllowingStateLoss();
 			}
 		});
 	}

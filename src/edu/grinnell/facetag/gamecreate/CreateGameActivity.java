@@ -29,6 +29,7 @@ public class CreateGameActivity extends SlidingFragmentActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		overridePendingTransition(R.anim.left_slide_in,R.anim.left_slide_out);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_game);
 		setBehindContentView(R.layout.menu_frame);
@@ -67,5 +68,20 @@ public class CreateGameActivity extends SlidingFragmentActivity {
 			super.onOptionsItemSelected(item);
 		}
 		return true;
+	}
+	
+	@Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item){
+    int itemId = item.getItemId();
+    switch(itemId){
+    case android.R.id.home:
+        super.onMenuItemSelected(featureId, item);
+        this.finish();
+        overridePendingTransition(R.anim.right_slide_in, R.anim.right_slide_out);
+        break;
+    default:
+        break;
+    }
+	return true;
 	}
 }

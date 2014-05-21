@@ -67,7 +67,7 @@ public class InvitePlayersFragment extends SherlockFragment {
 					//Remove current user from invitee list
 					for (int k = 0; k < mUsers.size(); k++){
 						
-					if (mUsers.get(k).getString("fullName").equals(mUser.getString("fullName")))
+					if (mUsers.get(k).getObjectId().equals(mUser.getObjectId()))
 						mUsers.remove(k);
 						
 					

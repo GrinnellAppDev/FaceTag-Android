@@ -25,11 +25,14 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.facetag_android.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
 import edu.grinnell.facetag.gamecreate.CreateGameActivity;
 import edu.grinnell.facetag.parse.Game;
+import edu.grinnell.facetag.utils.ImageLoaderUtility;
+import edu.grinnell.facetag.utils.RoundedImageView;
 import edu.grinnell.facetag.utils.actionBarFont;
 
 public class GameListFragment extends SherlockFragment {
@@ -54,13 +57,30 @@ public class GameListFragment extends SherlockFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_game_list, container, false);
+		if (mActivity.mUser != null) {
+			TextView userID = (TextView) v.findViewById(R.id.userID);
+			actionBarFont.fontChangeText(userID, getActivity().getApplicationContext());
+			userID.setText(mActivity.mUser.getString("fullName"));
+			
+			RoundedImageView imageHolder = (RoundedImageView) v.findViewById(R.id.image_holder);
+			String picUrl = mActivity.mUser.getString("profilePictureURL");
+			ImageLoaderUtility imageLoader = new ImageLoaderUtility();
+			imageLoader.loadImage(picUrl, imageHolder, getActivity().getApplicationContext());
+		}
 
 		mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-		ArrayAdapter<Game> gameAdapter = new GameArrayAdapter(mActivity,
+		final ArrayAdapter<Game> gameAdapter = new GameArrayAdapter(mActivity,
 				R.layout.game_list_adapter, mActivity.mGameList);
 		mListView = (ListView) v.findViewById(R.id.gamelist);
+		if (mActivity.mGameList.isEmpty()){
+			TextView empty = (TextView) v.findViewById(R.id.empty);
+			actionBarFont.fontChangeText(empty, getActivity().getApplicationContext());
+			empty.setVisibility(View.VISIBLE);
+		}
+		else {
 		mListView.setAdapter(gameAdapter);
+		}
 
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -97,6 +117,7 @@ public class GameListFragment extends SherlockFragment {
 						game.saveInBackground();
 						mActivity.mGameList.clear();
 						mActivity.downloadGames();
+						gameAdapter.notifyDataSetChanged();						
 					}
 				});
 				AlertDialog dialog = builder.create();
@@ -201,6 +222,8 @@ public class GameListFragment extends SherlockFragment {
 		private final Context context;
 		private final ArrayList<Game> games;
 		int layoutResourceId;
+		
+		
 
 		public GameArrayAdapter(Context context, int layoutResourceId, ArrayList<Game> games) {
 			super(context, layoutResourceId, games);
