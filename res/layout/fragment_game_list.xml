@@ -3,41 +3,45 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/gamelist"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="460dp"
-        android:choiceMode="singleChoice"
-        android:dividerHeight="2dp"
-        android:divider="#9fcde2"
-        android:footerDividersEnabled="true"
-        android:headerDividersEnabled="true"
-        />
+        android:layout_height="460dp" >
+
+        <ListView
+            android:id="@+id/gamelist"
+            android:layout_width="match_parent"
+            android:layout_height="460dp"
+            android:choiceMode="singleChoice"
+            android:divider="#9fcde2"
+            android:dividerHeight="2dp"
+            android:footerDividersEnabled="true"
+            android:headerDividersEnabled="true" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#63add0" >
-        
-    <TextView
-        android:id="@+id/userID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:textSize="18sp"
-        android:layout_marginLeft="160dp"
-        android:focusable="false"
-        android:textColor="#FFFFFFFF"
-        android:text="NULL"/>
-    
-    <edu.grinnell.facetag.utils.RoundedImageView
-        android:id="@+id/image_holder"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="50dp"
-        android:scaleType="fitCenter" />
-   
+
+        <TextView
+            android:id="@+id/userID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="160dp"
+            android:focusable="false"
+            android:text="NULL"
+            android:textColor="#FFFFFFFF"
+            android:textSize="18sp" />
+
+        <edu.grinnell.facetag.utils.RoundedImageView
+            android:id="@+id/image_holder"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="50dp"
+            android:scaleType="fitCenter" />
     </FrameLayout>
 
     <TextView
@@ -45,12 +49,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="#63add0"
-        android:textSize="24sp"
         android:layout_marginTop="-250dp"
         android:focusable="false"
         android:text="No Active Games"
+        android:textColor="#63add0"
+        android:textSize="24sp"
         android:visibility="invisible" />
-    
 
 </LinearLayout>

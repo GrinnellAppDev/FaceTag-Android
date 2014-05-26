@@ -7,16 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.facebook.Request;
 import com.facebook.Response;
-import com.facebook.android.Facebook;
 import com.facebook.model.GraphUser;
-import com.facebook.widget.FacebookDialog;
 import com.facebook.widget.LoginButton;
 import com.facetag_android.R;
 import com.parse.LogInCallback;

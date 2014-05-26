@@ -3,13 +3,16 @@ package edu.grinnell.facetag;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +28,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.facetag_android.R;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 
@@ -40,6 +42,7 @@ public class GameListFragment extends SherlockFragment {
 	ListView mListView;
 	final String TAG = "List Fragment";
 	int backButtonCount;
+	protected SwipeRefreshLayout mSwipeRefresh;
 
 	/**
 	 * 
@@ -59,6 +62,30 @@ public class GameListFragment extends SherlockFragment {
 		View v = inflater.inflate(R.layout.fragment_game_list, container, false);
 		if (mActivity.mUser != null) {
 			TextView userID = (TextView) v.findViewById(R.id.userID);
+			mSwipeRefresh = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefresh);
+			mSwipeRefresh.setOnRefreshListener(new OnRefreshListener() {
+				
+				@Override
+				public void onRefresh() {
+					 if (isNetworkNotAvailable()){
+							
+							
+							AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+							builder.setMessage("Please make sure you are connected to the internet!")
+								.setTitle("Error")
+								.setPositiveButton(android.R.string.ok,null);
+							
+							AlertDialog dialog = builder.create();
+							dialog.show();
+						}
+					 else {
+						 mActivity.mGameList.clear();
+						 mActivity.downloadGames();
+				}
+					
+				}
+			});
+			mSwipeRefresh.setColorScheme(R.color.SwipeDefault, R.color.Swipe1, R.color.Swipe2, R.color.Swipe3);
 			actionBarFont.fontChangeText(userID, getActivity().getApplicationContext());
 			userID.setText(mActivity.mUser.getString("fullName"));
 			
@@ -156,26 +183,6 @@ public class GameListFragment extends SherlockFragment {
 
 			return true;
 		}
-		else if (itemId == R.id.action_refresh) {
-			 if (isNetworkNotAvailable()){
-					
-					
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setMessage("Please make sure you are connected to the internet!")
-						.setTitle("Error")
-						.setPositiveButton(android.R.string.ok,null);
-					
-					AlertDialog dialog = builder.create();
-					dialog.show();
-					super.onResume();
-					return true;
-				}
-			 else {
-				 mActivity.mGameList.clear();
-				 mActivity.downloadGames();
-				return true;
-		}
-		}
 		else if (itemId == R.id.action_newgame) {
 			Intent intent = new Intent(getActivity(), CreateGameActivity.class);
 			startActivity(intent);
@@ -212,7 +219,7 @@ public class GameListFragment extends SherlockFragment {
 			mActivity.mPhotos.addAll(mActivity.photoMap.get(gameID));
 		}
 
-		Fragment gameInfo = new GameInfoFragment();
+		GameInfoFragment gameInfo = new GameInfoFragment();
 		mActivity.getSupportFragmentManager().beginTransaction()
 				.replace(R.id.fragment_container, gameInfo).addToBackStack(TAG).commit();
 	}

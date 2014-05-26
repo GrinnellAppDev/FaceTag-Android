@@ -141,6 +141,10 @@
  <color name="Navy">#000080</color>
  <color name="Black">#000000</color>
  <color name="CoralBlue">#33b5e5</color>
+ <color name="SwipeDefault">#63add0</color>
+ <color name="Swipe1">#3994bf</color>
+ <color name="Swipe2">#459dc7</color>
+ <color name="Swipe3">#54a5cb</color>
  <color name="pressed_color">#008080</color>
  <color name="default_color">#ffffff</color>
 </resources>
